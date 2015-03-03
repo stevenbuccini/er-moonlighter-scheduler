@@ -13,15 +13,15 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-users = [{:first_name => 'Joe', :last_name => "Biden",:type => :doctor, :email => 'jbiden@yahoo.com', :id => 123456},
-    	  {:first_name => 'James', :last_name => "Brown",:type => :doctor, :email => 'jbrown@yahoo.com', :id => 123465},
-        {:first_name => 'Simon', :last_name => "Jones",:type => :doctor, :email => 'sjones@yahoo.com', :id => 123564},
-        {:first_name => 'James', :last_name => "Brown",:type => :doctor, :email => 'jbrown@yahoo.com', :id => 124563},
-        {:first_name => 'Sarah', :last_name => "Wilson",:type => :doctor, :email => 'swilson@yahoo.com', :id => 134562},
-        {:first_name => 'Anna', :last_name => "Hathaway",:type => :super_admin, :email => 'ahathway@yahoo.com', :id => 234561},
-        {:first_name => 'Mitchel', :last_name => "Nitche",:type => :doctor, :email => 'mnitche@yahoo.com', :id => 123546},
-        {:first_name => 'Leonard', :last_name => "Ralph",:type => :admin, :email => 'lralph@yahoo.com', :id => 124356},
-        {:first_name => 'Thomas', :last_name => "Jacob",:type => :admin, :email => 'tjacob@yahoo.com', :id => 132456},
+users = [{:first_name => 'Joe', :last_name => "Biden",:type => :doctor, :email => 'jbiden@example.com', :id => 123456},
+    	  {:first_name => 'James', :last_name => "Brown",:type => :doctor, :email => 'jbrown@example.com', :id => 123465},
+        {:first_name => 'Simon', :last_name => "Jones",:type => :doctor, :email => 'sjones@example.com', :id => 123564},
+        {:first_name => 'James', :last_name => "Brown",:type => :doctor, :email => 'jbrown@example.com', :id => 124563},
+        {:first_name => 'Sarah', :last_name => "Wilson",:type => :doctor, :email => 'swilson@example.com', :id => 134562},
+        {:first_name => 'Anna', :last_name => "Hathaway",:type => :super_admin, :email => 'ahathway@example.com', :id => 234561},
+        {:first_name => 'Mitchel', :last_name => "Nitche",:type => :doctor, :email => 'mnitche@example.com', :id => 123546},
+        {:first_name => 'Leonard', :last_name => "Ralph",:type => :admin, :email => 'lralph@example.com', :id => 124356},
+        {:first_name => 'Thomas', :last_name => "Jacob",:type => :admin, :email => 'tjacob@example.com', :id => 132456},
   
   
   	 ]
