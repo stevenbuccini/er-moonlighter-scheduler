@@ -7,7 +7,23 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
 
+
+<!-- Refactor this into the menue bar partial -->
+<!-- Super helpful link: https://github.com/plataformatec/devise/wiki/How-To:-Add-sign_in,-sign_out,-and-sign_up-links-to-your-layout-template -->
+
+<!-- Also, we need to decide whether or not we should implement logout links via DELETE or GET. -->
+<% if user_signed_in? %>
+  <li>
+  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
+  </li>
+<% else %>
+  <li>
+  <%= link_to('Login', new_user_session_path)  %>  
+  </li>
+<% end %>
 <%= yield %>
 
 </body>
