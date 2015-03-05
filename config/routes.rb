@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   resources :admins, :doctors
 
-
   # We're implementing a custom controller for registration purposes.
   devise_for :users, path_names: {sign_in: 'login', sign_out: 'logout'}, controllers: {registrations: 'users/registrations'}
   namespace :doctors do
