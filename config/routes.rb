@@ -2,8 +2,6 @@ Rails.application.routes.draw do
   devise_for :users, path_names: {sign_in: 'login', sign_out: 'logout'}
   # We don't need a new user path, becuase users are now created through
   # devise "sign up" path
-  resources :users
-
   namespace :users do
     root "users#index"
   end
