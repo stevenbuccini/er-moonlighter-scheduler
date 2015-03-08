@@ -2,8 +2,9 @@ Rails.application.routes.draw do
   resources :admins, :doctors
 
 
-  devise_for :users, path_names: {sign_in: 'login', sign_out: 'logout'}
-  namespace :users do
+  # We're implementing a custom controller for registration purposes.
+  devise_for :users, path_names: {sign_in: 'login', sign_out: 'logout'}, controllers: {registration: 'users/registrations'}
+  namespace :doctors do
     root "doctors#index"
   end
   # The priority is based upon order of creation: first created -> highest priority.
