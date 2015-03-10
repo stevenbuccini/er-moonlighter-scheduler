@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :users, path_names: {sign_in: 'login', sign_out: 'logout'}
-  # We don't need a new user path, becuase users are now created through
-  # devise "sign up" path
-  resources :users
+  resources :admins, :doctors
 
-  namespace :users do
-    root "users#index"
+
+  # We're implementing a custom controller for registration purposes.
+  devise_for :users, path_names: {sign_in: 'login', sign_out: 'logout'}, controllers: {registrations: 'users/registrations'}
+  namespace :doctors do
+    root "doctors#index"
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
 
   # TO DO: Replace this with a splash page/login page
-  root 'users#index'
+  root 'doctors#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
