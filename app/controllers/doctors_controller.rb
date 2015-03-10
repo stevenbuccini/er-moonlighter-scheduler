@@ -49,6 +49,7 @@ class DoctorsController < ApplicationController
       if @doctor.save
         format.html { redirect_to @doctor, notice: 'Doctor was successfully created.' }
         format.json { render :show, status: :created, location: @doctor }
+        UserMailer.welcome_email(@doctor).deliver_now
       else
         format.html { render :new }
         format.json { render json: @doctor.errors, status: :unprocessable_entity }
