@@ -1,0 +1,22 @@
+Feature: see list of doctors
+
+  As an admin
+  So that I can manage a list of current doctors
+  I want to see all current doctors
+
+Background: doctors in database
+
+  Given the following doctors exist:
+  |first name  | last name | email | password | phone_1 | phone_2 | phone_3 | is_admin |
+  |Alex     | Triana      | at@b.edu | password | 555-555-5555 | nil | nil |
+  |Tayo | Olukoya| theboss@me.com | theboss | 123-456-7890 | 122-222-2345 | 554-446-6456|
+  |Kristina | Sep | supercool@gmail.com | 55555 | 760-805-9889 | nil | nil |
+
+Scenario: View all doctors after logging in
+  Given I am an admin
+  And I have logged in
+  I should be on the doctor_list page
+  And I should see “at@b.edu”
+  And I should see “theboss@me.com”
+  And I should see “supercool@gmail.com”
+
