@@ -20,19 +20,15 @@ class ApplicationController < ActionController::Base
   # Use this view if you want to restrict 
   def admin_only_view
     if !current_user.is_a? Admin
-      redirect_to 'http://google.com' # Replace this with a redirect to a 403 page
-      # Or just to root with a flash ntoice telling them the action is available only
-      # to certain users.
+      render html: "<h1>403 - Not Authorized</h1".html_safe
     end
   end
 
   # Use this view if you want to ensure that a particular action is available
   # only to people who have been explicitly whitelisted by an admin.
   def doctor_or_admin_view
-    if !(current_user.is_a? Doctor || current_user.is_a? Admin)
-      redirect_to 'http://google.com' # Replace this with a redirect to a 403 page, 
-      # Or just to root with a flash notice telling them the action is available only
-      # to certain users.
+    if !((current_user.is_a? Doctor) || (current_user.is_a? Admin))
+      render html: "<h1>403 - Not Authorized</h1".html_safe
     end
   end 
 end
