@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :admin_only_filter, only: [:edit]
+  before_filter :authenticate_user! # Redirect unless user is logged in.
+
   # GET /users
   # GET /users.json
   def index
@@ -66,12 +67,4 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email_address, :is_admin)
     end
-
-    def admin_only_filter
-      if !current_user.is_admin
-        flash[:notice] = "View restricted to admins only"
-        redirect_to users_path
-      end
-    end
-
 end
