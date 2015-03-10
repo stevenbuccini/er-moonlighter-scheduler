@@ -16,4 +16,23 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:account_update) << [:first_name, :last_name]
   end
+
+  # Use this view if you want to restrict 
+  def admin_only_view
+    if !current_user.is_a? Admin
+      redirect_to 'http://google.com' # Replace this with a redirect to a 403 page
+      # Or just to root with a flash ntoice telling them the action is available only
+      # to certain users.
+    end
+  end
+
+  # Use this view if you want to ensure that a particular action is available
+  # only to people who have been explicitly whitelisted by an admin.
+  def doctor_or_admin_view
+    if !(current_user.is_a? Doctor || current_user.is_a? Admin)
+      redirect_to 'http://google.com' # Replace this with a redirect to a 403 page, 
+      # Or just to root with a flash notice telling them the action is available only
+      # to certain users.
+    end
+  end 
 end
