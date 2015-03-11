@@ -22,6 +22,9 @@ users = [{:first_name => 'Joe', :last_name => "Biden",:type => :doctor, :email =
         {:first_name => 'Mitchel', :last_name => "Nitche",:type => :doctor, :email => 'mnitche@example.com', :user_id => 123546, :phone_1 => '760-805-9889', :phone_2 => '456-456-4564'},
         {:first_name => 'Leonard', :last_name => "Ralph",:type => :admin, :email => 'lralph@example.com', :user_id => 124356, :phone_1 => '887-546-4575'},
         {:first_name => 'Thomas', :last_name => "Jacob",:type => :admin, :email => 'tjacob@example.com', :user_id => 132456, :phone_1 => '999-998-8787'},
+        {:first_name => 'Britney', :last_name => "Spears", :type => :user, :email => 'bspears@example.com', :user_id => 134798, :phone_1 => '237-765-9999'},
+        {:first_name => 'Rihanna', :last_name => "Brown", :type => :user, :email => 'missbrown@example.com', :user_id => 156789, :phone_1 => '567-897-8670'},
+        {:first_name => 'Kate', :last_name => "Hudson", :email => 'khudson555@example.com', :user_id => 111234, :phone_1 => '555-678-3467'}
   
   
   	 ]
