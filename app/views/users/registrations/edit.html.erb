@@ -16,17 +16,17 @@
 
   <div class="field">
   <%= f.label :phone_1 %><br />
-  <%= f.telephone_field :phone_1, :pattern => '/^(\(\d{3}\)|\d{3})-?\d{3}-?\d{4}/', :required => true %>
+  <%= f.telephone_field :phone_1, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/, :required => true %>
   </div>
 
   <div class="field">
   <%= f.label :phone_2 %><br />
-  <%= f.telephone_field :phone_2, :pattern => '/^(\(\d{3}\)|\d{3})-?\d{3}-?\d{4}/' %>
+  <%= f.telephone_field :phone_2, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/ %>
   </div>
 
   <div class="field">
   <%= f.label :phone_3 %><br />
-  <%= f.telephone_field :phone_3, :pattern => '/^(\(\d{3}\)|\d{3})-?\d{3}-?\d{4}/' %>
+  <%= f.telephone_field :phone_3, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/ %>
   </div>
 
   <div class="field">
