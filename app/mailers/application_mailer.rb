@@ -1,4 +1,3 @@
-class ApplicationMailer < ActionMailer::Base
-
+class ApplicationMailer < ActionMailer::Bases
   layout 'mailer'
 end
