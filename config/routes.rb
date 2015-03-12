@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  get '/send-mass-email', to: 'doctors#send_mass_email'
+  post '/send-mass-email', to: 'doctors#send_mass_email', as: "send_mass_email"
+  get '/create-new-email', to: 'doctors#create_new_email', as: "create_new_email"
 
   # TO DO: Replace this with a splash page/login page
   root 'doctors#index'
