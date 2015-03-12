@@ -23,6 +23,24 @@ class AdminsController < ApplicationController
   def edit
   end
 
+  def create_new_email
+  end
+
+  def send_mass_email
+    #@doctor = User.where(email: 'alex.triana2@gmail.com')[0]
+    @doctors = Doctor.all
+    sent_to = ""
+    subject = params[:email][:subject]
+    text = params[:email][:text]
+    @doctors.each do |doctor|
+      UserMailer.dummy_email(doctor, subject, text).deliver_now
+      sent_to = sent_to + " " + doctor.email
+    end
+    flash[:notice] = "Email sent to "
+    flash.keep(:notice)
+    redirect_to '/'
+  end
+
   # POST /admins
   # POST /admins.json
   def create
