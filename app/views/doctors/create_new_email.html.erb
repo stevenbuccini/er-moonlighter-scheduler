@@ -1,0 +1,7 @@
+<h1>Send new Email</h1>
+
+<%= form_for :email, :url => send_mass_email_path do |f| %>
+  Subject: <%= f.text_field :subject %><br />
+  Text: <%= f.text_field :text %><br />
+  <%= f.submit %>
+<% end %>
