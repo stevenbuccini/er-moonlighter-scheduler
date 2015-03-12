@@ -22,6 +22,19 @@ class DoctorsController < ApplicationController
   def edit
   end
 
+  def send_mass_email
+    #@doctor = User.where(email: 'alex.triana2@gmail.com')[0]
+    @doctors = Doctor.all
+    sent_to = ""
+    @doctors.each do |doctor|
+      UserMailer.dummy_email(doctor).deliver_now
+      sent_to = sent_to + doctor.first_name + " " + doctor.last_name + " "
+    end
+    flash[:notice] = "Email sent to " + sent_to
+    flash.keep(:notice)
+    redirect_to '/'
+  end
+
   # POST /doctors
   # POST /doctors.json
   def create
@@ -31,7 +44,6 @@ class DoctorsController < ApplicationController
       if @doctor.save
         format.html { redirect_to @doctor, notice: 'Doctor was successfully created.' }
         format.json { render :show, status: :created, location: @doctor }
-        UserMailer.welcome_email(@doctor).deliver_now
       else
         format.html { render :new }
         format.json { render json: @doctor.errors, status: :unprocessable_entity }
