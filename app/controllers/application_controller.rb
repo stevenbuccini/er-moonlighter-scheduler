@@ -16,4 +16,19 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:account_update) << [:first_name, :last_name, :phone_1, :phone_2, :phone_3]
   end
+
+  # Use this view if you want to restrict 
+  def admin_only_view
+    if !current_user.is_a? Admin
+      render html: "<h1>403 - Not Authorized</h1".html_safe
+    end
+  end
+
+  # Use this view if you want to ensure that a particular action is available
+  # only to people who have been explicitly whitelisted by an admin.
+  def doctor_or_admin_view
+    if !((current_user.is_a? Doctor) || (current_user.is_a? Admin))
+      render html: "<h1>403 - Not Authorized</h1".html_safe
+    end
+  end 
 end

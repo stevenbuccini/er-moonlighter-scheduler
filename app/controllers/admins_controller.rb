@@ -1,5 +1,6 @@
 class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user! # redirect if user isn't signed in
 
   # GET /admins
   # GET /admins.json
