@@ -6,6 +6,7 @@ class AdminsController < ApplicationController
   # GET /admins.json
   def index
     @admins = Admin.all
+    @doctors = Doctor.all
   end
 
   # GET /admins/1
