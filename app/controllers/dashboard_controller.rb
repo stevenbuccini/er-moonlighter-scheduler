@@ -1,5 +1,5 @@
-class DashBoardController < ApplicationController
-	before_filter :authenticate_user! # redirect if user isn't signed in
+class DashboardController < ApplicationController
+  before_filter :authenticate_user! # redirect if user isn't signed in
 
 	def index
 		if current_user.type
