@@ -48,5 +48,6 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'rake'
   gem 'rspec-rails'
+  gem 'codeclimate-test-reporter', require: nil
 end
 
