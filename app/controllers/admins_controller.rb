@@ -1,6 +1,7 @@
 class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user! # redirect if user isn't signed in
+  before_filter :admin_only_view, only: [:index]
 
   # GET /admins
   # GET /admins.json
@@ -22,6 +23,8 @@ class AdminsController < ApplicationController
 
   # GET /admins/1/edit
   def edit
+    @admin = Admin.find(params[:id])
+    
   end
 
   # POST /admins
@@ -43,6 +46,7 @@ class AdminsController < ApplicationController
   # PATCH/PUT /admins/1
   # PATCH/PUT /admins/1.json
   def update
+    @admin = Admin.find(params[:id])
     respond_to do |format|
       if @admin.update(admin_params)
         format.html { redirect_to @admin, notice: 'Admin was successfully updated.' }
