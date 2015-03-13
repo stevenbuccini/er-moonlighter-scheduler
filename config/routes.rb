@@ -1,18 +1,21 @@
 Rails.application.routes.draw do
+  get 'dash_board/index'
+  get 'dash_board/show'
+
   resources :admins, :doctors
 
   # We're implementing a custom controller for registration purposes.
   devise_for :users, path_names: {sign_in: 'login', sign_out: 'logout'}, controllers: {registrations: 'users/registrations'}
-  namespace :doctors do
-    root "doctors#index"
-  end
+  # namespace :doctors do
+  #   root "doctors#index"
+  # end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
 
   # TO DO: Replace this with a splash page/login page
-  root 'doctors#index'
+  root 'dash_board#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
