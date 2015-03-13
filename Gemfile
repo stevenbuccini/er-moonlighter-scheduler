@@ -49,5 +49,6 @@ group :development, :test do
   gem 'rake'
   gem 'rspec-rails'
   gem 'codeclimate-test-reporter', require: nil
+  gem 'factory_girl', '~> 2.2'
+  gem 'capybara'
 end
-
