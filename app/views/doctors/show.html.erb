@@ -1,4 +1,13 @@
 <p id="notice"><%= notice %></p>
+<h1> Doctor Details </h1>
+
+<div>First Name: <%= @doctor.first_name %></div>
+<div>Last Name: <%= @doctor.last_name %></div>
+
+<div>Email Address: <%= @doctor.email %></div>
+<div>Phone 1: <%= @doctor.phone_1 %></div>
+<div>Phone 2:<%= @doctor.phone_2 %></div>
+<div>Phone 3: <%= @doctor.phone_3 %></div>
 
 <%= link_to 'Edit', edit_doctor_path(@doctor) %> |
 <%= link_to 'Back', doctors_path %>
