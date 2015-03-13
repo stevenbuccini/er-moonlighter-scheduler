@@ -2,9 +2,8 @@ Rails.application.routes.draw do
   get 'dashboard/view'
 
   get 'dashboard/index'
+  get 'dashboard/show'
 
-  get 'dash_board/index'
-  get 'dash_board/show'
 
   resources :admins, :doctors
 
@@ -19,7 +18,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
 
   # TO DO: Replace this with a splash page/login page
-  root 'dash_board#index'
+  root 'dashboard#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

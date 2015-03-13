@@ -7,10 +7,12 @@ class DashboardController < ApplicationController
 				redirect_to :controller => 'doctors', :action => 'index'
 			elsif current_user.type == "Admin"
 				redirect_to :controller => 'admins', :action => 'index'
+			else
+				flash[:notice] = "your account is waiting for admin's approver"
+				redirect_to :action => 'show'
 			end
 		end
-		flash[:notice] = "your account is waiting for admin's approver"
-		redirect_to :action => 'show'
+		
 	end
 
   def show
