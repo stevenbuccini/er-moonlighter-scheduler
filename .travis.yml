@@ -2,4 +2,6 @@ language: ruby
 rvm:
   - 2.2.0
 cache: bundler
-script: rake db:migrate
+addons:
+  code_climate:
+    repo_token: e600fc2097a3f3704b4aa0515a25326a210f6e244061fd54c5c70e3e24553c0f
