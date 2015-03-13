@@ -215,8 +215,8 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
-  codeclimate-test-reporter
   capybara
+  codeclimate-test-reporter
   coffee-rails (~> 4.1.0)
   cucumber-rails
   database_cleaner
