@@ -13,3 +13,7 @@ Then /^(?:|I )should see "([^"]*)"$/ do |text|
     assert page.has_content?(text)
   end
 end
+
+When /^(?:|I )follow "([^"]*)"$/ do |link|
+  click_link(link)
+end

@@ -1,4 +1,13 @@
 <p id="notice"><%= notice %></p>
+<h1> Doctor Details </h1>
+
+<h2><%= @doctor.first_name %> <%= @doctor.last_name %></h2>
+
+<div>Email Address: <%= @doctor.email %></div>
+<div>Phone 1: <%= @doctor.phone_1 %></div>
+<div>Phone 2:<%= @doctor.phone_2 %></div>
+<div>Phone 3: <%= @doctor.phone_3 %></div>
 
 <%= link_to 'Edit', edit_doctor_path(@doctor) %> |
-<%= link_to 'Back', doctors_path %>
+<%= link_to 'Back', admins_path %>   
+<!--link back to admins path for iteration 1, only implementing admin part-->
