@@ -1,6 +1,7 @@
 class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user! # redirect if user isn't signed in
+  before_filter :admin_only_view, only: [:create_new_email, :send_mass_email]
 
   # GET /admins
   # GET /admins.json
@@ -27,14 +28,13 @@ class AdminsController < ApplicationController
   end
 
   def send_mass_email
-    #@doctor = User.where(email: 'alex.triana2@gmail.com')[0]
     @doctors = Doctor.all
     sent_to = ""
     subject = params[:email][:subject]
     text = params[:email][:text]
     @doctors.each do |doctor|
       UserMailer.dummy_email(doctor, subject, text).deliver_now
-      sent_to = sent_to + " " + doctor.email
+      sent_to = sent_to + " " + doctor.first_name + " " + doctor.last_name
     end
     flash[:notice] = "Email sent to "
     flash.keep(:notice)
@@ -85,6 +85,7 @@ class AdminsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_admin
       @admin = Admin.find(params[:id])
+      #needs to redirect if fails
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

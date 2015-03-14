@@ -6,11 +6,15 @@ Rails.application.routes.draw do
   namespace :doctors do
     root "doctors#index"
   end
+    namespace :admins do
+      resources :admins
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   post '/send-mass-email', to: 'admins#send_mass_email', as: "send_mass_email"
+  get '/send-mass-email', to: 'admins#create_new_email'
   get '/create-new-email', to: 'admins#create_new_email', as: "create_new_email"
 
   # TO DO: Replace this with a splash page/login page
