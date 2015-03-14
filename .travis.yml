@@ -5,3 +5,5 @@ cache: bundler
 addons:
   code_climate:
     repo_token: e600fc2097a3f3704b4aa0515a25326a210f6e244061fd54c5c70e3e24553c0f
+script: rake spec
+script: rake cucumber
