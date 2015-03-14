@@ -1,6 +1,42 @@
 <h1>Editing Admin</h1>
 
-<%= render 'form' %>
+<form>
+<%= form_for :admin do |f| %>
 
-<%= link_to 'Show', @admin %> |
-<%= link_to 'Back', admins_path %>
+  <div class="field">
+  <%= f.label :first_name %><br />
+  <%= f.text_field :first_name, :required => true %>
+  </div>
+
+  <div class="field">
+  <%= f.label :last_name %><br />
+  <%= f.text_field :last_name, :required => true %>
+  </div>
+
+  <div class="field">
+  <%= f.label :phone_1 %><br />
+  <%= f.telephone_field :phone_1, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/, :required => true %>
+  </div>
+
+  <div class="field">
+  <%= f.label :phone_2 %><br />
+  <%= f.telephone_field :phone_2, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/ %>
+  </div>
+
+  <div class="field">
+  <%= f.label :phone_3 %><br />
+  <%= f.telephone_field :phone_3, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/ %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true %>
+  </div>
+
+  <%= render 'form' %>
+
+  <%= link_to 'Show', @admin %> |
+  <%= link_to 'Back', admins_path %>
+
+<% end %>
+</form>
