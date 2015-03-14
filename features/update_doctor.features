@@ -13,8 +13,8 @@ Background: doctors in database
   |Kristina     |Sep        |supercool@example.com  |760-805-9889   |nil            |nil            |
 
 Scenario: update doctor
-  Given I am an admin
-  And I am on the doctor_list page
+  Given I am logged as the default admin
+  And I am on the admin index page
   When I follow “edit” for “Sep”
   Then I should be on the edit_doctor page
 
