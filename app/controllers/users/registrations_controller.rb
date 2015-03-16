@@ -9,4 +9,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     # project, we're leaving this controller here along with all associated views.
   	super(hash)
   end
+
+  protected
+
+
 end
