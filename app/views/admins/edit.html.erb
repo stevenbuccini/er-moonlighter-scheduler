@@ -1,7 +1,18 @@
 <h1>Editing Admin</h1>
 
-<form>
-<%= form_for :admin do |f| %>
+<%= form_for @admin do |f| %>
+
+  <% if @admin.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@admin.errors.count, "error") %> prohibited this admin from being saved:</h2>
+
+      <ul>
+      <% @admin.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
   <div class="field">
   <%= f.label :first_name %><br />
@@ -28,15 +39,12 @@
   <%= f.telephone_field :phone_3, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/ %>
   </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+
+  <div class="actions">
+    <%= f.submit %>
   </div>
 
-  <%= render 'form' %>
 
-  <%= link_to 'Show', @admin %> |
   <%= link_to 'Back', admins_path %>
 
 <% end %>
-</form>
