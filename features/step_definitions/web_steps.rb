@@ -13,3 +13,11 @@ Then /^(?:|I )should see "([^"]*)"$/ do |text|
     assert page.has_content?(text)
   end
 end
+
+When (/^I enter "(.*?)" as the "(.*?)"$/) do |text,id|
+  fill_in id, :with => text
+end
+
+When (/^I press "(.*?)"$/) do | buttonId |
+	click_button(buttonId)
+end

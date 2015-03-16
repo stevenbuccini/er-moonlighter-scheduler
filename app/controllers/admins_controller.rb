@@ -29,15 +29,16 @@ class AdminsController < ApplicationController
 
   def send_mass_email
     @doctors = Doctor.all
-    sent_to = ""
+    sent_to = "Email sent to: "
     subject = params[:email][:subject]
     text = params[:email][:text]
     @doctors.each do |doctor|
       UserMailer.dummy_email(doctor, subject, text).deliver_now
-      sent_to = sent_to + " " + doctor.first_name + " " + doctor.last_name
+      if doctor.first_name != nil and doctor.last_name != nil
+        sent_to = sent_to + " " + doctor.first_name + " " + doctor.last_name
+      end
     end
-    flash[:notice] = "Email sent to "
-    flash.keep(:notice)
+    flash[:notice] = sent_to
     redirect_to '/'
   end
 

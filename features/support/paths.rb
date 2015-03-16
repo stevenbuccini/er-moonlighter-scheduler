@@ -3,7 +3,9 @@ module NavigationHelpers
     case page_name
     when /^the admin index$/
       '/admins'
-    end
+	when /^the send email page$/
+	  '/create-new-email'
+	end	 
   end
 end
 World(NavigationHelpers)
