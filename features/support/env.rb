@@ -4,13 +4,6 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
-# Code Coverage stuff
-require "codeclimate-test-reporter"
-CodeClimate::TestReporter.start
-require 'coveralls'
-Coveralls.wear!
-
-
 require 'cucumber/rails'
 require 'factory_girl/step_definitions'
 FactoryGirl.find_definitions
