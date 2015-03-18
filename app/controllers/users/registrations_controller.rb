@@ -10,7 +10,4 @@ class Users::RegistrationsController < Devise::RegistrationsController
   	super(hash)
   end
 
-  protected
-
-
 end
