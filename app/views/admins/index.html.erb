@@ -25,9 +25,9 @@
         <td><%= doctor.phone_1 %></td>
         <td><%= doctor.phone_2 %></td>
         <td><%= doctor.phone_3 %></td>
-        <td><%= link_to 'Show', doctor %></td>
-        <td><%= link_to 'Edit', edit_doctor_path(doctor) %></td>
-        <td><%= link_to 'Destroy', doctor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', doctor, :id => "show_doctor_"+doctor.id.to_s %></td>
+        <td><%= link_to 'Edit', edit_doctor_path(doctor), :id => "edit_doctor_"+doctor.id.to_s %></td>
+        <td><%= link_to 'Destroy', doctor, :id => "delete_doctor_"+doctor.id.to_s, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -60,9 +60,9 @@
         <td><%= admin.phone_1 %></td>
         <td><%= admin.phone_2 %></td>
         <td><%= admin.phone_3 %></td>
-        <td><%= link_to 'Show', admin %></td>
-        <td><%= link_to 'Edit', edit_admin_path(admin) %></td>
-        <td><%= link_to 'Destroy', admin, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', admin, :id => "show_admin_"+admin.id.to_s %></td>
+        <td><%= link_to 'Edit', edit_admin_path(admin), :id => "edit_admin_"+admin.id.to_s %></td>
+        <td><%= link_to 'Destroy', admin, :id => "delete_admin_"+admin.id.to_s, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
