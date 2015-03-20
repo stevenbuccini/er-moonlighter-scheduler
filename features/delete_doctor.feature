@@ -13,6 +13,7 @@ Background: doctors in database
   |Tayo        |Olukoya     |theboss@example.com    |123-456-7890   |122-222-2345   |554-446-6456   |
 
 
+@javascript
 Scenario: delete doctor (happy path)
   Given I am logged as the default admin
   And I am on the admin index
@@ -21,5 +22,10 @@ Scenario: delete doctor (happy path)
   Given I am on the admin index
   Then I should not see "at@example.com"
 
-
-
+@javascript
+Scenario: delete doctor (sad path)
+  Given I am logged as the default admin
+  And I am on the admin index
+  When I change my mind to not delete "Alex"
+  Given I am on the admin index
+  Then I should see "at@example.com"  

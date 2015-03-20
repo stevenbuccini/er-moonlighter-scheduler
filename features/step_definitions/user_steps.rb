@@ -33,8 +33,18 @@ end
 When /I delete "(.*)"/ do |doctor|
   id = Doctor.find_by_first_name(doctor).id
   click_on("delete_doctor_"+id.to_s)
-  #page.driver.browser.accept_js_confirms
+  page.driver.browser.accept_js_confirms
   #@javascript - this goes before the scenario
+end
+
+When /I change my mind to not delete "(.*)"/ do |doctor|
+  id = Doctor.find_by_first_name(doctor).id
+  click_on("delete_doctor_"+id.to_s)
+  #handle_js_confirm(accept = false)
+  #dialog = page.driver.browser.switch_to.alert
+  #dialog.text.should == "Delete '#{@article.title}'?"
+  #dialog.dismiss
+  page.driver.browser.reject_js_confirms
 end
 
 When /I edit "(.*)" with "(.*)" as "(.*)"/ do |doctor, field, new_name|

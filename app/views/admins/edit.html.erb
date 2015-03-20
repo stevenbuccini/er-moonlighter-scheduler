@@ -39,11 +39,7 @@
   <%= f.telephone_field :phone_3, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/ %>
   </div>
 
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-
+  <%= render 'form' %>
 
   <%= link_to 'Back', admins_path %>
 
