@@ -33,7 +33,7 @@ class AdminsController < ApplicationController
     subject = params[:subject]
     text = params[:body]
     @doctors.each do |doctor|
-      UserMailer.dummy_email(doctor, subject, text).deliver_now
+      UserMailer.custom_email(doctor, subject, text).deliver_now
       if doctor.first_name != nil and doctor.last_name != nil
         sent_to = sent_to + " " + doctor.first_name + " " + doctor.last_name
       end
