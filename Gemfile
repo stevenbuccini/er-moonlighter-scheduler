@@ -58,6 +58,7 @@ group :development, :test do
   gem 'codeclimate-test-reporter', require: nil
   gem 'factory_girl', '~> 2.2'
   gem 'capybara'
-
+  gem "capybara-webkit"
   gem 'poltergeist'
+  gem 'autotest-rails'
 end
