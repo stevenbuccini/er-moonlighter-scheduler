@@ -33,7 +33,7 @@ end
 When /I delete "(.*)"/ do |doctor|
   id = Doctor.find_by_first_name(doctor).id
   click_on("delete_doctor_"+id.to_s)
-  page.driver.browser.accept_js_confirms
+  #page.driver.browser.accept_js_confirms
   #@javascript - this goes before the scenario
 end
 
