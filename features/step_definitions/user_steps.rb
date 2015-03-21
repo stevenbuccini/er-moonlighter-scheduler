@@ -1,11 +1,3 @@
-def add_doctor(first_name, last_name, email, phone_1, phone_2, phone_3)
-  FactoryGirl.create(:doctor, :first_name => first_name, :last_name => last_name, :email => email, :phone_1 => phone_1, :phone_2 => phone_2, :phone_3 => phone_3)
-end
-
-def add_admin(email, password)
-  FactoryGirl.create(:admin, :email => email, :password => password)
-end
-
 Given /the following doctors exist/ do |doctors_table|
   doctors_table.hashes.each do |doctor|
     add_doctor(doctor['first_name'], doctor['last_name'], doctor['email'], doctor['phone_1'], doctor['phone_2'], doctor['phone_3'])
@@ -22,13 +14,16 @@ Given /one default admin exists/ do
   add_admin('default@admin.com','password')
 end
 
-Given /I am logged as the default admin/ do
+Given /one default doctor exists/ do
+  phone_number = '18001234567'
+  add_doctor('default_user@example.com','password', 'doc@example.com', phone_number, phone_number, phone_number)
+end
 
+Given /I am logged in as the default "(.*)"/ do |user_type|
   visit '/users/login'
-  fill_in 'user_email', :with => 'default@admin.com'
+  fill_in 'user_email', :with => "default_#{user_type}@example.com"
   fill_in 'user_password', :with => 'password'
   click_button 'Log in'
-end
 
 When /I delete "(.*)"/ do |doctor|
   id = Doctor.find_by_first_name(doctor).id
@@ -59,3 +54,13 @@ end
 
 Then /I click the "(.*)" button$/ do |button|
 end
+=======
+private
+def add_doctor(first_name, last_name, email, phone_1, phone_2, phone_3)
+  FactoryGirl.create(:doctor, :first_name => first_name, :last_name => last_name, :email => email, :phone_1 => phone_1, :phone_2 => phone_2, :phone_3 => phone_3)
+end
+
+def add_admin(email, password)
+  FactoryGirl.create(:admin, :email => email, :password => password)
+end
+>>>>>>> Basic cucumber tests added for signing up for shifts and some step definitions updated
