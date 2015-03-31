@@ -6,21 +6,25 @@ RSpec.describe AdminsController, type: :controller do
   describe 'update an admin' do
     login_admin
     before :each do
-      @admin = FactoryGirl.create(:doctor, :first_name => "Jennifer", :last_name => "Lopez", :phone_1 => '222-222-2222')
-      #doctor_params = ActionController::Parameters.new(:first_name => "Suzie", :last_name => "Lopez", :phone_1 => '222-222-2222')
-      #doctor_params = {:first_name => "Sara", :last_name => "Lopez", :phone_1 => '111-111-1111'}
-      @id = Admin.find_by_first_name("Jennifer")
+      @admin = FactoryGirl.build(:admin, :first_name => "Jennifer", :last_name => "Lopez", :phone_1 => '222-222-2222')
+      @admin.save!
+      @new_first_name = "Sara"
+      Admin.stub(:find).and_return(@admin)
     end
 
-    #it 'should redirect to the doctor page' do
-    #  doctor_params
-    #  put :update, {:id => @id, :doctor => @doctor}
-    #  @doctor.reload
-    #  expect(response).to redirect_to(@doctor)
-    #end
-    #it 'should render the confirmation page' do
+    it 'should call the update Model method' do
+      @admin.should_receive(:update!).with({"first_name" => @new_first_name}.with_indifferent_access)#.and_return(:true)
+      put :update, :id => @admin.id, :admin => {:first_name => @new_first_name}
+    end
 
-    #end
-    #it 'should make the newly updated information available'
+    it 'should correctly update the admin' do
+      put :update, :id => @admin.id, :admin => {:first_name => @new_first_name}
+      expect(@admin.first_name).to eql @new_first_name
+    end
+
+    it 'should redirect to the admin page' do
+      put :update, :id => @admin.id, :admin => {:first_name => @new_first_name}
+      expect(response).to redirect_to @admin
+    end 
   end
 end
