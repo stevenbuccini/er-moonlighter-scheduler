@@ -18,9 +18,9 @@ Background: admin existing and doctors in database
 
   Given I am logged as the default admin
   And I am on the admin index
-  When I select "Alex Triana"
-  And I select "Tayo Olukoya"
-  And I press "Send Email"
+  When I click the name "Alex Triana"
+  And I click the name "Tayo Olukoya"
+  And I click "Send Email"
   Then the email should not be sent to "Kristina Sep"
   And the email should be sent to "Alex Triana"
   And the email should be sent to "Tayo Olukoya"
@@ -29,6 +29,6 @@ Background: admin existing and doctors in database
 
   Given I am logged as the default admin
   And I am on the admin index
-  And I press "Send Email"
+  And I click "Send Email"
   Then I should see "You need to select at least one doctor"
   And the email should not be sent to "Kristina Sep"
