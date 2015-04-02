@@ -18,7 +18,7 @@ Background: admin existing and doctors in database
 
   Given I am logged as the default admin
   And I am on the admin index
-  When I click the name "Alex Triana"
+  And I click the name "Alex Triana"
   And I click the name "Tayo Olukoya"
   And I click "Send Email"
   Then the email should not be sent to "Kristina Sep"
