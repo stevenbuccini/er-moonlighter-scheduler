@@ -2,8 +2,8 @@ class UserMailer < ApplicationMailer
 	default from: 'er.moonlighter.scheduler.com'
 
 	def mandrill_client
-    @mandrill_client ||= Mandrill::API.new ENV["MANDRILL_APIKEY"]
-  end
+      @mandrill_client ||= Mandrill::API.new ENV["MANDRILL_APIKEY"]
+    end
 
 	def dummy_email(doctor, subject, text)
 		@user = doctor
