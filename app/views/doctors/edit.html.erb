@@ -2,17 +2,7 @@
 
 <%= form_for @doctor do |f| %>
 
-  <% if @doctor.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@doctor.errors.count, "error") %> prohibited this doctor from being saved:</h2>
-
-      <ul>
-      <% @doctor.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render :partial => 'partials/errors', :locals => {:user => User.find_by_id(@doctor.id)} %>
 
   <div class="field">
   <%= f.label :first_name %><br />
@@ -39,10 +29,10 @@
   <%= f.telephone_field :phone_3, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/ %>
   </div>
 
-
   <div class="actions">
     <%= f.submit %>
   </div>
+
 
   <%= link_to 'Back', admins_path %>
 
