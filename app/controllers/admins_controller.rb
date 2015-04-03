@@ -13,6 +13,7 @@ class AdminsController < ApplicationController
   # GET /admins/1
   # GET /admins/1.json
   def show
+    @admin = Admin.find(params[:id])
   end
 
   # GET /admins/new
@@ -22,6 +23,8 @@ class AdminsController < ApplicationController
 
   # GET /admins/1/edit
   def edit
+    @admin = Admin.find(params[:id])
+    
   end
 
   def create_new_email
@@ -61,6 +64,7 @@ class AdminsController < ApplicationController
   # PATCH/PUT /admins/1
   # PATCH/PUT /admins/1.json
   def update
+    @admin = Admin.find(params[:id])
     respond_to do |format|
       if @admin.update(admin_params)
         format.html { redirect_to @admin, notice: 'Admin was successfully updated.' }
@@ -91,6 +95,6 @@ class AdminsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admin_params
-      params[:admin]
+      params.require(:admin).permit(:first_name, :last_name, :phone_1, :phone_2, :phone_3)
     end
 end
