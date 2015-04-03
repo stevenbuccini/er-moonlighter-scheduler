@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'dashboard/show'
 
 
-  resources :admins, :doctors
+  resources :admins, :doctors, :users
 
   # We're implementing a custom controller for registration purposes.
   devise_for :users, path_names: {sign_in: 'login', sign_out: 'logout'}, controllers: {registrations: 'users/registrations'}
@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
+
+  #post '/approve-doctor/:id', to: 'admins#approve_doctor', as: "approve_doctor"
+  get '/approve-doctor/:user', to: 'admins#approve_doctor', as: "approve_doctor"
 
   post '/send-mass-email', to: 'admins#send_mass_email', as: "send_mass_email"
   get '/create-new-email', to: 'admins#create_new_email', as: "create_new_email"

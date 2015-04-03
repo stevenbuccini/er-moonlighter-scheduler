@@ -8,6 +8,7 @@ class AdminsController < ApplicationController
   def index
     @admins = Admin.all
     @doctors = Doctor.all
+    @users_awaiting_approver = User.where(:type =>"User")
   end
 
   # GET /admins/1
@@ -39,7 +40,6 @@ class AdminsController < ApplicationController
       end
     end
     flash[:notice] = sent_to
-    redirect_to '/'
   end
 
   # POST /admins
@@ -79,6 +79,14 @@ class AdminsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to admins_url, notice: 'Admin was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def approve_doctor
+    @user = User.find_by_id params[:user]
+    if @user
+      @user.update_attribute(:type, "Doctor")
+      flash[:notice] = "Approve #{@user.first_name} as a doctor"
     end
   end
 
