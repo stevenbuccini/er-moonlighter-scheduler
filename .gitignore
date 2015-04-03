@@ -182,6 +182,3 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-
-# Ignore application configuration
-/config/application.yml
