@@ -45,6 +45,26 @@ class AdminsController < ApplicationController
     redirect_to '/'
   end
 
+  def send_selected_email
+    if params[:activated] == nil || params[:activated] == ""
+      flash[:notice] = "Please select doctors you want to send emails to"
+      redirect_to '/admins'
+    else
+      @doctors = Doctor.find(params[:activated])
+      sent_to = "Email sent to: "
+      subject = params[:subject]
+      text = params[:body]
+      @doctors.each do |doctor|
+        UserMailer.dummy_email(doctor, subject, text).deliver_now
+        if doctor.first_name != nil and doctor.last_name != nil
+          sent_to = sent_to + " " + doctor.first_name + " " + doctor.last_name
+        end
+      end
+      flash[:notice] = sent_to
+      redirect_to '/'
+    end
+  end
+
   # POST /admins
   # POST /admins.json
   def create
