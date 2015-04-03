@@ -18,7 +18,7 @@ RSpec.describe DoctorsController, type: :controller do
 
     it 'should call the update Model method' do
       
-      @doctor.should_receive(:update!).with({"first_name" => @new_first_name}.with_indifferent_access)#.and_return(:true)
+      @doctor.should_receive(:update).with({"first_name" => @new_first_name}.with_indifferent_access)#.and_return(:true)
       put :update, :id => @doctor.id, :doctor => {:first_name => @new_first_name}
     end
 

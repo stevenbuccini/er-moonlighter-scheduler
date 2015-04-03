@@ -13,7 +13,7 @@ RSpec.describe AdminsController, type: :controller do
     end
 
     it 'should call the update Model method' do
-      @admin.should_receive(:update!).with({"first_name" => @new_first_name}.with_indifferent_access)#.and_return(:true)
+      @admin.should_receive(:update).with({"first_name" => @new_first_name}.with_indifferent_access)#.and_return(:true)
       put :update, :id => @admin.id, :admin => {:first_name => @new_first_name}
     end
 
