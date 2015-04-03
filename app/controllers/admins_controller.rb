@@ -40,6 +40,7 @@ class AdminsController < ApplicationController
       end
     end
     flash[:notice] = sent_to
+    redirect_to '/'
   end
 
   # POST /admins
