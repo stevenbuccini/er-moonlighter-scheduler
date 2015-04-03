@@ -43,24 +43,15 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
-#   config.action_mailer.smtp_settings = {
-#       :address              => "smtp.gmail.com",
-#       :port                 => 587,
-#       :domain               => "gmail.com",
-#       :user_name            => "er.moonlighter.scheduler@gmail.com",
-#       :password             => Rails.application.secrets.email_password,
-#       :authentication       => :plain,
-#       :enable_starttls_auto => true,
-# }
-  ActionMailer::Base.smtp_settings = {
-    :port =>           '587',
-    :address =>        'smtp.mandrillapp.com',
-    :user_name =>      ENV["MANDRILL_USERNAME"],
-    :password =>       ENV["MANDRILL_APIKEY"],
-    :domain =>         'heroku.com',
-    :authentication => :plain
-  }
-  ActionMailer::Base.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      :address              => "smtp.gmail.com",
+      :port                 => 587,
+      :domain               => "gmail.com",
+      :user_name            => "er.moonlighter.scheduler@gmail.com",
+      :password             => Rails.application.secrets.email_password,
+      :authentication       => :plain,
+      :enable_starttls_auto => true,
+}
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
