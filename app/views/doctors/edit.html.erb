@@ -1,6 +1,39 @@
 <h1>Editing Doctor</h1>
 
-<%= render 'form' %>
+<%= form_for @doctor do |f| %>
 
-<%= link_to 'Show', @doctor %> |
-<%= link_to 'Back', doctors_path %>
+  <%= render :partial => 'partials/errors', :locals => {:user => User.find_by_id(@doctor.id)} %>
+
+  <div class="field">
+  <%= f.label :first_name %><br />
+  <%= f.text_field :first_name, :required => true %>
+  </div>
+
+  <div class="field">
+  <%= f.label :last_name %><br />
+  <%= f.text_field :last_name, :required => true %>
+  </div>
+
+  <div class="field">
+  <%= f.label :phone_1 %><br />
+  <%= f.telephone_field :phone_1, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/, :required => true %>
+  </div>
+
+  <div class="field">
+  <%= f.label :phone_2 %><br />
+  <%= f.telephone_field :phone_2, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/ %>
+  </div>
+
+  <div class="field">
+  <%= f.label :phone_3 %><br />
+  <%= f.telephone_field :phone_3, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/ %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+
+  <%= link_to 'Back', admins_path %>
+
+<% end %>
