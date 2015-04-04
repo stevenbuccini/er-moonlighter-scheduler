@@ -6,7 +6,7 @@ class DoctorsController < ApplicationController
   # GET /doctors.json
   def index
     @doctors = Doctor.all
-    @shifts = Shift.where(confirmed: nil)
+    @shifts = Shift.where(confirmed: false)
   end
 
   # GET /doctors/1
