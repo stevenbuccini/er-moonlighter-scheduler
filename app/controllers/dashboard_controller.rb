@@ -12,7 +12,6 @@ class DashboardController < ApplicationController
 				flash[:notice] = "your account is waiting for admin's approver"
 				redirect_to :action => 'show'
 		end
-		
 	end
 
   def show
