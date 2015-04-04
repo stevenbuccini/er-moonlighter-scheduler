@@ -24,6 +24,7 @@ Given /I am logged in as the default "(.*)"/ do |user_type|
   fill_in 'user_email', :with => "default_#{user_type}@example.com"
   fill_in 'user_password', :with => 'password'
   click_button 'Log in'
+end
 
 When /I delete "(.*)"/ do |doctor|
   id = Doctor.find_by_first_name(doctor).id
