@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   post '/send-mass-email', to: 'admins#send_mass_email', as: "send_mass_email"
   get '/create-new-email', to: 'admins#create_new_email', as: "create_new_email"
 
+  post '/request-shifts', to:'shifts#update', as: "sign_up_for_shifts"
+
   # TO DO: Replace this with a splash page/login page
   root 'doctors#index'
 
