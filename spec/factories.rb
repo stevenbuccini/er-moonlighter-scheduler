@@ -37,3 +37,4 @@ Factory.define :admin do |a|
   a.phone_2 '760-805-9889'
   a.phone_3 '122-222-2345'
 end
+

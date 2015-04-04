@@ -23,8 +23,39 @@ Given /one default admin exists/ do
 end
 
 Given /I am logged as the default admin/ do
+
   visit '/users/login'
   fill_in 'user_email', :with => 'default@admin.com'
   fill_in 'user_password', :with => 'password'
   click_button 'Log in'
+end
+
+When /I delete "(.*)"/ do |doctor|
+  id = Doctor.find_by_first_name(doctor).id
+  click_on("delete_doctor_"+id.to_s)
+  #page.driver.browser.accept_js_confirms
+  #@javascript - this goes before the scenario
+end
+
+When /I change my mind to not delete "(.*)"/ do |doctor|
+  id = Doctor.find_by_first_name(doctor).id
+  click_on("delete_doctor_"+id.to_s)
+  #handle_js_confirm(accept = false)
+  #dialog = page.driver.browser.switch_to.alert
+  #dialog.text.should == "Delete '#{@article.title}'?"
+  #dialog.dismiss
+  page.driver.browser.reject_js_confirms
+end
+
+When /I edit "(.*)" with "(.*)" as "(.*)"/ do |doctor, field, new_name|
+  id = Doctor.find_by_last_name(doctor).id
+  click_link("edit_doctor_"+id.to_s)
+  fill_in field, :with => new_name
+  click_button("Update Doctor")
+  #find_by_id("edit_doctor_"+id.to_s).click_link
+  #page.driver.browser.accept_js_confirms
+  #@javascript - this goes before the scenario
+end
+
+Then /I click the "(.*)" button$/ do |button|
 end

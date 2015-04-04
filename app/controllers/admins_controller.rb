@@ -1,6 +1,7 @@
 class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user! # redirect if user isn't signed in
+  before_filter :admin_only_view, only: [:create_new_email, :send_mass_email]
 
   # GET /admins
   # GET /admins.json
@@ -12,6 +13,7 @@ class AdminsController < ApplicationController
   # GET /admins/1
   # GET /admins/1.json
   def show
+    @admin = Admin.find(params[:id])
   end
 
   # GET /admins/new
@@ -21,6 +23,26 @@ class AdminsController < ApplicationController
 
   # GET /admins/1/edit
   def edit
+    @admin = Admin.find(params[:id])
+    
+  end
+
+  def create_new_email
+  end
+
+  def send_mass_email
+    @doctors = Doctor.all
+    sent_to = "Email sent to: "
+    subject = params[:subject]
+    text = params[:body]
+    @doctors.each do |doctor|
+      UserMailer.dummy_email(doctor, subject, text).deliver_now
+      if doctor.first_name != nil and doctor.last_name != nil
+        sent_to = sent_to + " " + doctor.first_name + " " + doctor.last_name
+      end
+    end
+    flash[:notice] = sent_to
+    redirect_to '/'
   end
 
   # POST /admins
@@ -42,6 +64,7 @@ class AdminsController < ApplicationController
   # PATCH/PUT /admins/1
   # PATCH/PUT /admins/1.json
   def update
+    @admin = Admin.find(params[:id])
     respond_to do |format|
       if @admin.update(admin_params)
         format.html { redirect_to @admin, notice: 'Admin was successfully updated.' }
@@ -67,10 +90,11 @@ class AdminsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_admin
       @admin = Admin.find(params[:id])
+      #needs to redirect if fails
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admin_params
-      params[:admin]
+      params.require(:admin).permit(:first_name, :last_name, :phone_1, :phone_2, :phone_3)
     end
 end
