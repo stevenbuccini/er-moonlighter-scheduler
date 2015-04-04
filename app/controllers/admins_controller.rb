@@ -84,7 +84,7 @@ class AdminsController < ApplicationController
   end
 
   def approve_doctor
-    @user = User.find_by_id params[:user]
+    @user = User.find_by_id params[:id]
     if @user
       @user.update_attribute(:type, "Doctor")
       flash[:notice] = "Approve #{@user.first_name} as a doctor"
