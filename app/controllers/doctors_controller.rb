@@ -6,6 +6,7 @@ class DoctorsController < ApplicationController
   # GET /doctors.json
   def index
     @doctors = Doctor.all
+    @shifts = Shift.all
   end
 
   # GET /doctors/1

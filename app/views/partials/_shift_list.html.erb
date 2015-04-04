@@ -1,0 +1,9 @@
+<h2>Current Shifts available</h2>
+
+<%= form_tag sign_up_for_shift_path do %>
+  <% @shifts.each do  |shift| %>
+  <%= check_box_tag(:shift) %>
+  <%= label_tag(:shift, "Shift " + shift) %>
+  <% end %>	
+  <%= submit_tag 'Sign up for these shifts' %>
+<% end %>
