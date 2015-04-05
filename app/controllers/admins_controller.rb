@@ -42,7 +42,7 @@ class AdminsController < ApplicationController
         
           UserMailer.custom_email(doctor, subject, text).deliver_now
       end
-      sent_to = sent_to + doctor.full_name
+      sent_to = sent_to + doctor.full_name + " "
     end
       
     
