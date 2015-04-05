@@ -28,11 +28,11 @@ end
 
 
 shifts = [
-  {start: DateTime.new(2015, 2, 14, 8, 00), end: DateTime.new(2015, 2, 14, 14, 30)},
-  {start: DateTime.new(2015, 6, 28, 20, 00), end: DateTime.new(2015, 6, 29, 8, 30)},
-  {start: DateTime.new(2015, 7, 6, 5, 43), end: DateTime.new(2015, 7, 6, 12, 30)},
-  {start: DateTime.new(2015, 3, 14, 12, 14), end: DateTime.new(2015, 3, 14, 14, 30)},
-  {start: DateTime.new(2015, 5, 3, 2, 50), end: DateTime.new(2015, 6, 2, 15, 30)}
+  {start_datetime: DateTime.new(2015, 2, 14, 8, 00), end_datetime: DateTime.new(2015, 2, 14, 14, 30)},
+  {start_datetime: DateTime.new(2015, 6, 28, 20, 00), end_datetime: DateTime.new(2015, 6, 29, 8, 30)},
+  {start_datetime: DateTime.new(2015, 7, 6, 5, 43), end_datetime: DateTime.new(2015, 7, 6, 12, 30)},
+  {start_datetime: DateTime.new(2015, 3, 14, 12, 14), end_datetime: DateTime.new(2015, 3, 14, 14, 30)},
+  {start_datetime: DateTime.new(2015, 5, 3, 2, 50), end_datetime: DateTime.new(2015, 6, 2, 15, 30)}
 ]
 
 shifts.each do |shift|

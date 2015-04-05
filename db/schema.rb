@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150404103507) do
+ActiveRecord::Schema.define(version: 20150405063905) do
 
   create_table "admins", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -25,11 +25,11 @@ ActiveRecord::Schema.define(version: 20150404103507) do
   end
 
   create_table "shifts", force: :cascade do |t|
-    t.datetime "start"
-    t.datetime "end"
+    t.datetime "start_datetime"
+    t.datetime "end_datetime"
     t.boolean  "confirmed"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "doctor_id"
   end
 
