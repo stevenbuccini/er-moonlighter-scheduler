@@ -17,11 +17,11 @@ class Shift < ActiveRecord::Base
 	end
 
 	def to_s
-		self.start.strftime("%b %e, %l:%M %p") + " - " +  self.start.strftime("%b %e, %l:%M %p")
+		self.start_datetime.strftime("%b %e, %l:%M %p") + " - " +  self.start_datetime.strftime("%b %e, %l:%M %p")
 	end
 
 	def to_str
-		self.start.strftime("%b %e, %l:%M %p") + " - " +  self.start.strftime("%b %e, %l:%M %p")
+		self.start_datetime.strftime("%b %e, %l:%M %p") + " - " +  self.start_datetime.strftime("%b %e, %l:%M %p")
 	end
 
 	def book(current_user)

@@ -4,7 +4,7 @@ Factory.define :doctor do |d|
   d.reset_password_sent_at nil
   d.reset_password_token nil
   d.remember_created_at nil
-  d.password 'dudududu'
+  d.password 'password'
   d.email 'mnitche@example.com'
   d.current_sign_in_at nil
   d.last_sign_in_at nil

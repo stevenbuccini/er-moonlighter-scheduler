@@ -16,7 +16,7 @@ end
 
 Given /one default doctor exists/ do
   phone_number = '18001234567'
-  add_doctor('default_user@example.com','password', 'doc@example.com', phone_number, phone_number, phone_number)
+  add_doctor('default_doctor@example.com','password', 'default_doctor@example.com', phone_number, phone_number, phone_number)
 end
 
 Given /I am logged in as the default (.*)/ do |user_type|
@@ -69,9 +69,26 @@ Given /there are (no )?pending shifts/ do |no_open_shifts|
 end
 
 Then /I should be able to sign up for a shift/ do
-  check('post_shifts_1') # naively check the first shift
-  find('post_shifts_1').should be_checked
+  page.should have_content("Current Shifts available")
+  # I have no idea why I need to select the check box like this so if someone has
+  # a better idea let me know
+  find(:css, "#post_shifts_1").set(true) # Naively check the first checkbox.
+  find(:css, "#post_shifts_1").should be_checked
   click_button("Sign up for these shifts")
+end
+
+Then /I should be unable to sign up for shifts/ do
+  text = 'No shifts are currently available to sign up for.'
+  if page.respond_to? :should
+    page.should have_content(text)
+  else
+    assert page.has_content?(text)
+  end
+end
+
+Then /I should receive confirmation that the request was successful/ do
+  text = "You just signed up for the following shifts:"
+  page.should have_content(text)
 end
 
 private

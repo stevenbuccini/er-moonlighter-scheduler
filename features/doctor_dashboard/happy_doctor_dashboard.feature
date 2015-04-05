@@ -13,4 +13,4 @@ Feature: doctors should be able select shifts
 	  Given I am logged in as the default doctor
 	  And I am on the doctor index
 	  Then I should be able to sign up for a shift
-	  And I should receive confirmation that it's pending admin approval.
+	  And I should receive confirmation that the request was successful.
