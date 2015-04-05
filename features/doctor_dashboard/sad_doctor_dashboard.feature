@@ -12,4 +12,4 @@ Feature: doctors should be able select shifts
   Scenario: No shifts available (sad path)
     Given I am logged in as the default doctor
     And I am on the doctor index
-    Then I should be I am unable to sign up for shifts
+    Then I should be unable to sign up for shifts
