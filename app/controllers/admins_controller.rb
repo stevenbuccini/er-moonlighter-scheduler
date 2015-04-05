@@ -33,14 +33,22 @@ class AdminsController < ApplicationController
   def send_mass_email
     @doctors = Doctor.all
     sent_to = "Email sent to: "
-    subject = params[:subject]
-    text = params[:body]
     @doctors.each do |doctor|
-      UserMailer.dummy_email(doctor, subject, text).deliver_now
-      if doctor.first_name != nil and doctor.last_name != nil
-        sent_to = sent_to + " " + doctor.first_name + " " + doctor.last_name
+      if params.has_key?(:urgent)
+        #UserMailer.send
+        UserMailer.urgent_email(doctor).deliver_now
+      elsif params.has_key?(:new_pay_period)
+        UserMailer.new_pay_period_email(doctor).deliver_now
+      else
+        subject = params[:subject]
+        text = params[:body]
+        
+          UserMailer.custom_email(doctor, subject, text).deliver_now
       end
+      sent_to = sent_to + doctor.full_name + " "
     end
+      
+    
     flash[:notice] = sent_to
     redirect_to '/'
   end

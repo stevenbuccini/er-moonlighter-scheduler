@@ -34,6 +34,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Devise for easy user authentication
 gem 'devise'
 
+#Figaro for setting local environment vars
+gem 'figaro'
+
+#using for email automation
+gem 'mandrill-api', require: 'mandrill'
+
 group :production do
  gem 'pg'
 end
