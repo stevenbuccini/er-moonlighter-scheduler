@@ -56,16 +56,19 @@ end
 Then /I click the "(.*)" button$/ do |button|
 end
 
-Given /there are "(no)" pending shifts/ do |no_open_shifts|
+Given /there are (no )?pending shifts/ do |no_open_shifts|
   if no_open_shifts
     # There should be no pending shifts in the database.
-    if Shifts.count(confirmed: true) == 0
+    if Shift.count(confirmed: false) != 0
       raise 'Expected there to be no shifts but shifts are present.'
     end
   else
     # Add a shift to the database
-    add_shift(start: DateTime.new(2015, 2, 14, 8, 00), end: DateTime.new(2015, 2, 14, 14, 30))
+    add_shift(DateTime.new(2015, 2, 14, 8, 00), DateTime.new(2015, 2, 14, 14, 30))
   end
+end
+
+Then /I should be able to sign up for a shift/ do
 end
 
 private
