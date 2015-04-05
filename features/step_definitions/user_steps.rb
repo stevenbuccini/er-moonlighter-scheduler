@@ -11,7 +11,7 @@ Given /the following admins exist/ do |admins_table|
 end
 
 Given /one default admin exists/ do
-  add_admin('default@admin.com','password')
+  add_admin('default_admin@example.com','password')
 end
 
 Given /one default doctor exists/ do
@@ -19,7 +19,7 @@ Given /one default doctor exists/ do
   add_doctor('default_user@example.com','password', 'doc@example.com', phone_number, phone_number, phone_number)
 end
 
-Given /I am logged in as the default "(.*)"/ do |user_type|
+Given /I am logged in as the default (.*)/ do |user_type|
   visit '/users/login'
   fill_in 'user_email', :with => "default_#{user_type}@example.com"
   fill_in 'user_password', :with => 'password'
@@ -56,6 +56,18 @@ end
 Then /I click the "(.*)" button$/ do |button|
 end
 
+Given /there are "(no)" pending shifts/ do |no_open_shifts|
+  if no_open_shifts
+    # There should be no pending shifts in the database.
+    if Shifts.count(confirmed: true) == 0
+      raise 'Expected there to be no shifts but shifts are present.'
+    end
+  else
+    # Add a shift to the database
+    add_shift(start: DateTime.new(2015, 2, 14, 8, 00), end: DateTime.new(2015, 2, 14, 14, 30))
+  end
+end
+
 private
 def add_doctor(first_name, last_name, email, phone_1, phone_2, phone_3)
   FactoryGirl.create(:doctor, :first_name => first_name, :last_name => last_name, :email => email, :phone_1 => phone_1, :phone_2 => phone_2, :phone_3 => phone_3)
@@ -63,4 +75,8 @@ end
 
 def add_admin(email, password)
   FactoryGirl.create(:admin, :email => email, :password => password)
+end
+
+def add_shift(start_time, end_time)
+  FactoryGirl.create(:shift, start: start_time, end: end_time)
 end
