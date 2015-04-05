@@ -15,7 +15,7 @@ Background: doctors in database
 
 
 Scenario: update doctor (happy path)
-  Given I am logged as the default admin
+  Given I am logged in as the default admin
   Given I am on the admin index
   When I edit "Sep" with "Last name" as "Flowers"
   Given I am on the admin index
