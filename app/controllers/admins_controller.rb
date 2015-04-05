@@ -8,6 +8,7 @@ class AdminsController < ApplicationController
   def index
     @admins = Admin.all
     @doctors = Doctor.all
+    @shifts = Shift.all
   end
 
   # GET /admins/1

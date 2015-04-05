@@ -14,4 +14,5 @@ class User < ActiveRecord::Base
  		"User does not have a full name"
  	end
  end
+
 end

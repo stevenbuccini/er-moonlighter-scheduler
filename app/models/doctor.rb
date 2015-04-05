@@ -1,3 +1,2 @@
 class Doctor < User
-	
 end
