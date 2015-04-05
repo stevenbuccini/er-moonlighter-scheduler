@@ -69,6 +69,9 @@ Given /there are (no )?pending shifts/ do |no_open_shifts|
 end
 
 Then /I should be able to sign up for a shift/ do
+  check('post_shifts_1') # naively check the first shift
+  find('post_shifts_1').should be_checked
+  click_button("Sign up for these shifts")
 end
 
 private
@@ -81,5 +84,5 @@ def add_admin(email, password)
 end
 
 def add_shift(start_time, end_time)
-  FactoryGirl.create(:shift, start: start_time, end: end_time)
+  FactoryGirl.create(:shift, start_datetime: start_time, end_datetime: end_time)
 end

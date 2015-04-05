@@ -3,22 +3,16 @@ class Shift < ActiveRecord::Base
 
 	after_initialize :init
 
+	validates_presence_of :start_datetime, :end_datetime
+	validate :start_datetime_must_be_before_end_datetime
+
 
 	def init
 		# This method gets called as a callback to any method that creates
 		# an instance of this model, including find() !
 
-		# Set this default value if we are creating a new record 
 		if new_record?
 			self.confirmed = false 
-			# We should definitely have start and end times whenever we create a shift
-			if !self.start || !self.end
-				raise ArgumentError, ' start and end times are required when creating a shift.'
-			end
-		end
-		# Check to make sure start date occurs before end date
-		if self.start > self.end
-				raise ArgumentError, ' start time must come before end time.'
 		end
 	end
 
@@ -33,6 +27,10 @@ class Shift < ActiveRecord::Base
 	def book(current_user)
 		self.confirmed = true
 		self.doctor = current_user
+	end
+
+	def start_datetime_must_be_before_end_datetime
+		errors.add(:end_datetime, "can't be before the start time") if start_datetime > end_datetime
 	end
 end
 

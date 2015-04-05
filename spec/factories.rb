@@ -41,8 +41,8 @@ end
 Factory.define :shift do |s|
   s.created_at '2015-03-13 04:08:15'
   s.updated_at '2015-03-13 04:08:15'
-  s.start DateTime.new(2015, 2, 14, 8, 00)
-  s.end DateTime.new(2015, 2, 14, 13, 00)
+  s.start_datetime DateTime.new(2015, 2, 14, 8, 00)
+  s.end_datetime DateTime.new(2015, 2, 14, 13, 00)
   s.confirmed false
   s.doctor_id nil
 end
