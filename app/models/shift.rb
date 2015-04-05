@@ -1,7 +1,10 @@
 class Shift < ActiveRecord::Base
 	belongs_to :doctor
 
-	def after_initialize
+	after_initialize :init
+
+
+	def init
 		# This method gets called as a callback to any method that creates
 		# an instance of this model, including find() !
 
@@ -14,7 +17,7 @@ class Shift < ActiveRecord::Base
 			end
 		end
 		# Check to make sure start date occurs before end date
-		if self.start < self.end
+		if self.start > self.end
 				raise ArgumentError, ' start time must come before end time.'
 		end
 	end
