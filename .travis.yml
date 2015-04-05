@@ -7,7 +7,5 @@ addons:
     repo_token: e600fc2097a3f3704b4aa0515a25326a210f6e244061fd54c5c70e3e24553c0f
 env:
   global:
-    #mandrill username
-    secure: "ggZQgHX+McDP5hzT0bn6+4UaRccmjw1BnQ68uGXjGWZqqni0epRQ2J3wNuvdGgBZ4pDxKxBxr4qcYHXBXBCjO1mr1G26DVLp1tJyuK1cwgIa8rqgQTDfpEjLRzVsy+k36Mcc6FkM0Pw7Q29O0x4ZYqG/z4dqq2slympU9jfayes="
-    #mandrill key
-    secure: "TsgrL6QDm2Br9usIIpQYGkPMGi5W43HIlhSbKbmC8RXRG3rfA3ohiCrXoiD27fMmOnMpyroezB9XlmIJVI9KdYiXKOJMCA6y8hesxJT7ELwz6OzYV8HfRz+jIAf2Qm9EaSj+jc5LNBDdVkDft9paoqspR/6FvceT4hVwCULvxC4="
+  - secure: EMzOXcyTqmK8eYlpTkdzVsysoaH31bWEQhCQABBAqCYhutSmWWntp0jjM7m4Iy/afisz5XQ+ADhpxthRedCmkXHeS5+QugFeQ9EENJ0hkoDcXOrJ4Ot7eKH4/c4eiyYVo9hWhOwP9Xh3uSGE9avAtC2vRQdkIh0JU4k90XGKCes=
+  - secure: BcVrrHdk5oCtfl4HX1CZmMg7IXIwrewREf3oR+BoeMI6uG+E69bUoxW+zqUk3vEbNbLWs3iBXwUKO8P6yj5RTUEwC/C4axZHyu8aInk7jqBJP9LeVJKiPCx29dYS20jvgZQsQRDXBRwfrxD1Lhexx2YMon3QOep6JYPTG3f6PzI=
