@@ -1,6 +1,6 @@
 class DoctorsController < ApplicationController
   before_action :set_doctor, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user! # Redirects if user isn't signed in
+  before_filter :authenticate_user! , :check_user_type# Redirects if user isn't signed in
 
   # GET /doctors
   # GET /doctors.json
@@ -76,5 +76,12 @@ class DoctorsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def doctor_params
       params.require(:doctor).permit(:first_name, :last_name, :phone_1, :phone_2, :phone_3)
+    end
+
+    def check_user_type
+      if current_user.type != Doctor.NAME 
+        flash[:alert] = "You are not authorised to view Doctors page"
+        redirect_to :controller => 'dashboard', :action => 'view'
+      end
     end
 end
