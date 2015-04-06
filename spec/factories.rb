@@ -4,7 +4,7 @@ Factory.define :doctor do |d|
   d.reset_password_sent_at nil
   d.reset_password_token nil
   d.remember_created_at nil
-  d.password 'dudududu'
+  d.password 'password'
   d.email 'mnitche@example.com'
   d.current_sign_in_at nil
   d.last_sign_in_at nil
@@ -38,3 +38,11 @@ Factory.define :admin do |a|
   a.phone_3 '122-222-2345'
 end
 
+Factory.define :shift do |s|
+  s.created_at '2015-03-13 04:08:15'
+  s.updated_at '2015-03-13 04:08:15'
+  s.start_datetime DateTime.new(2015, 2, 14, 8, 00)
+  s.end_datetime DateTime.new(2015, 2, 14, 13, 00)
+  s.confirmed false
+  s.doctor_id nil
+end

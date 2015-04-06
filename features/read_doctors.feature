@@ -15,7 +15,7 @@ Background: admin existing and doctors in database
   | Kristina    | Sep       | supercool@gmail.com | 760-805-9889 | nil          | nil          |
 
 Scenario: View all doctors after logging in
-  Given I am logged as the default admin
+  Given I am logged in as the default admin
   And I am on the admin index
   Then I should see "at@b.edu"
   And I should see "theboss@me.com"

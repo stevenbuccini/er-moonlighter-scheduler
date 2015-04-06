@@ -1,6 +1,10 @@
 <h2>Current Shifts available</h2>
 
-<%=  form_tag sign_up_for_shifts_path(@id) do%>
-  <%= collection_check_boxes(:post, :shifts, @shifts, :id, :to_s,  include_hidden: false) %>
-	<%= submit_tag 'Sign up for these shifts' %>
+<% if @shifts.count != 0 %>
+	<%=  form_tag sign_up_for_shifts_path(@id) do%>
+	  <%= collection_check_boxes(:post, :shifts, @shifts, :id, :to_s,  include_hidden: false) %>
+		<%= submit_tag 'Sign up for these shifts' %>
+	<% end %>
+<% else %>
+	<h3>No shifts are currently available to sign up for.</h3>
 <% end %>
