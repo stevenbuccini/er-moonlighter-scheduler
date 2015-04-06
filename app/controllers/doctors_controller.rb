@@ -1,6 +1,7 @@
 class DoctorsController < ApplicationController
   before_action :set_doctor, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user! , :check_user_type# Redirects if user isn't signed in
+  before_filter :authenticate_user! 
+  before_filter :check_user_type, :except => :destroy# Redirects if user isn't signed in
 
   # GET /doctors
   # GET /doctors.json
