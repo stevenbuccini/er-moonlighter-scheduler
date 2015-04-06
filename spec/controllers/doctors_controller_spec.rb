@@ -31,5 +31,5 @@ RSpec.describe DoctorsController, type: :controller do
   #     put :update, :id => @doctor.id, :doctor => {:first_name => @new_first_name}
   #     expect(response).to redirect_to @doctor
   #   end 
-  # end
+   end
 end
