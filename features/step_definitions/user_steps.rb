@@ -11,15 +11,15 @@ Given /the following admins exist/ do |admins_table|
 end
 
 Given /one default admin exists/ do
-  add_admin('default@admin.com','password')
+  add_admin('default_admin@example.com','password')
 end
 
 Given /one default doctor exists/ do
   phone_number = '18001234567'
-  add_doctor('default_user@example.com','password', 'doc@example.com', phone_number, phone_number, phone_number)
+  add_doctor('default_doctor@example.com','password', 'default_doctor@example.com', phone_number, phone_number, phone_number)
 end
 
-Given /I am logged in as the default "(.*)"/ do |user_type|
+Given /I am logged in as the default (.*)/ do |user_type|
   visit '/users/login'
   fill_in 'user_email', :with => "default_#{user_type}@example.com"
   fill_in 'user_password', :with => 'password'
@@ -56,6 +56,41 @@ end
 Then /I click the "(.*)" button$/ do |button|
 end
 
+Given /there are (no )?pending shifts/ do |no_open_shifts|
+  if no_open_shifts
+    # There should be no pending shifts in the database.
+    if Shift.count(confirmed: false) != 0
+      raise 'Expected there to be no shifts but shifts are present.'
+    end
+  else
+    # Add a shift to the database
+    add_shift(DateTime.new(2015, 2, 14, 8, 00), DateTime.new(2015, 2, 14, 14, 30))
+  end
+end
+
+Then /I should be able to sign up for a shift/ do
+  page.should have_content("Current Shifts available")
+  # I have no idea why I need to select the check box like this so if someone has
+  # a better idea let me know
+  find(:css, "#post_shifts_1").set(true) # Naively check the first checkbox.
+  find(:css, "#post_shifts_1").should be_checked
+  click_button("Sign up for these shifts")
+end
+
+Then /I should be unable to sign up for shifts/ do
+  text = 'No shifts are currently available to sign up for.'
+  if page.respond_to? :should
+    page.should have_content(text)
+  else
+    assert page.has_content?(text)
+  end
+end
+
+Then /I should receive confirmation that the request was successful/ do
+  text = "You just signed up for the following shifts:"
+  page.should have_content(text)
+end
+
 private
 def add_doctor(first_name, last_name, email, phone_1, phone_2, phone_3)
   FactoryGirl.create(:doctor, :first_name => first_name, :last_name => last_name, :email => email, :phone_1 => phone_1, :phone_2 => phone_2, :phone_3 => phone_3)
@@ -63,4 +98,8 @@ end
 
 def add_admin(email, password)
   FactoryGirl.create(:admin, :email => email, :password => password)
+end
+
+def add_shift(start_time, end_time)
+  FactoryGirl.create(:shift, start_datetime: start_time, end_datetime: end_time)
 end

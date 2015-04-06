@@ -13,7 +13,7 @@ Background: admin existing and doctors in database
   | Tayo        | Olukoya   | theboss@me.com      | 123-456-7890 | 122-222-2345 | 554-446-6456 |
   | Kristina    | Sep       | supercool@gmail.com | 760-805-9889 | nil          | nil          |
 
-  And I am logged as the default admin
+  And I am logged in as the default admin
 
 Scenario: View all doctors after logging in
   And I am on the create email page

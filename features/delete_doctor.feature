@@ -15,7 +15,7 @@ Background: doctors in database
 
 
 Scenario: delete doctor (happy path)
-  Given I am logged as the default admin
+  Given I am logged in as the default admin
   And I am on the admin index
   When I delete "Alex"
   Then I should see "Doctor was successfully destroyed."
