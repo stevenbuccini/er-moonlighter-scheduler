@@ -88,7 +88,8 @@ class AdminsController < ApplicationController
 
  def check_user_type
     if current_user.type != Admin.NAME 
-      redirect_to :controller => 'dashboard', :action => 'index', :alert => "You are not authorised to view Doctors page"
+      flash[:alert] = "You are not authorised to view an Amin's page"
+      redirect_to :controller => 'dashboard', :action => 'index'
     end
   end
 

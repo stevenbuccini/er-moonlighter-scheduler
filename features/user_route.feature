@@ -11,10 +11,10 @@ Background: admin, regular user and doctors exist in database
 
   Given the following doctors exist:
 
-  | first_name  | last_name | email               | phone_1      | phone_2      | phone_3      |
-  | Alex        | Triana    | at@b.edu            | 555-555-5555 | nil          | nil          |
-  | Tayo        | Olukoya   | theboss@me.com      | 123-456-7890 | 122-222-2345 | 554-446-6456 |
-  | Kristina    | Sep       | supercool@gmail.com | 760-805-9889 | nil          | nil          |
+  | first_name  | last_name | email                  | phone_1      | phone_2      | phone_3      |
+  | Alex        | Triana    | at@example.com         | 555-555-5555 | nil          | nil          |
+  | Tayo        | Olukoya   | theboss@example.com    | 123-456-7890 | 122-222-2345 | 554-446-6456 |
+  | Kristina    | Sep       | supercool@example.com  | 760-805-9889 | nil          | nil          |
 
 Scenario: User awainting approval login happy path!
   Given I am signed in as a user awaiting admin approval
