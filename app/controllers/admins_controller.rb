@@ -1,6 +1,7 @@
 class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user! # redirect if user isn't signed in
+  before_filter :check_user_type, :except => :destroy# redirect if user is not an admin
   before_filter :admin_only_view, only: [:create_new_email, :send_mass_email]
 
   # GET /admins
@@ -9,6 +10,7 @@ class AdminsController < ApplicationController
     @admins = Admin.all
     @doctors = Doctor.all
     @shifts = Shift.all
+    @users_awaiting_approver = User.where(:type =>nil)
   end
 
   # GET /admins/1
@@ -85,6 +87,7 @@ class AdminsController < ApplicationController
     end
   end
 
+
   # DELETE /admins/1
   # DELETE /admins/1.json
   def destroy
@@ -95,6 +98,15 @@ class AdminsController < ApplicationController
     end
   end
 
+
+  def approve_doctor
+    @user = User.find_by_id params[:user]
+    if @user
+      @user.update_attribute(:type, "Doctor")
+      flash[:notice] = "Approve #{@user.first_name} as a doctor"
+    end
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_admin
@@ -105,5 +117,11 @@ class AdminsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def admin_params
       params.require(:admin).permit(:first_name, :last_name, :phone_1, :phone_2, :phone_3)
+    end
+    def check_user_type
+      if current_user.type != Admin.NAME
+        flash[:alert] = "You are not authorised to view an Admin's page"
+        redirect_to :controller => 'dashboard', :action => 'view'
+      end
     end
 end
