@@ -10,6 +10,7 @@ class AdminsController < ApplicationController
     @admins = Admin.all
     @doctors = Doctor.all
     @shifts = Shift.all
+    @users_awaiting_approver = User.where(:type =>nil)
   end
 
   # GET /admins/1
@@ -102,6 +103,16 @@ class AdminsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+  def approve_doctor
+    @user = User.find_by_id params[:user]
+    if @user
+      @user.update_attribute(:type, "Doctor")
+      flash[:notice] = "Approve #{@user.first_name} as a doctor"
+    end
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_admin
