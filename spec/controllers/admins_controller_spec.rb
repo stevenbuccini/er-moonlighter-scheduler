@@ -22,9 +22,9 @@ RSpec.describe AdminsController, type: :controller do
       expect(@admin.first_name).to eql @new_first_name
     end
 
-    it 'should redirect to the admin page' do
-      put :update, :id => @admin.id, :admin => {:first_name => @new_first_name}
-      expect(response).to redirect_to @admin
-    end 
+    # it 'should redirect to the admin page' do
+    #   put :update, :id => @admin.id, :admin => {:first_name => @new_first_name}
+    #   expect(response).to redirect_to @admin
+    # end 
   end
 end
