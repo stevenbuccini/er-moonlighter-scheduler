@@ -7,7 +7,7 @@ Feature: Routes for users
 Background: admin, regular user and doctors exist in database
   Given one default admin exists
 
-  Given an unauthorised user exists
+  Given a new user exists
 
   Given the following doctors exist:
 
@@ -33,7 +33,7 @@ Scenario: Doctor Login happy path!
 Scenario: Doctor Login sad path!
   Given I am signed in as a doctor
   When I try to visit the admin homepage
-  Then I should see a notice You are not authorised to view an Admin's page
+  Then I should see "You are not authorised to view an Admin's page"
 
 Scenario: Admin Login happy path!
   Given I am an existing admin
