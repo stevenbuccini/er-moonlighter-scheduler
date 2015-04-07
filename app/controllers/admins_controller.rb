@@ -103,7 +103,7 @@ class AdminsController < ApplicationController
     @user = User.find_by_id params[:user]
     if @user
       @user.update_attribute(:type, "Doctor")
-      flash[:notice] = "Approve #{@user.first_name} as a doctor"
+      flash[:notice] = "Approved #{@user.first_name} as a doctor!"
     end
   end
   

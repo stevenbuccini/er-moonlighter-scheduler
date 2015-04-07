@@ -1,7 +1,7 @@
 class DoctorsController < ApplicationController
   before_action :set_doctor, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user! 
-  before_filter :check_user_type, :except => :destroy# Redirects if user isn't signed in
+  before_filter :check_user_type, :except => [:destroy, :show]# Redirects if user isn't signed in
 
   # GET /doctors
   # GET /doctors.json
@@ -80,7 +80,7 @@ class DoctorsController < ApplicationController
     end
 
     def check_user_type
-      if current_user.type != Doctor.NAME  
+      if current_user.type != Doctor.NAME
         flash[:alert] = "You are not authorised to view Doctors page"
         redirect_to :controller => 'dashboard', :action => 'view'
       end
