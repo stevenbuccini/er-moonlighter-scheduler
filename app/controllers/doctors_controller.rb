@@ -63,7 +63,7 @@ class DoctorsController < ApplicationController
   def destroy
     @doctor.destroy
     respond_to do |format|
-      format.html { redirect_to doctors_url, notice: 'Doctor was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Doctor was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -80,7 +80,7 @@ class DoctorsController < ApplicationController
     end
 
     def check_user_type
-      if current_user.type != Doctor.NAME 
+      if current_user.type != Doctor.NAME  
         flash[:alert] = "You are not authorised to view Doctors page"
         redirect_to :controller => 'dashboard', :action => 'view'
       end
