@@ -87,12 +87,6 @@ class AdminsController < ApplicationController
     end
   end
 
- def check_user_type
-    if current_user.type != Admin.NAME 
-      flash[:alert] = "You are not authorised to view an Amin's page"
-      redirect_to :controller => 'dashboard', :action => 'index'
-    end
-  end
 
   # DELETE /admins/1
   # DELETE /admins/1.json
@@ -125,7 +119,7 @@ class AdminsController < ApplicationController
       params.require(:admin).permit(:first_name, :last_name, :phone_1, :phone_2, :phone_3)
     end
     def check_user_type
-      if current_user.type != "Admin"
+      if current_user.type != Admin.NAME
         flash[:alert] = "You are not authorised to view an Admin's page"
         redirect_to :controller => 'dashboard', :action => 'view'
       end
