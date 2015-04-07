@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
+  get 'dashboard/view'
+
+  get 'dashboard/index'
+
   resources :admins, :doctors
 
   # We're implementing a custom controller for registration purposes.
   devise_for :users, path_names: {sign_in: 'login', sign_out: 'logout'}, controllers: {registrations: 'users/registrations'}
-  namespace :doctors do
-    root "doctors#index"
-  end
+  # namespace :doctors do
+  #   root "doctors#index"
+  # end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -14,10 +18,12 @@ Rails.application.routes.draw do
   post '/send-mass-email', to: 'admins#send_mass_email', as: "send_mass_email"
   get '/create-new-email', to: 'admins#create_new_email', as: "create_new_email"
 
+  get '/approve-doctor/:user', to: 'admins#approve_doctor', as: "approve_doctor"
+
   post '/request-shifts', to:'shifts#update', as: "sign_up_for_shifts"
 
   # TO DO: Replace this with a splash page/login page
-  root 'doctors#index'
+  root 'dashboard#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
