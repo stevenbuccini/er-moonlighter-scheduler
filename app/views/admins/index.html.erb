@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<iframe src=<%= ENV["CALENDAR_URL"] %> style=" border-width:0 " width="800" height="600" frameborder="0" scrolling="no"></iframe>
+
 <h1>All Doctors</h1>
 
 <table cellspacing="30">
@@ -16,7 +18,7 @@
       <th>Email</th>
       <th>Phone 1</th>
       <th>Phone 2</th>
-      <th>Phone 3</th> 
+      <th>Phone 3</th>
     <% @doctors.each do |doctor| %>
       <tr>
         <td><%= doctor.first_name %></td>
@@ -51,7 +53,7 @@
       <th>Email</th>
       <th>Phone 1</th>
       <th>Phone 2</th>
-      <th>Phone 3</th> 
+      <th>Phone 3</th>
     <% @admins.each do |admin| %>
       <tr>
         <td><%= admin.first_name %></td>
@@ -86,7 +88,7 @@
       <th>Email</th>
       <th>Phone 1</th>
       <th>Phone 2</th>
-      <th>Phone 3</th> 
+      <th>Phone 3</th>
     <% @users_awaiting_approver.each do |user| %>
       <tr>
         <td><%= user.first_name %></td>
