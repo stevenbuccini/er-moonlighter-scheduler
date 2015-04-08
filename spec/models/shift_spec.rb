@@ -2,10 +2,6 @@ require 'spec_helper'
 require 'rails_helper'
 
 RSpec.describe Shift, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
-
-  # We should test the to_s and to_str methods
-  # We should test the book method
 
   describe 'creating a shift' do
     
@@ -43,6 +39,16 @@ RSpec.describe Shift, type: :model do
     it 'should pretty print a shift using to_str' do
       shift = Shift.create({start_datetime: DateTime.new(2015, 2, 14, 8, 00), end_datetime: DateTime.new(2015, 3, 15, 13, 00)})
       expect(shift.to_s).to eql "Feb 14, 8:00 AM - Mar 15, 1:00 PM"
+    end
+  end
+
+  describe 'booking a shift' do
+    it 'should confirm a shift for a given doctor.' do
+      doc = FactoryGirl.create(:doctor)
+      shift = FactoryGirl.create(:shift)
+      shift.book(doc)
+      expect(shift.confirmed).to eql true
+      expect(shift.doctor).to eql doc
     end
   end
 end
