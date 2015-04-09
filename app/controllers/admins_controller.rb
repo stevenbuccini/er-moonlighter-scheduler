@@ -27,7 +27,7 @@ class AdminsController < ApplicationController
   # GET /admins/1/edit
   def edit
     @admin = Admin.find(params[:id])
-    
+
   end
 
   def create_email
@@ -37,9 +37,12 @@ class AdminsController < ApplicationController
     @doctors = Doctor.all
     sent_to = "Email sent to: " + Admin.get_doctor_names(@doctors)
     @doctors.each do |doctor|
-      if params.has_key?(:urgent)
+
+      case params[:email_type]
+      when 'urgent'
+        #UserMailer.send
         UserMailer.urgent_email(doctor).deliver_now
-      elsif params.has_key?(:new_pay_period)
+      when 'new_pay_period'
         UserMailer.new_pay_period_email(doctor).deliver_now
       else
         subject = params[:subject]
@@ -47,6 +50,7 @@ class AdminsController < ApplicationController
         UserMailer.custom_email(doctor, subject, text).deliver_now
       end
     end
+    
     flash[:notice] = sent_to
     redirect_to '/'
   end
@@ -101,7 +105,7 @@ class AdminsController < ApplicationController
       flash[:notice] = "Approved #{@user.first_name} as a doctor!"
     end
   end
-  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_admin

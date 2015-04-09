@@ -1,13 +1,14 @@
 <h1>Create new Email</h1>
 
-<%= form_tag send_email_path do %>
-	<%= check_box_tag :urgent %>
-	<%= label_tag :urgent, "Use urgent email prefill", :id => 'urgent-checkbox' %>
-	<%= check_box_tag :new_pay_period %>
-	<%= label_tag :new_pay_period, "Use new pay period email prefill", :id => 'new-pay-period-checkbox' %>
-	<%= check_box_tag :custom %>
-	<%= label_tag :custom, "Write custom email", :id => 'custom-checkbox' %>
-	
+
+<%= form_tag send_mass_email_path do %>
+	<%= radio_button_tag :email_type, :urgent %>
+	<%= label_tag :urgent, "Use urgent email prefill" %>
+	<%= radio_button_tag :email_type, :new_pay_period %>
+	<%= label_tag :new_pay_period, "Use new pay period email prefill" %>
+	<%= radio_button_tag :email_type, :custom , true%>
+	<%= label_tag :custom, "Write custom email" %>
+
 	<br>
 
   <%= label_tag(:subject, "Subject") %>
@@ -17,7 +18,7 @@
   <%= label_tag(:body, "Email Body") %>
   <br>
   <%= text_area_tag :body, "Email Body", :id => 'email-body', :size => '70x20' %>
-  <br>	
+  <br>
   <%= submit_tag "Send Email" %>
 <% end %>
 
@@ -40,7 +41,7 @@ The Moonlighter Team
 Hey *|first_name|*,
 
 There are still unfulfilled shifts for the *|pay_period_range|* pay perdiod. Feel free to sign up now at here
-		
+
 As a reminder, these shifts do not need to be approved by the Calendar Admin. You may sign yourself up from any shift you would like.
 
 Happy scheduling!
@@ -51,22 +52,24 @@ The Moonlighter Team
 <script>
 	var $email_body = $("#email-body"),
 			$email_subject = $("#email-subject");
+			console.log("script launched")
 
-	$("#urgent-checkbox").on('click', function() {
+	$("#email_type_urgent").on('click', function() {
+			console.log("click !")
 			$email_body.val($('#urgent-text > pre').text())
 			$email_subject.val($('#urgent-text > p').text())
 			$(":checkbox").prop('checked', false);
 			$email_body.attr("disabled",true)
 	});
 
-	$("#new-pay-period-checkbox").on('click', function() {
+	$("#email_type_new_pay_period").on('click', function() {
 			$email_body.val($('#new-pay-period-text > pre').text())
 			$email_subject.val($('#new-pay-period-text > p').text())
 			$(":checkbox").prop('checked', false);
 			$email_body.attr("disabled",true)
 	});
 
-	$("#custom-checkbox").on('click', function() {
+	$("#email_type_custom").on('click', function() {
 			$email_body.val("")
 			$email_subject.val("")
 			$(":checkbox").prop('checked', false);
