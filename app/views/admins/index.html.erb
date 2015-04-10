@@ -2,6 +2,7 @@
 
 <h1>All Doctors</h1>
 
+<%= form_tag send_selected_email_path do %>
 <table cellspacing="30">
   <thead>
     <tr>
@@ -19,6 +20,7 @@
       <th>Phone 3</th> 
     <% @doctors.each do |doctor| %>
       <tr>
+        <td><%= check_box_tag 'activated[]', doctor.id -%></td>
         <td><%= doctor.first_name %></td>
         <td><%= doctor.last_name %></td>
         <td><%= doctor.email %></td>
@@ -72,3 +74,5 @@
 
 <%= link_to 'Send Email', create_new_email_path %>
 <%= link_to 'New doctor', new_doctor_path %>
+<%= submit_tag 'Send Selected Email' %>
+<% end %>
