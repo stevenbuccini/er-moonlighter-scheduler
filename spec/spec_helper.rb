@@ -2,6 +2,7 @@ require "codeclimate-test-reporter"
 require 'factory_girl'
 require 'devise'
 require 'support/controller_macros'
+require 'capybara/rspec'
 
 CodeClimate::TestReporter.start
 FactoryGirl.find_definitions
