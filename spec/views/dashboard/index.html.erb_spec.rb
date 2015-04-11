@@ -1,5 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "dashboard/index.html.erb", type: :view do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "should display page" do
+	  render
+		rendered.should have_selector("h1")
+	end
 end
+

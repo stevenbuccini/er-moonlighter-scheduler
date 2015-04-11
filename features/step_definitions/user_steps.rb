@@ -44,11 +44,10 @@ When /I change my mind to not delete "(.*)"/ do |doctor|
 end
 
 When /I edit "(.*)" with "(.*)" as "(.*)"/ do |doctor, field, new_name|
-  pending
-  # id = Doctor.find_by_last_name(doctor).id
-  # click_link("edit_doctor_"+id.to_s)
-  # fill_in field, :with => new_name
-  # click_button("Update Doctor")
+  id = Doctor.find_by_last_name(doctor).id
+  click_link("edit_doctor_"+id.to_s)
+  fill_in field, :with => new_name
+  click_button("Update Doctor")
   #find_by_id("edit_doctor_"+id.to_s).click_link
   #page.driver.browser.accept_js_confirms
   #@javascript - this goes before the scenario
