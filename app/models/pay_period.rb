@@ -4,12 +4,10 @@ class PayPeriod < ActiveRecord::Base
 
 	#Validations
 	validates_presence_of :start_date, :end_date
-	validate :start_date, presence: true 
-	validate :end_date, presence:true 
 	validate :pay_range
 
 
 	def pay_range
-		errors.add_to_base("End date cannot be less than start date") unless end_date >= start_date	
+		errors[:base] << "End date cannot be less than start date" unless start_date and end_date and end_date >= start_date	
 	end
 end
