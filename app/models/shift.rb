@@ -36,5 +36,25 @@ class Shift < ActiveRecord::Base
 			errors.add(:sanity_check, "end time can't be before the start time") if start_datetime > end_datetime
 		end
 	end
-end
 
+	def self.assign_multiple_shifts(array_of_ids, doctor)
+		# Bulk assign shifts. Return true if successful, false if save fails.
+		errors = {}
+		errors.default = nil
+		# Wrap this in a transaction so we don't have race conditions.
+		Shift.transaction do
+			# Find shifts that have already been taken.
+			taken_shifts = Shift.find(array_of_ids).where(confirmed: true)
+			# Assign doctor to multiple, unconfirmed shifts in one go.
+			update_status = Shift.find([array_of_ids]).where(confirmed: false).update_all(doctor: doctor, confirmed: true)
+		end
+		if !taken_shifts.empty?
+			errors[:claimed_shifts] = taken_shifts
+		end
+		if !update_status
+			errors[:failed_save] = "Failed to save shift assignments. Please try again."
+		end
+		return errors
+	end
+
+end
