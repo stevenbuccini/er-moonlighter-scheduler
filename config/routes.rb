@@ -15,8 +15,8 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
 
-  post '/send-mass-email', to: 'admins#send_mass_email', as: "send_mass_email"
-  get '/create-new-email', to: 'admins#create_new_email', as: "create_new_email"
+  post '/send-email', to: 'admins#send_email', as: "send_email"
+  get '/create-email', to: 'admins#create_email', as: "create_email"
 
   get '/approve-doctor/:user', to: 'admins#approve_doctor', as: "approve_doctor"
 
