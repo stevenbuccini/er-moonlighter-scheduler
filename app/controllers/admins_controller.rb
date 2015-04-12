@@ -2,7 +2,7 @@ class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user! # redirect if user isn't signed in
   before_filter :check_user_type, :except => :destroy# redirect if user is not an admin
-  before_filter :admin_only_view, only: [:create_new_email, :send_mass_email]
+  before_filter :admin_only_view, only: [:create_email, :send_email]
 
   # GET /admins
   # GET /admins.json
