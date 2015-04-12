@@ -2,7 +2,7 @@ class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user! # redirect if user isn't signed in
   before_filter :check_user_type, :except => :destroy# redirect if user is not an admin
-  before_filter :admin_only_view, only: [:create_new_email, :send_mass_email]
+  before_filter :admin_only_view, only: [:create_email, :send_email]
 
   # GET /admins
   # GET /admins.json
@@ -30,15 +30,14 @@ class AdminsController < ApplicationController
     
   end
 
-  def create_new_email
+  def create_email
   end
 
-  def send_mass_email
+  def send_email
     @doctors = Doctor.all
-    sent_to = "Email sent to: "
+    sent_to = "Email sent to: " + Admin.get_doctor_names(@doctors)
     @doctors.each do |doctor|
       if params.has_key?(:urgent)
-        #UserMailer.send
         UserMailer.urgent_email(doctor).deliver_now
       elsif params.has_key?(:new_pay_period)
         UserMailer.new_pay_period_email(doctor).deliver_now
@@ -47,10 +46,7 @@ class AdminsController < ApplicationController
         text = params[:body]
         UserMailer.custom_email(doctor, subject, text).deliver_now
       end
-      sent_to = sent_to + doctor.full_name + " "
     end
-      
-    
     flash[:notice] = sent_to
     redirect_to '/'
   end

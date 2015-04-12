@@ -1,6 +1,6 @@
 <h1>Create new Email</h1>
 
-<%= form_tag send_mass_email_path do %>
+<%= form_tag send_email_path do %>
 	<%= check_box_tag :urgent %>
 	<%= label_tag :urgent, "Use urgent email prefill", :id => 'urgent-checkbox' %>
 	<%= check_box_tag :new_pay_period %>

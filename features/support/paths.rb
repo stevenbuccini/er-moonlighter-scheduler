@@ -4,7 +4,7 @@ module NavigationHelpers
     when /^the admin index$/
       '/admins'
     when /^the create email page$/
-      '/create-new-email'
+      '/create-email'
     end
   end
 end
