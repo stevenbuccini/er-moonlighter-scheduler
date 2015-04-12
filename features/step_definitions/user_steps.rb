@@ -87,7 +87,7 @@ Then /I should be unable to sign up for shifts/ do
 end
 
 Then /I should receive confirmation that the request was successful/ do
-  text = "You just signed up for the following shifts:"
+  text = "You successfully signed up for your requested shifts!"
   page.should have_content(text)
 end
 
