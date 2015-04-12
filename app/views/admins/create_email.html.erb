@@ -1,0 +1,76 @@
+<h1>Create new Email</h1>
+
+<%= form_tag send_mass_email_path do %>
+	<%= check_box_tag :urgent %>
+	<%= label_tag :urgent, "Use urgent email prefill", :id => 'urgent-checkbox' %>
+	<%= check_box_tag :new_pay_period %>
+	<%= label_tag :new_pay_period, "Use new pay period email prefill", :id => 'new-pay-period-checkbox' %>
+	<%= check_box_tag :custom %>
+	<%= label_tag :custom, "Write custom email", :id => 'custom-checkbox' %>
+	
+	<br>
+
+  <%= label_tag(:subject, "Subject") %>
+  <br>
+  <%= text_field_tag :subject, "Subject", :id => 'email-subject', :size =>'70x10'  %>
+  <br>
+  <%= label_tag(:body, "Email Body") %>
+  <br>
+  <%= text_area_tag :body, "Email Body", :id => 'email-body', :size => '70x20' %>
+  <br>	
+  <%= submit_tag "Send Email" %>
+<% end %>
+
+<div id="new-pay-period-text" style="display:none">
+	<p>*|first_name|*: a new pay period schedule is available!</p>
+	<pre>
+Hey *|first_name|*,
+
+A new pay period schedule is available. Feel free to sign up now at here.
+
+As a reminder, because this is a newly added pay period you will only be able to request certain shifts. Requesting a shift does not guarantee that you will be able to work that shift; it is only after the Calendar Administrator has approved your request for a given shift that you will be responsible for that shift. If you request is approved you will receive an email alert.
+
+Happy scheduling!
+The Moonlighter Team
+	</pre>
+</div>
+<div id="urgent-text" style="display:none">
+	<p>Urgent: Shifts still need to be filled for Pay Period *|pay_period_range|*</p>
+	<pre>
+Hey *|first_name|*,
+
+There are still unfulfilled shifts for the *|pay_period_range|* pay perdiod. Feel free to sign up now at here
+		
+As a reminder, these shifts do not need to be approved by the Calendar Admin. You may sign yourself up from any shift you would like.
+
+Happy scheduling!
+The Moonlighter Team
+	</pre>
+</div>
+
+<script>
+	var $email_body = $("#email-body"),
+			$email_subject = $("#email-subject");
+
+	$("#urgent-checkbox").on('click', function() {
+			$email_body.val($('#urgent-text > pre').text())
+			$email_subject.val($('#urgent-text > p').text())
+			$(":checkbox").prop('checked', false);
+			$email_body.attr("disabled",true)
+	});
+
+	$("#new-pay-period-checkbox").on('click', function() {
+			$email_body.val($('#new-pay-period-text > pre').text())
+			$email_subject.val($('#new-pay-period-text > p').text())
+			$(":checkbox").prop('checked', false);
+			$email_body.attr("disabled",true)
+	});
+
+	$("#custom-checkbox").on('click', function() {
+			$email_body.val("")
+			$email_subject.val("")
+			$(":checkbox").prop('checked', false);
+			$email_body.attr("disabled",false)
+	});
+
+</script>
