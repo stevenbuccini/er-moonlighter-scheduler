@@ -9,7 +9,11 @@ class ApplicationController < ActionController::Base
 
 	# Overriding the built-in Devise method to have people edit their info.
   def after_sign_in_path_for(user)
-  	edit_user_registration_path
+    if user.registration_complete
+  	  dashboard_index_path
+    else
+      edit_user_registration_path
+    end
   end
 
   protected
