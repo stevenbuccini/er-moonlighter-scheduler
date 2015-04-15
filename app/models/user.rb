@@ -19,11 +19,9 @@ class User < ActiveRecord::Base
     required = [ 'first_name', 'last_name', 'phone_1', 'email' ]
     required.each do |field|
       if self.send(field) == nil
-        self.registration_done = false
         return false
       end
     end
-    self.registration_done = true
     return true
   end
 
