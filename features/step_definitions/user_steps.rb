@@ -91,6 +91,21 @@ Then /I should receive confirmation that the request was successful/ do
   page.should have_content(text)
 end
 
+When /I log in with email "(.*)" and password "(.*)"/ do |email, password|
+  visit '/users/login'
+  fill_in 'user_email', :with => email
+  fill_in 'user_password', :with => password
+  click_button 'Log in'
+end
+
+When /I sign up with email "(.*)" and password "(.*)"/ do |email, password|
+  FactoryGirl.create(:doctor, email: email, password: password, first_name: nil, last_name: nil, phone_1: nil, phone_2: nil, phone_3: nil)
+  visit '/users/login'
+  fill_in 'user_email', :with => email
+  fill_in 'user_password', :with => password
+  click_button 'Log in'
+end
+
 private
 def add_doctor(first_name, last_name, email, phone_1, phone_2, phone_3)
   FactoryGirl.create(:doctor, :first_name => first_name, :last_name => last_name, :email => email, :phone_1 => phone_1, :phone_2 => phone_2, :phone_3 => phone_3)
