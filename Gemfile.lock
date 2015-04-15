@@ -37,6 +37,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    addressable (2.3.8)
     arel (6.0.0)
     autotest-rails (4.2.1)
       ZenTest (~> 4.5)
@@ -52,9 +53,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-webkit (1.5.0)
-      capybara (>= 2.3.0, < 2.5.0)
-      json
     cliver (0.3.2)
     codeclimate-test-reporter (0.4.7)
       simplecov (>= 0.7.1, < 1.0.0)
@@ -92,14 +90,20 @@ GEM
     erubis (2.7.0)
     excon (0.45.1)
     execjs (2.5.2)
+    extlib (0.9.16)
     factory_girl (2.6.4)
       activesupport (>= 2.3.9)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
     figaro (1.1.0)
       thor (~> 0.14)
     gherkin (2.12.2)
       multi_json (~> 1.3)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
+    google_calendar (0.4.4)
+      json (~> 1.8)
+      signet (~> 0.5)
     hike (1.2.3)
     i18n (0.7.0)
     jbuilder (2.2.13)
@@ -110,6 +114,7 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.2)
+    jwt (1.4.1)
     loofah (2.0.1)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -122,6 +127,7 @@ GEM
     minitest (5.5.1)
     multi_json (1.11.0)
     multi_test (0.1.2)
+    multipart-post (2.0.0)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
@@ -189,6 +195,12 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    signet (0.6.0)
+      addressable (~> 2.3)
+      extlib (~> 0.9)
+      faraday (~> 0.9)
+      jwt (~> 1.0)
+      multi_json (~> 1.10)
     simplecov (0.9.2)
       docile (~> 1.1.0)
       multi_json (~> 1.0)
@@ -235,7 +247,6 @@ DEPENDENCIES
   autotest-rails
   byebug
   capybara
-  capybara-webkit
   codeclimate-test-reporter
   coffee-rails (~> 4.1.0)
   cucumber-rails
@@ -243,6 +254,7 @@ DEPENDENCIES
   devise
   factory_girl (~> 2.2)
   figaro
+  google_calendar
   jbuilder (~> 2.0)
   jquery-rails
   mandrill-api
