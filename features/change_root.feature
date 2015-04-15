@@ -7,10 +7,14 @@ Feature: change root
 Background: User exists
   Given one default admin exists
 
+  Given the following doctors exist:
+  |first_name  |last_name   |email                  |phone_1        |phone_2        |phone_3       |
+  |Kristina    |Sep         |sep@example.com        |111-111-1111   |               |              |
 
-Scenario: Update Info for Doctor
-  Given I have created an account
-  When I sign in for the first time
-  Then I should edit my info
-  And then I should be on the doctor index page
-  And I should see my first name, last name, and email
+Scenario: Complete registration login
+  When I log in with email "sep@example.com" and password "password"
+  Then I should see "Current Shifts available"
+
+Scenario: Complete registration login
+  When I sign up with email "tester@example.com" and password "password"
+  Then I should see "Edit User"
