@@ -4,7 +4,6 @@ class CreateShifts < ActiveRecord::Migration
       t.datetime :start
       t.datetime :end
       t.boolean :confirmed
-
       t.timestamps null: false
     end
   end

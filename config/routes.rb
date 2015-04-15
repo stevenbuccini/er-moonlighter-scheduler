@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  resources :pay_periods
+
   get 'dashboard/view'
 
   get 'dashboard/index'
 
-  resources :admins, :doctors
+  resources :admins, :doctors, :pay_periods
 
   # We're implementing a custom controller for registration purposes.
   devise_for :users, path_names: {sign_in: 'login', sign_out: 'logout'}, controllers: {registrations: 'users/registrations'}
@@ -15,10 +17,15 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
 
+  #get 'update-doctor-and-admin-pay-period', to: 'admin#update_doctor_and_admin_pay_period', as: "update_doctor_and_admin_pay_period"
+
   post '/send-email', to: 'admins#send_email', as: "send_email"
   get '/create-email', to: 'admins#create_email', as: "create_email"
 
   get '/approve-doctor/:user', to: 'admins#approve_doctor', as: "approve_doctor"
+  get 'create-new-pay-period', to: 'admins#create_new_pay_period', as: "create_new_pay_period"
+  get 'edit-current-pay-period', to: 'admins#edit_current_pay_period', as: "edit_current_pay_period"
+
 
   post '/request-shifts', to:'shifts#update', as: "sign_up_for_shifts"
 

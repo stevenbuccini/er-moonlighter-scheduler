@@ -4,5 +4,7 @@ class AddBaseFieldsToUser < ActiveRecord::Migration
   	 add_column :users, :first_name, :string
   	 add_column :users, :last_name, :string
   	 add_column :users, :type, :string
+  	 #id for the current payperiod
+  	 add_column :users, :pay_period_id, :integer, :default => :nil
   end
 end

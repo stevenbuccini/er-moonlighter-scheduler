@@ -1,4 +1,5 @@
 class PayPeriod < ActiveRecord::Base
+	has_many :admins
 	has_many :shifts, :dependent => :destroy
 	has_many :doctors, :through => :shifts
 

@@ -1,7 +1,7 @@
 class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user! # redirect if user isn't signed in
-  before_filter :check_user_type, :except => :destroy# redirect if user is not an admin
+  before_filter :check_user_authorization, :except => :destroy# redirect if user is not an admin
   before_filter :admin_only_view, only: [:create_email, :send_email]
 
   # GET /admins
@@ -11,6 +11,7 @@ class AdminsController < ApplicationController
     @doctors = Doctor.all
     @shifts = Shift.all
     @users_awaiting_approver = User.where(:type =>nil)
+    @current_pay_period = PayPeriod.find_by_id current_user.pay_period_id
   end
 
   # GET /admins/1
@@ -106,6 +107,18 @@ class AdminsController < ApplicationController
     end
   end
 
+  #To create a new payperiod for doctors and admins
+  #After successful creation, current_pay_period is updated for both admins and doctor to the newly created payperiod
+  def create_new_pay_period
+    redirect_to :controller => 'pay_periods' , :action => 'new' and return
+  end
+
+
+  #To create a new payperiod for doctors
+  def edit_current_pay_period
+    redirect_to :controller => 'pay_periods', :action => 'edit' , :id => 1 and return
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_admin
@@ -117,7 +130,7 @@ class AdminsController < ApplicationController
     def admin_params
       params.require(:admin).permit(:first_name, :last_name, :phone_1, :phone_2, :phone_3)
     end
-    def check_user_type
+    def check_user_authorization
       if current_user.type != Admin.NAME
         flash[:alert] = "You are not authorised to view an Admin's page"
         redirect_to :controller => 'dashboard', :action => 'view'
