@@ -40,6 +40,9 @@ gem 'figaro'
 #using for email automation
 gem 'mandrill-api', require: 'mandrill'
 
+#using for Google Calendar integration
+gem 'google_calendar'
+
 group :production do
  gem 'pg'
 end
