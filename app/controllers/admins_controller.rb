@@ -115,7 +115,7 @@ class AdminsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admin_params
-      params.require(:admin).permit(:first_name, :last_name, :phone_1, :phone_2, :phone_3)
+      params.require(:admin).permit(:first_name, :last_name, :phone_1, :phone_2, :phone_3, :comments)
     end
     def check_user_type
       if current_user.type != Admin.NAME
