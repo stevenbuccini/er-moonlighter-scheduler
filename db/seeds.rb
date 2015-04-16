@@ -8,18 +8,18 @@
 
 require 'date'
 
-users = [{:first_name => 'Joe', :last_name => "Biden",:type => "Doctor", :email => 'jbiden@example.com', :phone_1 => '012-345-6789', :phone_2 => '333-333-3333', :phone_3 => '444-444-4444', :password => 11111111},
-    	  {:first_name => 'James', :last_name => "Brown",:type => "Doctor", :email => 'jbrown@example.com', :phone_1 => '223-232-2323', :phone_2 => '567-567-5675', :password => 11111111},
-        {:first_name => 'Simon', :last_name => "Jones",:type => "Doctor", :email => 'sjones@example.com', :phone_1 => '777-777-7777', :password => 11111111},
+users = [{:first_name => 'Joe', :last_name => "Biden",:type => "Doctor", :email => 'jbiden@example.com', :phone_1 => '012-345-6789', :phone_2 => '333-333-3333', :phone_3 => '444-444-4444', :password => 11111111, :comments => "I prefer weekends"},
+    	  {:first_name => 'James', :last_name => "Brown",:type => "Doctor", :email => 'jbrown@example.com', :phone_1 => '223-232-2323', :phone_2 => '567-567-5675', :password => 11111111, :comments => "I can work evenings a lot easier than morning"},
+        {:first_name => 'Simon', :last_name => "Jones",:type => "Doctor", :email => 'sjones@example.com', :phone_1 => '777-777-7777', :password => 11111111, :comments => "I can work anytime!"},
         {:first_name => 'James', :last_name => "Brown",:type => "Doctor", :email => 'jbrown2@example.com', :phone_1 => '223-232-2323', :phone_2 => '567-567-5675', :password => 11111111},
         {:first_name => 'Sarah', :last_name => "Wilson",:type => "Doctor", :email => 'swilson@example.com', :phone_1 => '563-345-2345', :phone_2 => '666-666-6666', :phone_3 => '888-888-8888', :password => 11111111},
         {:first_name => 'Anna', :last_name => "Hathaway",:type => "Admin", :email => 'ahathway@example.com', :phone_1 => '234-645-7867', :password => 11111111},
         {:first_name => 'Mitchel', :last_name => "Nitche",:type => "Doctor", :email => 'mnitche@example.com', :phone_1 => '760-805-9889', :phone_2 => '456-456-4564', :password => 11111111},
         {:first_name => 'Leonard', :last_name => "Ralph",:type => "Admin", :email => 'lralph@example.com', :phone_1 => '887-546-4575', :password => 11111111},
         {:first_name => 'Thomas', :last_name => "Jacob",:type => "Admin", :email => 'tjacob@example.com', :phone_1 => '999-998-8787', :password => 11111111},
-        {:first_name => 'Britney', :last_name => "Spears", :type => "User", :email => 'bspears@example.com', :phone_1 => '237-765-9999', :password => 11111111},
-        {:first_name => 'Rihanna', :last_name => "Brown", :type => "User", :email => 'missbrown@example.com', :phone_1 => '567-897-8670', :password => 11111111},
-        {:first_name => 'Kate', :last_name => "Hudson", :type => "User", :email => 'khudson555@example.com', :phone_1 => '555-678-3467', :password => 11111111},
+        {:first_name => 'Britney', :last_name => "Spears", :type => nil, :email => 'bspears@example.com', :phone_1 => '237-765-9999', :password => 11111111},
+        {:first_name => 'Rihanna', :last_name => "Brown", :type => nil, :email => 'missbrown@example.com', :phone_1 => '567-897-8670', :password => 11111111},
+        {:first_name => 'Kate', :last_name => "Hudson", :type => nil, :email => 'khudson555@example.com', :phone_1 => '555-678-3467', :password => 11111111},
         {:type => "User", :email => 'reg_test@example.com', :password => 11111111}, 
         {:type => "User", :email => 'reg_test2@example.com', :password => 11111111},
         {:type => "User", :email => 'reg_test3@example.com', :password => 11111111}
