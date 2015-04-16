@@ -1,7 +1,7 @@
 <h1>Create new Email</h1>
 
 
-<%= form_tag send_mass_email_path do %>
+<%= form_tag send_email_path do %>
 	<%= radio_button_tag :email_type, :urgent %>
 	<%= label_tag :urgent, "Use urgent email prefill" %>
 	<%= radio_button_tag :email_type, :new_pay_period %>

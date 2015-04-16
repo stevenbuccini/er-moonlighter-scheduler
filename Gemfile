@@ -40,6 +40,9 @@ gem 'figaro'
 #using for email automation
 gem 'mandrill-api', require: 'mandrill'
 
+#using for Google Calendar integration
+gem 'google_calendar'
+
 group :production do
  gem 'pg'
 end
@@ -64,7 +67,6 @@ group :development, :test do
   gem 'codeclimate-test-reporter', require: nil
   gem 'factory_girl', '~> 2.2'
   gem 'capybara'
-  gem 'capybara-webkit'
   gem 'poltergeist'
   gem 'autotest-rails'
 end

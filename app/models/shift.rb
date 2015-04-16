@@ -14,7 +14,7 @@ class Shift < ActiveRecord::Base
     # an instance of this model, including find() !
 
     if new_record?
-      self.confirmed = false 
+      self.confirmed = false
     end
   end
 
