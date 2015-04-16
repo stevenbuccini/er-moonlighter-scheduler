@@ -17,9 +17,9 @@ users = [{:first_name => 'Joe', :last_name => "Biden",:type => "Doctor", :email 
         {:first_name => 'Mitchel', :last_name => "Nitche",:type => "Doctor", :email => 'mnitche@example.com', :phone_1 => '760-805-9889', :phone_2 => '456-456-4564', :password => 11111111},
         {:first_name => 'Leonard', :last_name => "Ralph",:type => "Admin", :email => 'lralph@example.com', :phone_1 => '887-546-4575', :password => 11111111},
         {:first_name => 'Thomas', :last_name => "Jacob",:type => "Admin", :email => 'tjacob@example.com', :phone_1 => '999-998-8787', :password => 11111111},
-        {:first_name => 'Britney', :last_name => "Spears", :type => "User", :email => 'bspears@example.com', :phone_1 => '237-765-9999', :password => 11111111},
-        {:first_name => 'Rihanna', :last_name => "Brown", :type => "User", :email => 'missbrown@example.com', :phone_1 => '567-897-8670', :password => 11111111},
-        {:first_name => 'Kate', :last_name => "Hudson", :type => "User", :email => 'khudson555@example.com', :phone_1 => '555-678-3467', :password => 11111111},
+        {:first_name => 'Britney', :last_name => "Spears", :type => nil, :email => 'bspears@example.com', :phone_1 => '237-765-9999', :password => 11111111},
+        {:first_name => 'Rihanna', :last_name => "Brown", :type => nil, :email => 'missbrown@example.com', :phone_1 => '567-897-8670', :password => 11111111},
+        {:first_name => 'Kate', :last_name => "Hudson", :type => nil, :email => 'khudson555@example.com', :phone_1 => '555-678-3467', :password => 11111111},
         {:type => "User", :email => 'reg_test@example.com', :password => 11111111}, 
         {:type => "User", :email => 'reg_test2@example.com', :password => 11111111},
         {:type => "User", :email => 'reg_test3@example.com', :password => 11111111}
