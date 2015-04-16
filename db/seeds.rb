@@ -20,9 +20,9 @@ users = [{:first_name => 'Joe', :last_name => "Biden",:type => "Doctor", :email 
         {:first_name => 'Britney', :last_name => "Spears", :type => nil, :email => 'bspears@example.com', :phone_1 => '237-765-9999', :password => 11111111},
         {:first_name => 'Rihanna', :last_name => "Brown", :type => nil, :email => 'missbrown@example.com', :phone_1 => '567-897-8670', :password => 11111111},
         {:first_name => 'Kate', :last_name => "Hudson", :type => nil, :email => 'khudson555@example.com', :phone_1 => '555-678-3467', :password => 11111111},
-        {:type => "User", :email => 'reg_test@example.com', :password => 11111111}, 
-        {:type => "User", :email => 'reg_test2@example.com', :password => 11111111},
-        {:type => "User", :email => 'reg_test3@example.com', :password => 11111111}
+        {:type => nil, :email => 'reg_test@example.com', :password => 11111111}, 
+        {:type => nil, :email => 'reg_test2@example.com', :password => 11111111},
+        {:type => nil, :email => 'reg_test3@example.com', :password => 11111111}
   	 ]
 
 users.each do |user|
