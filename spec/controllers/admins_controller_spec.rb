@@ -46,6 +46,77 @@ RSpec.describe AdminsController, type: :controller do
       post :send_email
       expect(response).to redirect_to root_url
     end
+  end
 
+  describe 'index method' do 
+    login_admin
+    before :each do 
+      @admin = FactoryGirl.create(:admin)
+      @doctor = FactoryGirl.create(:doctor)
+      @shift = FactoryGirl.create(:shift)
+    end
+    it 'should call .all on each model' do 
+      expect(Admin).to receive(:all).and_return(@admin)
+      expect(Doctor).to receive(:all).and_return(@doctor)
+      expect(Shift).to receive(:all).and_return(@shift)
+      get :index
+    end
+  end
+
+  describe 'show' do 
+    login_admin
+    before :each do 
+      @admin = FactoryGirl.create(:admin)
+    end
+    it 'should call .find in Admin' do 
+      expect(Admin).to receive(:find).at_least(:once).with(@admin.id.to_s).and_return(@admin)
+      get :show, :id => @admin.id
+    end
+    it 'should render the show page' do 
+      Admin.stub(:find).and_return(@admin)
+      get :show, :id => @admin.id
+      expect(response).to render_template('admins/show/')
+    end
+  end
+
+  describe 'new' do 
+    login_admin
+    it 'should call new in Admin' do 
+      expect(Admin).to receive(:new)
+      get :new
+    end
+  end
+
+  describe 'edit' do 
+    login_admin
+    before :each do 
+      @admin = FactoryGirl.create(:admin)
+    end
+    it 'should call .find in Admin' do 
+      expect(Admin).to receive(:find).at_least(:once).with(@admin.id.to_s).and_return(@admin)
+      get :edit, :id => @admin.id
+    end
+    it 'should render the show page' do 
+      Admin.stub(:find).and_return(@admin)
+      get :edit, :id => @admin.id
+      expect(response).to render_template('admins/edit/')
+    end
   end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
