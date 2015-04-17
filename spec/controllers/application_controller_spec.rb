@@ -64,4 +64,22 @@ RSpec.describe ApplicationController, type: :controller do
       expect(response).to eql(true)
     end
   end
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
