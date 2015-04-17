@@ -31,16 +31,22 @@ class AdminsController < ApplicationController
   end
 
   def create_email
+    @doctors = Doctor.all
   end
 
   def send_email
-    @doctors = Doctor.all
-    sent_to = "Email sent to: " + Admin.get_doctor_names(@doctors)
-    @doctors.each do |doctor|
-      current_user.send_email(doctor, params)
-    end    
-    flash[:notice] = sent_to
-    redirect_to '/'
+    if params[:activated] == nil || params[:activated] == ""
+      flash[:notice] = "Please select doctors you want to send emails to"
+      redirect_to '/create-email'
+    else
+      @doctors = Doctor.find(params[:activated])
+      sent_to = "Email sent to: " + Admin.get_doctor_names(@doctors)
+      @doctors.each do |doctor|
+        current_user.send_email(doctor, params)
+      end
+      flash[:notice] = sent_to
+      redirect_to '/'
+    end
   end
 
   # POST /admins
