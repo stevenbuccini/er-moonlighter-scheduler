@@ -38,39 +38,27 @@ class AdminsController < ApplicationController
     @doctors = Doctor.all
     sent_to = "Email sent to: " + Admin.get_doctor_names(@doctors)
     @doctors.each do |doctor|
-
-      case params[:email_type]
-      when 'urgent'
-        #UserMailer.send
-        UserMailer.urgent_email(doctor).deliver_now
-      when 'new_pay_period'
-        UserMailer.new_pay_period_email(doctor).deliver_now
-      else
-        subject = params[:subject]
-        text = params[:body]
-        UserMailer.custom_email(doctor, subject, text).deliver_now
-      end
-    end
-    
+      current_user.send_email(doctor, params)
+    end    
     flash[:notice] = sent_to
     redirect_to '/'
   end
 
   # POST /admins
   # POST /admins.json
-  def create
-    @admin = Admin.new(admin_params)
+  # def create
+  #   @admin = Admin.new(admin_params)
 
-    respond_to do |format|
-      if @admin.save
-        format.html { redirect_to @admin, notice: 'Admin was successfully created.' }
-        format.json { render :show, status: :created, location: @admin }
-      else
-        format.html { render :new }
-        format.json { render json: @admin.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #   respond_to do |format|
+  #     if @admin.save
+  #       format.html { redirect_to @admin, notice: 'Admin was successfully created.' }
+  #       format.json { render :show, status: :created, location: @admin }
+  #     else
+  #       format.html { render :new }
+  #       format.json { render json: @admin.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # PATCH/PUT /admins/1
   # PATCH/PUT /admins/1.json
