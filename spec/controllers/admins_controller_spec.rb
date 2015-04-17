@@ -54,14 +54,11 @@ RSpec.describe AdminsController, type: :controller do
       @admin = FactoryGirl.create(:admin)
       @doctor = FactoryGirl.create(:doctor)
       @shift = FactoryGirl.create(:shift)
-      @user1 = FactoryGirl.create(:user, type: nil)
-      @user2 = FactoryGirl.create(:user, type: nil, email: "s@example.com")
     end
     it 'should call .all on each model' do 
       expect(Admin).to receive(:all).and_return(@admin)
       expect(Doctor).to receive(:all).and_return(@doctor)
       expect(Shift).to receive(:all).and_return(@shift)
-      expect(User).to receive(:where).at_least(:once).with("nil").and_return(@user1, @user2)
       get :index
     end
   end

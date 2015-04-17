@@ -65,46 +65,6 @@ RSpec.describe ApplicationController, type: :controller do
     end
   end
 
-  describe '#after_sign_in_path_for' do 
-    context 'fully registered user' do 
-      before :each do 
-        @request.env["devise.mapping"] = Devise.mappings[:doctor]
-        @user = FactoryGirl.create(:doctor)
-        #sign_in @user
-      end
-      it 'should call registration_complete and return true' do 
-        expect(@user).to receive(:registration_complete).and_return(true)
-        #get :after_sign_in_path_for, :user => @user
-        sign_in @user
-      end
-
-      it 'should render doctor index' do 
-        @user.stub(:registration_complete).and_return(@user)
-        #get :after_sign_in_path, {:user => user}
-        expect(response).to render_template('doctors')
-      end
-    end
-
-    context 'unregistered user' do 
-      before :each do 
-        @request.env["devise.mapping"] = Devise.mappings[:doctor]
-        user = FactoryGirl.create(:doctor, first_name: nil)
-        sign_in user
-      end
-      it 'should call registration_complete and return false' do 
-        expect(User).to receive(:registration_complete).and_return(false)
-        get :after_sign_in_path, {:user => user}
-      end
-      it 'should render the edit user page' do 
-        User.stub(:registration_complete).and_return(false)
-        get :after_sign_in_path, {:user => user}
-        expect(response).to render_template('users/edit')
-      end
-    end
-  end
-
-
-
 end
 
 
