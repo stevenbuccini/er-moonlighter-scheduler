@@ -7,6 +7,6 @@ Feature: Create Pay Period schema
 Background: An admin and the following shift exist in the database
 
 
-Scenario:
+Scenario: release new pay period
 
-Scenario: 
+Scenario: edit curent pay period
