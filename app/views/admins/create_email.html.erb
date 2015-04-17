@@ -1,12 +1,13 @@
 <h1>Create new Email</h1>
 
-
-<%= form_tag send_email_path do %>
-	<%= radio_button_tag :email_type, :urgent %>
+<div style="width: 100%;">
+<%= form_tag send_email_path :id => 'send_email_form' do %>
+  <div style="float:left; width: 50%">
+	<%= radio_button_tag :email_type, :urgent, false, :onclick => "fillEmailBody('urgent')"%>
 	<%= label_tag :urgent, "Use urgent email prefill" %>
-	<%= radio_button_tag :email_type, :new_pay_period %>
+	<%= radio_button_tag :email_type, :new_pay_period, false, :onclick => "fillEmailBody('new_pay_period')"%>
 	<%= label_tag :new_pay_period, "Use new pay period email prefill" %>
-	<%= radio_button_tag :email_type, :custom , true%>
+	<%= radio_button_tag :email_type, :custom , true, :onclick => "fillEmailBody('custom')"%>
 	<%= label_tag :custom, "Write custom email" %>
 
 	<br>
@@ -19,11 +20,41 @@
   <br>
   <%= text_area_tag :body, "Email Body", :id => 'email-body', :size => '70x20' %>
   <br>
+  </div>
+	<div style="float:right;">
+		<h3>Check the doctors you want to send emails to</h3>
+		<table cellspacing="10">
+	    <thead>
+		    <tr>
+					<%= check_box_tag 'select_all', 1, false, class: 'activated'%>
+					<%= label_tag :select_all, " Select All Doctors" %>
+				</tr>
+	   </thead>
+	   <tbody>
+		   <tr>
+				 <th>Send Email</th>
+			   <th>First Name</th>
+			   <th>Last Name</th>
+			   <th>Email</th>
+		   <% @doctors.each do |doctor| %>
+			 <tr>
+         <td><%= check_box_tag 'activated[]', doctor.id, false, class: 'activated'%></td>
+				 <td><%= doctor.first_name %></td>
+				 <td><%= doctor.last_name %></td>
+				 <td><%= doctor.email %></td>
+			 </tr>
+		   <% end %>
+	   </tbody>
+</table>
+	</div>
+	<div style="clear:both"></div>
   <%= submit_tag "Send Email" %>
 <% end %>
+</div>
 
-<div id="new-pay-period-text" style="display:none">
-	<p>*|first_name|*: a new pay period schedule is available!</p>
+<div id="new_pay_period-text" style="display:none">
+	<p>*|first_name|*: a new pay period schedule is available!
+	</p>
 	<pre>
 Hey *|first_name|*,
 
@@ -35,6 +66,7 @@ Happy scheduling!
 The Moonlighter Team
 	</pre>
 </div>
+
 <div id="urgent-text" style="display:none">
 	<p>Urgent: Shifts still need to be filled for Pay Period *|pay_period_range|*</p>
 	<pre>
@@ -46,34 +78,28 @@ As a reminder, these shifts do not need to be approved by the Calendar Admin. Yo
 
 Happy scheduling!
 The Moonlighter Team
-	</pre>
+  </pre>
+</div>
+<div id="custom-text" style="display:none">
+	<p></p>
+	<pre>
+  </pre>
 </div>
 
 <script>
-	var $email_body = $("#email-body"),
-			$email_subject = $("#email-subject");
-			console.log("script launched")
-
-	$("#email_type_urgent").on('click', function() {
-			console.log("click !")
-			$email_body.val($('#urgent-text > pre').text())
-			$email_subject.val($('#urgent-text > p').text())
-			$(":checkbox").prop('checked', false);
-			$email_body.attr("disabled",true)
+	var $checked = false;
+	$('#select_all').click(function() {
+		$checked = !$checked
+		$(".activated").each(function(){
+			$(this).prop("checked", $checked)
+			$(this).parent().toggleClass("checked", $checked)
+		});
 	});
 
-	$("#email_type_new_pay_period").on('click', function() {
-			$email_body.val($('#new-pay-period-text > pre').text())
-			$email_subject.val($('#new-pay-period-text > p').text())
-			$(":checkbox").prop('checked', false);
-			$email_body.attr("disabled",true)
-	});
-
-	$("#email_type_custom").on('click', function() {
-			$email_body.val("")
-			$email_subject.val("")
-			$(":checkbox").prop('checked', false);
-			$email_body.attr("disabled",false)
-	});
-
+	var fillEmailBody = function (idTypeEmail) {
+		  console.log('fill Email Body ' + idTypeEmail)
+			$("#email-body").val($('#'+ idTypeEmail + '-text > pre').text())
+			$("#email-subject").val($('#' + idTypeEmail + '-text > p').text())
+			$("#email-body").attr("disabled",true)
+	}
 </script>
