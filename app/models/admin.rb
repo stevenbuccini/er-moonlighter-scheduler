@@ -9,4 +9,18 @@ class Admin < User
 		end
 		names
 	end
+
+	def send_email(doctor, params)
+		case params[:email_type]
+      when 'urgent'
+        #UserMailer.send
+        UserMailer.urgent_email(doctor).deliver_now
+      when 'new_pay_period'
+        UserMailer.new_pay_period_email(doctor).deliver_now
+      else
+        subject = params[:subject]
+        text = params[:body]
+        UserMailer.custom_email(doctor, subject, text).deliver_now
+    end
+	end
 end
