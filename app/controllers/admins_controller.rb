@@ -37,7 +37,7 @@ class AdminsController < ApplicationController
     @doctors = Doctor.all
     sent_to = "Email sent to: " + Admin.get_doctor_names(@doctors)
     @doctors.each do |doctor|
-      Admin.send_email(doctor, params)
+      current_user.send_email(doctor, params)
     end    
     flash[:notice] = sent_to
     redirect_to '/'
