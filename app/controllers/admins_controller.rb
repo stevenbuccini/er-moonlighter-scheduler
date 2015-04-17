@@ -107,6 +107,19 @@ class AdminsController < ApplicationController
     end
   end
 
+  def approve_doctor
+    approve_user("Doctor")
+    # @user = User.find_by_id params[:user]
+    # if @user
+    #   @user.update_attribute(:type, "Doctor")
+    #   flash[:notice] = "Approved #{@user.first_name} as a doctor!"
+    # end
+  end
+
+  def approve_new_admin
+    approve_user("Admin")
+  end
+
   #To create a new payperiod for doctors and admins
   #After successful creation, current_pay_period is updated for both admins and doctor to the newly created payperiod
   def create_new_pay_period
@@ -134,6 +147,15 @@ class AdminsController < ApplicationController
       if current_user.type != Admin.NAME
         flash[:alert] = "You are not authorised to view an Admin's page"
         redirect_to :controller => 'dashboard', :action => 'view'
+      end
+    end
+
+    #TODO: 
+    def approve_user(user_type)
+       @user = User.find_by_id params[:user]
+      if @user
+        @user.update_attribute(:type, user_type)
+        flash[:notice] = "Approved #{@user.first_name} as a #{user_type.downcase}!"
       end
     end
 end

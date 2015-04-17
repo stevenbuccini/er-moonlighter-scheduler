@@ -97,7 +97,8 @@
         <td><%= user.phone_1 %></td>
         <td><%= user.phone_2 %></td>
         <td><%= user.phone_3 %></td>
-        <td><%= link_to 'Aprove Doctor', approve_doctor_path(user) %></td>
+        <td><%= link_to 'Aprove as a doctor', approve_doctor_path(user) %></td>
+        <td><%= link_to 'Aprove as an admin', approve_new_admin_path(user) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -108,7 +109,7 @@
 <%= link_to 'Send Email', create_email_path %>
 <%= link_to 'New doctor', new_doctor_path %>
 <br>
-<%= link_to 'Create new pay period', create_new_pay_period_path %>
+<%= link_to 'Release a new pay period for MoonLighters', create_new_pay_period_path %>
 <br>
 <%= link_to 'Edit current pay period', edit_current_pay_period_path %>
 

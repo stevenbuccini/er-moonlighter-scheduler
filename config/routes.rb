@@ -22,7 +22,10 @@ Rails.application.routes.draw do
   post '/send-email', to: 'admins#send_email', as: "send_email"
   get '/create-email', to: 'admins#create_email', as: "create_email"
 
+  #Approve new user route:
   get '/approve-doctor/:user', to: 'admins#approve_doctor', as: "approve_doctor"
+  get '/approve-new-admin/:user', to: 'admins#approve_new_admin', as: "approve_new_admin"
+
   get 'create-new-pay-period', to: 'admins#create_new_pay_period', as: "create_new_pay_period"
   get 'edit-current-pay-period', to: 'admins#edit_current_pay_period', as: "edit_current_pay_period"
 
