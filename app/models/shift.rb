@@ -1,4 +1,9 @@
+require 'concerns/calendar'
+
 class Shift < ActiveRecord::Base
+
+  include Calendar
+
   belongs_to :doctor
   belongs_to :pay_period
 
@@ -31,12 +36,12 @@ class Shift < ActiveRecord::Base
     self.doctor = current_user
   end
 
-  def start_datetime_must_be_before_end_datetime
-    # Check for non-nil since the ">" operator is not defined for these functions.
-    if start_datetime and end_datetime
-      errors.add(:sanity_check, "end time can't be before the start time") if start_datetime > end_datetime
-    end
-  end
+  # def start_datetime_must_be_before_end_datetime
+  #   # Check for non-nil since the ">" operator is not defined for these functions.
+  #   if start_datetime and end_datetime
+  #     errors.add(:sanity_check, "end time can't be before the start time") if start_datetime > end_datetime
+  #   end
+  # end
 
   def self.assign_multiple_shifts(array_of_ids, doctor)
     # Bulk assign shifts. Return true if successful, false if save fails.
@@ -57,6 +62,7 @@ class Shift < ActiveRecord::Base
         end
       end
       Shift.where(id: shifts_to_update_ids).update_all({confirmed: true, doctor_id: doctor.id})
+
     end
     if !(taken_shifts.empty?)
       transaction_errors[:claimed_shifts] = taken_shifts
@@ -66,4 +72,11 @@ class Shift < ActiveRecord::Base
     end
     return transaction_errors
   end
+
+
+  def self.get_all_shifts_in_range(start_datetime, end_datetime)
+    # Have to wrap this instance method because we can't call the class method direclty 
+    return Shift.new().gcal_get_events_in_range(start_datetime, end_datetime)
+  end
+
 end
