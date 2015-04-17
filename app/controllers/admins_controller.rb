@@ -45,19 +45,19 @@ class AdminsController < ApplicationController
 
   # POST /admins
   # POST /admins.json
-  def create
-    @admin = Admin.new(admin_params)
+  # def create
+  #   @admin = Admin.new(admin_params)
 
-    respond_to do |format|
-      if @admin.save
-        format.html { redirect_to @admin, notice: 'Admin was successfully created.' }
-        format.json { render :show, status: :created, location: @admin }
-      else
-        format.html { render :new }
-        format.json { render json: @admin.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #   respond_to do |format|
+  #     if @admin.save
+  #       format.html { redirect_to @admin, notice: 'Admin was successfully created.' }
+  #       format.json { render :show, status: :created, location: @admin }
+  #     else
+  #       format.html { render :new }
+  #       format.json { render json: @admin.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # PATCH/PUT /admins/1
   # PATCH/PUT /admins/1.json

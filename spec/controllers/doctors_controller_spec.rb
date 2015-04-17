@@ -18,7 +18,7 @@ RSpec.describe DoctorsController, type: :controller do
 
     it 'should call the update Model method' do
       
-      @doctor.should_receive(:update).with({"first_name" => @new_first_name}.with_indifferent_access)#.and_return(:true)
+      @doctor.should_receive(:update).with({"first_name" => @new_first_name}.with_indifferent_access)
       put :update, :id => @doctor.id, :doctor => {:first_name => @new_first_name}
     end
 
@@ -32,4 +32,20 @@ RSpec.describe DoctorsController, type: :controller do
       expect(response).to redirect_to @doctor
     end 
    end
+
+   describe 'edit' do 
+    login_admin
+    before :each do 
+      @doctor = FactoryGirl.create(:doctor)
+    end
+    it 'should call .find in Doctor' do 
+      expect(Doctor).to receive(:find).at_least(:once).with(@doctor.id.to_s).and_return(@doctor)
+      get :edit, :id => @doctor.id
+    end
+    it 'should render the show page' do 
+      Doctor.stub(:find).and_return(@doctor)
+      get :edit, :id => @doctor.id
+      expect(response).to render_template('doctors/edit/')
+    end
+  end
 end
