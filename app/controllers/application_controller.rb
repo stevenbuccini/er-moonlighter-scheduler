@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   def destroy_helper(user, path, model_name)
     user.destroy
     respond_to do |format|
-      format.html { redirect_to path, notice: '#{model_name} was successfully destroyed.' }
+      format.html { redirect_to path, notice: "#{model_name} was successfully destroyed." }
       format.json { head :no_content }
     end
   end
