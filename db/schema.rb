@@ -24,6 +24,13 @@ ActiveRecord::Schema.define(version: 20150416161919) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "pay_periods", force: :cascade do |t|
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "shifts", force: :cascade do |t|
     t.datetime "start_datetime"
     t.datetime "end_datetime"
@@ -31,6 +38,7 @@ ActiveRecord::Schema.define(version: 20150416161919) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.integer  "doctor_id"
+    t.integer  "pay_period_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -49,6 +57,7 @@ ActiveRecord::Schema.define(version: 20150416161919) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "type"
+    t.integer  "pay_period_id"
     t.string   "phone_1"
     t.string   "phone_2"
     t.string   "phone_3"

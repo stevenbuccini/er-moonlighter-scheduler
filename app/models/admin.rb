@@ -1,5 +1,6 @@
 class Admin < User
 	@@NAME = "Admin"
+	belongs_to :pay_period
 	def self.NAME; @@NAME; end
 
 	def self.get_doctor_names(doctors)
@@ -21,5 +22,10 @@ class Admin < User
         text = params[:body]
         UserMailer.custom_email(doctor, subject, text).deliver_now
     end
+	end
+	def self.update_pay_period(id)
+		Admin.all.each do |adm|
+			adm.update_attribute(:pay_period_id, id)
+		end
 	end
 end

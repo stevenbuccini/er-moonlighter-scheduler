@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @pay_period.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @pay_period.end_date %>
+</p>
+
+<%= link_to 'Edit', edit_pay_period_path(@pay_period) %> |
+<%= link_to 'Back', pay_periods_path %>

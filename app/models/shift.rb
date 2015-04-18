@@ -1,5 +1,6 @@
 class Shift < ActiveRecord::Base
   belongs_to :doctor
+  belongs_to :pay_period
 
   after_initialize :init
 

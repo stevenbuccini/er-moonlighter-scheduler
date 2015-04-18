@@ -7,6 +7,16 @@ module ControllerMacros
     end
   end
 
+   def login_admin_return(email)
+    before(:each) do
+      @request.env["devise.mapping"] = Devise.mappings[:admin]
+      user =  FactoryGirl.create(:admin, :email => email) # Using factory girl as an example
+      sign_in user 
+      return user 
+    end
+  end
+
+
   def login_user
     before(:each) do
       @request.env["devise.mapping"] = Devise.mappings[:user]

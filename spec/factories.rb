@@ -46,6 +46,12 @@ Factory.define :shift do |s|
   s.confirmed false
   s.doctor_id nil
 end
+Factory.define :pay_period do |p|
+  p.created_at '2015-03-13 04:08:15'
+  p.updated_at '2015-03-13 04:08:15'
+  p.start_date DateTime.new(2015, 2, 14, 8, 00)
+  p.end_date DateTime.new(2015, 2, 14, 13, 00)
+end
 
 Factory.define :user do |a|
   a.created_at '2015-03-13 04:08:15'
