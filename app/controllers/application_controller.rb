@@ -47,4 +47,23 @@ class ApplicationController < ActionController::Base
       return true
     end
   end 
+
+  def check_users_authorization_helper(type)
+    if current_user.type != type
+      flash[:alert] = "You are not authorised to perform this action"
+      redirect_to :controller => 'dashboard', :action => 'view'
+    end
+  end
+
+  def update_helper(model, model_name, params)
+    respond_to do |format|
+      if model.update(params)
+        format.html { redirect_to model, notice: '#{model_name} was successfully updated.' }
+        format.json { render :show, status: :ok, location: model }
+      else
+        format.html { render :edit }
+        format.json { render json: model.errors, status: :unprocessable_entity }
+      end
+    end   
+  end
 end

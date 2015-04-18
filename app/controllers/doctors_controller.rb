@@ -46,26 +46,13 @@ class DoctorsController < ApplicationController
   def update
     #@doctor = Doctor.find(params[:id])
     set_doctor
-
-    respond_to do |format|
-      if @doctor.update(doctor_params)
-        format.html { redirect_to @doctor, notice: 'Doctor was successfully updated.' }
-        format.json { render :show, status: :ok, location: @doctor }
-      else
-        format.html { render :edit }
-        format.json { render json: @doctor.errors, status: :unprocessable_entity }
-      end
-    end
+   update_helper(@doctor, "Doctor", doctor_params)
   end
 
   # DELETE /doctors/1
   # DELETE /doctors/1.json
   def destroy
-    @doctor.destroy
-    respond_to do |format|
-      format.html { redirect_to :back, notice: 'Doctor was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    destroy_helper(@doctor, :back, "Doctor")
   end
 
   private
@@ -80,9 +67,6 @@ class DoctorsController < ApplicationController
     end
 
     def check_users_authorization
-      if current_user.type != Doctor.NAME
-        flash[:alert] = "You are not authorised to view Doctors page"
-        redirect_to :controller => 'dashboard', :action => 'view'
-      end
+      check_users_authorization_helper(Doctor.NAME)
     end
 end

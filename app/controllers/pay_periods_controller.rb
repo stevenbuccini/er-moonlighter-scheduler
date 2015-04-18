@@ -32,43 +32,32 @@ class PayPeriodsController < ApplicationController
 
     respond_to do |format|
       if @pay_period.save
+        change_pay_period_id_for_users()
         format.html { redirect_to @pay_period, notice: 'Pay period was successfully created.' }
-        format.json { render :show, status: :created, location: @pay_period }
-
-        #Changing the payperiod id for all admin and doctor
-        Admin.update_pay_period(params[:new_pay_period])
-        Doctor.update_pay_period(params[:new_pay_period])
-        params[:new_pay_period] = @pay_period.id
+        format.json { render :show, status: :created, location: @pay_period }        
       else
         format.html { render :new }
         format.json { render json: @pay_period.errors, status: :unprocessable_entity }
       end
-      #redirect_to :controller => 'admin', :action => 'update_doctor_and_admin_pay_period', :id => @pay_period.id and return
     end
+  end
+
+  def change_pay_period_id_for_users
+    Admin.update_pay_period(params[:new_pay_period])
+    Doctor.update_pay_period(params[:new_pay_period])
+    params[:new_pay_period] = @pay_period.id
   end
 
   # PATCH/PUT /pay_periods/1
   # PATCH/PUT /pay_periods/1.json
   def update
-    respond_to do |format|
-      if @pay_period.update(pay_period_params)
-        format.html { redirect_to @pay_period, notice: 'Pay period was successfully updated.' }
-        format.json { render :show, status: :ok, location: @pay_period }
-      else
-        format.html { render :edit }
-        format.json { render json: @pay_period.errors, status: :unprocessable_entity }
-      end
-    end
+    update_helper(@pay_period, "Pay period", pay_period_params)
   end
 
   # DELETE /pay_periods/1
   # DELETE /pay_periods/1.json
   def destroy
-    @pay_period.destroy
-    respond_to do |format|
-      format.html { redirect_to pay_periods_url, notice: 'Pay period was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    destroy_helper(@pay_period, pay_periods_url, "Pay period")
   end
 
   private
@@ -83,9 +72,6 @@ class PayPeriodsController < ApplicationController
     end
 
     def check_users_authorization
-      if current_user.type != Admin.NAME
-        flash[:alert] = "You are not authorised to perform this action"
-        redirect_to :controller => 'dashboard', :action => 'view'
-      end
+      check_users_authorization_helper(Admin.NAME)
     end
 end

@@ -64,26 +64,14 @@ class AdminsController < ApplicationController
   # PATCH/PUT /admins/1.json
   def update
     @admin = Admin.find(params[:id])
-    respond_to do |format|
-      if @admin.update(admin_params)
-        format.html { redirect_to @admin, notice: 'Admin was successfully updated.' }
-        format.json { render :show, status: :ok, location: @admin }
-      else
-        format.html { render :edit }
-        format.json { render json: @admin.errors, status: :unprocessable_entity }
-      end
-    end
+    update_helper(@admin, "Admin", admin_params)
   end
 
 
   # DELETE /admins/1
   # DELETE /admins/1.json
   def destroy
-    @admin.destroy
-    respond_to do |format|
-      format.html { redirect_to admins_url, notice: 'Admin was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    destroy_helper(@admin, admins_url, "Admin")
   end
 
 
@@ -132,10 +120,7 @@ class AdminsController < ApplicationController
       params.require(:admin).permit(:first_name, :last_name, :phone_1, :phone_2, :phone_3, :comments)
     end
     def check_users_authorization
-      if current_user.type != Admin.NAME
-        flash[:alert] = "You are not authorised to view an Admin's page"
-        redirect_to :controller => 'dashboard', :action => 'view'
-      end
+      check_users_authorization_helper(Admin.NAME)
     end
 
     #TODO: 
