@@ -10,20 +10,12 @@ RSpec.describe DashboardController, type: :controller do
     end
   end
 
-
-#   describe "GET #index" do
-#     login_admin
-#     it "should returns http success" do
-#       user = User.where(:email => "master@example.com")
-#       get :index, :id => user
-#       expect(response).to redirect_to admins_path
-#     end
-#   end
   describe 'GET#index' do 
     #login_user
     before :each do 
       @doctor = FactoryGirl.create(:doctor)
       @admin = FactoryGirl.create(:admin)
+      @user = FactoryGirl.create(:user)
     end
     it 'should redirect to /admins for admin' do 
       sign_in @admin
@@ -34,6 +26,11 @@ RSpec.describe DashboardController, type: :controller do
       sign_in @doctor
       get :index
       expect(response).to redirect_to doctors_path
+    end
+    it 'should redirect nil to view' do 
+      sign_in @user
+      get :index
+      expect(response).to redirect_to('/dashboard/view')
     end
   end
 end

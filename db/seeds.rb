@@ -8,9 +8,9 @@
 
 require 'date'
 
-users = [{:first_name => 'Joe', :last_name => "Biden",:type => "Doctor", :email => 'jbiden@example.com', :phone_1 => '012-345-6789', :phone_2 => '333-333-3333', :phone_3 => '444-444-4444', :password => 11111111},
-    	  {:first_name => 'James', :last_name => "Brown",:type => "Doctor", :email => 'jbrown@example.com', :phone_1 => '223-232-2323', :phone_2 => '567-567-5675', :password => 11111111},
-        {:first_name => 'Simon', :last_name => "Jones",:type => "Doctor", :email => 'sjones@example.com', :phone_1 => '777-777-7777', :password => 11111111},
+users = [{:first_name => 'Joe', :last_name => "Biden",:type => "Doctor", :email => 'jbiden@example.com', :phone_1 => '012-345-6789', :phone_2 => '333-333-3333', :phone_3 => '444-444-4444', :password => 11111111, :comments => "I prefer weekends"},
+    	  {:first_name => 'James', :last_name => "Brown",:type => "Doctor", :email => 'jbrown@example.com', :phone_1 => '223-232-2323', :phone_2 => '567-567-5675', :password => 11111111, :comments => "I can work evenings a lot easier than morning"},
+        {:first_name => 'Simon', :last_name => "Jones",:type => "Doctor", :email => 'sjones@example.com', :phone_1 => '777-777-7777', :password => 11111111, :comments => "I can work anytime!"},
         {:first_name => 'James', :last_name => "Brown",:type => "Doctor", :email => 'jbrown2@example.com', :phone_1 => '223-232-2323', :phone_2 => '567-567-5675', :password => 11111111},
         {:first_name => 'Sarah', :last_name => "Wilson",:type => "Doctor", :email => 'swilson@example.com', :phone_1 => '563-345-2345', :phone_2 => '666-666-6666', :phone_3 => '888-888-8888', :password => 11111111},
         {:first_name => 'Anna', :last_name => "Hathaway",:type => "Admin", :email => 'ahathway@example.com', :phone_1 => '234-645-7867', :password => 11111111},
@@ -23,10 +23,10 @@ users = [{:first_name => 'Joe', :last_name => "Biden",:type => "Doctor", :email 
         {:type => "User", :email => 'reg_test@example.com', :password => 11111111}, 
         {:type => "User", :email => 'reg_test2@example.com', :password => 11111111},
         {:type => "User", :email => 'reg_test3@example.com', :password => 11111111},
-
         {:type => "Admin", :email => 'admin@example.com', :password => 11111111}, 
         #{:type => "Doctor", :email => 'doctor@example.com', :password => 11111111},
         {:type => "User", :email => 'user@example.com', :password => 11111111}
+
   	 ]
 
 users.each do |user|
