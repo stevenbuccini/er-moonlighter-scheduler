@@ -1,6 +1,6 @@
 class PayPeriodsController < ApplicationController
   before_filter :authenticate_user! # redirect if user isn't signed in
-  before_filter :check_user_authorization, :except => :destroy# redirect if user is not an admin
+  before_filter :check_users_authorization, :except => :destroy# redirect if user is not an admin
   before_action :set_pay_period, only: [:show, :edit, :update, :destroy]
 
 
@@ -82,7 +82,7 @@ class PayPeriodsController < ApplicationController
       params.require(:pay_period).permit(:start_date, :end_date)
     end
 
-    def check_user_authorization
+    def check_users_authorization
       if current_user.type != Admin.NAME
         flash[:alert] = "You are not authorised to perform this action"
         redirect_to :controller => 'dashboard', :action => 'view'

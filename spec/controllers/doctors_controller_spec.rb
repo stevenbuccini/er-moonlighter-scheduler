@@ -49,9 +49,9 @@ RSpec.describe DoctorsController, type: :controller do
     end
   end
 
-  describe '#check_user_type' do 
+  describe '#check_users_authorization' do 
     controller do 
-      before_filter :check_user_type
+      before_filter :check_users_authorization
     end
     context 'user with type nil' do 
       before :each do 

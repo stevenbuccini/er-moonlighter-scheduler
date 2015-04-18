@@ -1,7 +1,7 @@
 class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user! # redirect if user isn't signed in
-  before_filter :check_user_authorization, :except => :destroy# redirect if user is not an admin
+  before_filter :check_users_authorization, :except => :destroy# redirect if user is not an admin
   before_filter :admin_only_view, only: [:create_email, :send_email]
 
   # GET /admins
@@ -131,7 +131,7 @@ class AdminsController < ApplicationController
     def admin_params
       params.require(:admin).permit(:first_name, :last_name, :phone_1, :phone_2, :phone_3, :comments)
     end
-    def check_user_authorization
+    def check_users_authorization
       if current_user.type != Admin.NAME
         flash[:alert] = "You are not authorised to view an Admin's page"
         redirect_to :controller => 'dashboard', :action => 'view'
