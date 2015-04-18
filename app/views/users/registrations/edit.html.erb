@@ -29,6 +29,11 @@
   <%= f.telephone_field :phone_3, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/ %>
   </div>
 
+  <div class="comments_field">
+    <%= f.label :comments %><br />
+    <%= f.text_field :comments %>
+  </div>
+
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true %>
