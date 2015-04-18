@@ -48,4 +48,35 @@ RSpec.describe DoctorsController, type: :controller do
       expect(response).to render_template('doctors/edit/')
     end
   end
+
+  describe '#check_user_type' do 
+    controller do 
+      before_filter :check_user_type
+    end
+    context 'user with type nil' do 
+      before :each do 
+        @user = FactoryGirl.create(:user, type: nil)
+        sign_in @user
+      end
+      it 'should redirect nil user to dashboard' do 
+        get :index
+        expect(flash[:alert]).to be_present
+      end
+      it 'should redirect nil user to dashboard' do 
+        get :index
+        expect(response).to redirect_to('/dashboard/view')
+      end
+    end
+
+    context 'valid user' do 
+      before :each do 
+        @doctor = FactoryGirl.create(:doctor)
+        sign_in @doctor
+      end
+      it 'should render the correct template' do 
+        get :index
+        expect(response).to render_template('doctors/index')
+      end
+    end
+  end
 end
