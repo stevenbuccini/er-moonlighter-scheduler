@@ -16,6 +16,24 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  #*********************************************************************************
+  #*************DEFINE GENERAL HELPER METHODS HERE *********************************
+  #*********************************************************************************
+  def destroy_helper(user, path, model_name)
+    user.destroy
+    respond_to do |format|
+      format.html { redirect_to path, notice: '#{model_name} was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def check_users_authorization_helper(type)
+    if current_user.type != type
+      flash[:alert] = "You are not authorised to perform this action"
+      redirect_to :controller => 'dashboard', :action => 'view'
+    end
+  end
+
   protected
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:account_update) << [:first_name, :last_name, :phone_1, :phone_2, :phone_3, :comments]
@@ -47,14 +65,6 @@ class ApplicationController < ActionController::Base
       return true
     end
   end 
-
-  def check_users_authorization_helper(type)
-    if current_user.type != type
-      flash[:alert] = "You are not authorised to perform this action"
-      redirect_to :controller => 'dashboard', :action => 'view'
-    end
-  end
-
   def update_helper(model, model_name, params)
     respond_to do |format|
       if model.update(params)
