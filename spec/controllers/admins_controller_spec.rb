@@ -31,6 +31,7 @@ RSpec.describe AdminsController, type: :controller do
   describe 'sending an email' do
     login_admin
     before :each do
+      @doctor = FactoryGirl.create(:doctor)
       @admin = FactoryGirl.build(:admin, :first_name => "Jennifer", :last_name => "Lopez", :phone_1 => '222-222-2222')
       @admin.save!
       @new_first_name = "Sara"
@@ -43,7 +44,7 @@ RSpec.describe AdminsController, type: :controller do
     end
 
     it "post send_mail redirects to root" do
-      post :send_email
+      post :send_email, {activated: [@doctor.id]}
       expect(response).to redirect_to root_url
     end
   end
