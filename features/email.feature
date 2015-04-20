@@ -17,7 +17,7 @@ Background: admin existing and doctors in database
 
 Scenario: View all doctors after logging in
   And I am on the create email page
-  And I fill in "Mass email" as the "subject"
-  And I fill in "This is a mass email" as the "body"
+  And I fill in "Mass email" as the "email-subject"
+  And I fill in "This is a mass email" as the "email-body"
   And I click "Send Email"
   Then I should see "Email sent to: Alex Triana and Tayo Olukoya and Kristina Sep"

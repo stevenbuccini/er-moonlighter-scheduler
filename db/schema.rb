@@ -57,7 +57,6 @@ ActiveRecord::Schema.define(version: 20150416161919) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "type"
-    t.integer  "pay_period_id"
     t.string   "phone_1"
     t.string   "phone_2"
     t.string   "phone_3"

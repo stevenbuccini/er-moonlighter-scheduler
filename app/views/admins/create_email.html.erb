@@ -1,105 +1,131 @@
-<h1>Create new Email</h1>
 
-<div style="width: 100%;">
-<%= form_tag send_email_path :id => 'send_email_form' do %>
-  <div style="float:left; width: 50%">
-	<%= radio_button_tag :email_type, :urgent, false, :onclick => "fillEmailBody('urgent')"%>
-	<%= label_tag :urgent, "Use urgent email prefill" %>
-	<%= radio_button_tag :email_type, :new_pay_period, false, :onclick => "fillEmailBody('new_pay_period')"%>
-	<%= label_tag :new_pay_period, "Use new pay period email prefill" %>
-	<%= radio_button_tag :email_type, :custom , true, :onclick => "fillEmailBody('custom')"%>
-	<%= label_tag :custom, "Write custom email" %>
 
-	<br>
-
-  <%= label_tag(:subject, "Subject") %>
-  <br>
-  <%= text_field_tag :subject, "Subject", :id => 'email-subject', :size =>'70x10'  %>
-  <br>
-  <%= label_tag(:body, "Email Body") %>
-  <br>
-  <%= text_area_tag :body, "Email Body", :id => 'email-body', :size => '70x20' %>
-  <br>
-  </div>
-	<div style="float:right;">
-		<h3>Check the doctors you want to send emails to</h3>
-		<table cellspacing="10">
-	    <thead>
-		    <tr>
-					<%= check_box_tag 'select_all', 1, true%>
-					<%= label_tag :select_all, " Select All Doctors" %>
-				</tr>
-	   </thead>
-	   <tbody>
-		   <tr>
-				 <th>Send Email</th>
-			   <th>First Name</th>
-			   <th>Last Name</th>
-			   <th>Email</th>
-		   <% @doctors.each do |doctor| %>
-			 <tr>
-         <td><%= check_box_tag 'activated[]', doctor.id, true, class: 'activated'%></td>
-				 <td><%= doctor.first_name %></td>
-				 <td><%= doctor.last_name %></td>
-				 <td><%= doctor.email %></td>
-			 </tr>
-		   <% end %>
-	   </tbody>
-</table>
+	
+<div class="col-lg-12">
+	<div class="well bs-component">
+		<form class="form-horizontal">
+			<div class="col-lg-8">
+			<fieldset>
+				<legend>Create New Email</legend>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">Choose a prefill</label>
+					<div class="col-lg-10">
+						<div class="radio">
+							<label>
+								<%= radio_button_tag :email_type, :urgent, false, :onclick => "fillEmailBody('urgent')"%>
+								Use urgent email template
+							</label>
+					
+						</div>
+						<div class="radio">
+							<label>
+								<%= radio_button_tag :email_type, :new_pay_period, false, :onclick => "fillEmailBody('new_pay_period')"%>
+								Use new pay period email template
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<%= radio_button_tag :email_type, :custom , true, :onclick => "fillEmailBody('custom')"%>
+								Write custom email
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="inputEmail" class="col-lg-2 control-label">Subject</label>
+					<div class="col-lg-10">
+						<input type="text" class="form-control" id="email-subject" placeholder="Subject">
+					</div>
+				</div>
+				
+				
+				<div class="form-group">
+					<label for="textArea" class="col-lg-2 control-label">Email Body</label>
+					<div class="col-lg-10">
+						<textarea class="form-control" rows="8" placeholder="Email Body" id="email-body"></textarea >
+					</div>
+				</div>
+				</div>
+				<div class='col-lg-4'>
+				<div class="form-group">
+					<h3>Check the doctors you want to send emails to</h3>
+					<table cellspacing="10">
+							<thead>
+									<tr>
+											<%= check_box_tag 'select_all', 1, true%>
+											<%= label_tag :select_all, " Select All Doctors" %>
+									</tr>
+							</thead>
+							<tbody>
+									<tr>
+											<th>Send Email</th>
+											<th>First Name</th>
+											<th>Last Name</th>
+											<th>Email</th>
+											<% @doctors.each do |doctor| %>
+											<tr>
+													<td><%= check_box_tag 'activated[]', doctor.id, true, class: 'activated'%></td>
+													<td><%= doctor.first_name %></td>
+													<td><%= doctor.last_name %></td>
+													<td><%= doctor.email %></td>
+											</tr>
+											<% end %>
+									</tbody>
+							</table>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-lg-10 col-lg-offset-2">
+						<%= submit_tag "Send Email", :class => "btn btn-primary" %>
+					</div>
+				</div>
+			</fieldset>
+		</form>
 	</div>
-	<div style="clear:both"></div>
-  <%= submit_tag "Send Email" %>
-<% end %>
+
+		<div id="new_pay_period-text" style="display:none">
+				<p>*|first_name|*: a new pay period schedule is available!</p>
+		<pre>Hey *|first_name|*,
+			A new pay period schedule is available. Feel free to sign up now at here.
+			As a reminder, because this is a newly added pay period you will only be able to request certain shifts. Requesting a shift does not guarantee that you will be able to work that shift; it is only after the Calendar Administrator has approved your request for a given shift that you will be responsible for that shift. If you request is approved you will receive an email alert.
+			Happy scheduling!
+			The Moonlighter Team
+				</pre>
+		</div>
+		<div id="urgent-text" style="display:none">
+				<p>Urgent: Shifts still need to be filled for Pay Period *|pay_period_range|*</p>
+		<pre>Hey *|first_name|*,
+			There are still unfulfilled shifts for the *|pay_period_range|* pay perdiod. Feel free to sign up now at here
+			As a reminder, these shifts do not need to be approved by the Calendar Admin. You may sign yourself up from any shift you would like.
+			Happy scheduling!
+			The Moonlighter Team
+				</pre>
+		</div>
+		<div id="custom-text" style="display:none">
+				<p></p>
+		<pre>
+				</pre>
+		</div>
 </div>
-
-<div id="new_pay_period-text" style="display:none">
-	<p>*|first_name|*: a new pay period schedule is available!
-	</p>
-	<pre>
-Hey *|first_name|*,
-
-A new pay period schedule is available. Feel free to sign up now at here.
-
-As a reminder, because this is a newly added pay period you will only be able to request certain shifts. Requesting a shift does not guarantee that you will be able to work that shift; it is only after the Calendar Administrator has approved your request for a given shift that you will be responsible for that shift. If you request is approved you will receive an email alert.
-
-Happy scheduling!
-The Moonlighter Team
-	</pre>
-</div>
-
-<div id="urgent-text" style="display:none">
-	<p>Urgent: Shifts still need to be filled for Pay Period *|pay_period_range|*</p>
-	<pre>
-Hey *|first_name|*,
-
-There are still unfulfilled shifts for the *|pay_period_range|* pay perdiod. Feel free to sign up now at here
-
-As a reminder, these shifts do not need to be approved by the Calendar Admin. You may sign yourself up from any shift you would like.
-
-Happy scheduling!
-The Moonlighter Team
-  </pre>
-</div>
-<div id="custom-text" style="display:none">
-	<p></p>
-	<pre>
-  </pre>
-</div>
-
-<script>
-	var $checked = true;
-	$('#select_all').click(function() {
-		$checked = !$checked
-		$(".activated").each(function(){
-			$(this).prop("checked", $checked)
-			$(this).parent().toggleClass("checked", $checked)
+	<script>
+		var $checked = true;
+		$('#select_all').click(function() {
+			$checked = !$checked
+			$(".activated").each(function(){
+				$(this).prop("checked", $checked)
+				$(this).parent().toggleClass("checked", $checked)
+			});
 		});
-	});
+		var fillEmailBody = function (idTypeEmail) {
+				$("#email-body").val($('#'+ idTypeEmail + '-text > pre').text())
+				$("#email-subject").val($('#' + idTypeEmail + '-text > p').text())
+				if (idTypeEmail == "custom") {
 
-	var fillEmailBody = function (idTypeEmail) {
-		  console.log('fill Email Body ' + idTypeEmail)
-			$("#email-body").val($('#'+ idTypeEmail + '-text > pre').text())
-			$("#email-subject").val($('#' + idTypeEmail + '-text > p').text())
-			$("#email-body").attr("disabled",true)
-	}
-</script>
+					$("#email-body").attr("disabled",false)
+				}
+				else {
+					$("#email-body").attr("disabled",true)
+				}
+				
+		}
+	</script>
