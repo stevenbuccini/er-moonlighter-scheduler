@@ -38,7 +38,8 @@ class AdminsController < ApplicationController
   def send_email
     if params[:activated] == nil || params[:activated] == ""
       flash[:notice] = "Please select doctors you want to send emails to"
-      redirect_to '/create-email'
+
+      redirect_to '/'
     else
       @doctors = Doctor.find(params[:activated])
       sent_to = "Email sent to: " + Admin.get_doctor_names(@doctors)

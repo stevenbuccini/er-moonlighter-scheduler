@@ -3,7 +3,7 @@
 	
 <div class="col-lg-12">
 	<div class="well bs-component">
-		<form class="form-horizontal">
+			<%= form_tag send_email_path, :id => 'send_email_form', :class => "form-horizontal" do %>
 			<div class="col-lg-8">
 			<fieldset>
 				<legend>Create New Email</legend>
@@ -80,7 +80,7 @@
 					</div>
 				</div>
 			</fieldset>
-		</form>
+		<% end %>
 	</div>
 
 		<div id="new_pay_period-text" style="display:none">
@@ -103,8 +103,7 @@
 		</div>
 		<div id="custom-text" style="display:none">
 				<p></p>
-		<pre>
-				</pre>
+		<pre></pre>
 		</div>
 </div>
 	<script>
