@@ -10,7 +10,4 @@ class PayPeriod < ActiveRecord::Base
 	def pay_range
 		errors[:base] << "End date cannot be less than start date" unless start_date and end_date and end_date >= start_date	
 	end
-
-
-
 end
