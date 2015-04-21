@@ -68,7 +68,7 @@ class PayPeriodsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pay_period_params
-      params.require(:pay_period).permit(:start_date, :end_date)
+      params.require(:pay_period).permit(:start_date, :end_date, :is_open)
     end
 
     def check_users_authorization

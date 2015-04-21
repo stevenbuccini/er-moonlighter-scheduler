@@ -11,8 +11,11 @@
 <%= render 'layouts/navbar' %>
 <body>
 <div class="container">
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<div id="flash_messages">
+  <% flash.each do |key, value| %>
+    <%= content_tag(:div, value, :class => "alert alert-dismissible alert-#{key}") %>
+  <% end %>
+</div>
 
 
 

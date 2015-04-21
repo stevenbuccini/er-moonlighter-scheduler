@@ -1,12 +1,14 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Listing Pay Periods</h1>
-
-<table>
+<div class="col-lg-10">
+<h1>All Pay Periods</h1>
+<%= form_tag send_email_path :class => "form-horizontal" do %>
+<table class="table table-striped table-hover ">
   <thead>
     <tr>
       <th>Start date</th>
       <th>End date</th>
+      <th>Shift Signup Enabled</th>
+      <th>Admin Approval Required for Shift Signup</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,15 +18,16 @@
       <tr>
         <td><%= pay_period.start_date %></td>
         <td><%= pay_period.end_date %></td>
-        <td><%= link_to 'Show', pay_period %></td>
-        <td><%= link_to 'Edit', edit_pay_period_path(pay_period) %></td>
-        <td><%= link_to 'Destroy', pay_period, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= pay_period.is_open? ? "Yes" : "No" %>
+        <td><strong>Not yet implemented</strong></td>
+        <td><td><%= link_to 'Edit', edit_pay_period_path(pay_period) %></td></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
+<% end %>
 
 <%= link_to 'New Pay period', new_pay_period_path %>
 <br> <%= link_to 'Back to Users homepage', admins_path %>
+</div>
