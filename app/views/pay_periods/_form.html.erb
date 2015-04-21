@@ -1,4 +1,5 @@
-<%= form_for(@pay_period) do |f| %>
+<div class="well bs-component col-lg-8">
+<%= form_for(@pay_period, {:class=> 'form-horizontal'}) do |f| %>
   <% if @pay_period.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@pay_period.errors.count, "error") %> prohibited this pay_period from being saved:</h2>
@@ -12,14 +13,18 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :start_date %><br>
-    <%= f.date_select :start_date %>
-  </div>
-  <div class="field">
-    <%= f.label :end_date %><br>
-    <%= f.date_select :end_date %>
+    <h3>Shift During this time period are available for sign up</h3>
+    <label>
+    <%= f.radio_button(:is_open, true) %>
+    Yes
+  </label>
+    <label>
+    <%= f.radio_button(:is_open, false) %>
+    No
+  </label>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+</div>
