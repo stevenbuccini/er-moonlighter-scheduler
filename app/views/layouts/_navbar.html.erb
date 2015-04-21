@@ -12,10 +12,11 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav"> 
           <% if user_signed_in? %>
-            <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
+            
             <li class="inactive"><a href="<%= create_email_path %>">Send Email</a></li>
             <li class="inactive"><a href="#">View All Doctors</a></li>
             <li class="inactive"><a href="#">Promote Users</a><li>
+            <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
           <% else %>
             <li><%= link_to('Login', new_user_session_path)  %></li>
           <% end %> 
