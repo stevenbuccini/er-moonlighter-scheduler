@@ -23,4 +23,15 @@ RSpec.describe User, type: :model do
 			expect(user.full_name).to eql "User does not have a full name"
 	  end
 	end
+
+	describe 'is_admin? method' do
+		it 'should return true to if user is admin' do
+      admin = Admin.create({first_name: 'Steph', last_name: 'Curry'})   
+      expect(admin.is_admin?).to eql true
+    end
+    it 'should return false to if user is not an admin' do
+      admin = User.create({first_name: 'Steph', last_name: 'Curry'})   
+      expect(admin.is_admin?).to eql false
+    end
+	end
 end
