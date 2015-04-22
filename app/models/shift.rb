@@ -107,10 +107,11 @@ class Shift < ActiveRecord::Base
     # TODO: Tayo to renable after we figure out payment profile stuff.
     #data_hash[:pay_period_id] = pay_period_id
 
+    s = Shift.create(data_hash)
     # If object is invalid, there were errors when saving.
     # Return them to the calling method for proper display on the view.
-    if (s = Shift.create(data_hash))?
-      return created_shift.errors.full_messages.to_sentence
+    if s.errors.present?
+      return s.errors.full_messages.to_sentence
     end
     # Return nil if no errors
     return nil
