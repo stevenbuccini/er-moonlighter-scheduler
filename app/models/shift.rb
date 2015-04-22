@@ -1,5 +1,3 @@
-require 'concerns/calendar'
-
 class Shift < ActiveRecord::Base
 
   include Calendar
@@ -35,12 +33,12 @@ class Shift < ActiveRecord::Base
     self.doctor = current_user
   end
 
-  # def start_datetime_must_be_before_end_datetime
-  #   # Check for non-nil since the ">" operator is not defined for these functions.
-  #   if start_datetime and end_datetime
-  #     errors.add(:sanity_check, "end time can't be before the start time") if start_datetime > end_datetime
-  #   end
-  # end
+  def start_datetime_must_be_before_end_datetime
+    # Check for non-nil since the ">" operator is not defined for these functions.
+    if start_datetime and end_datetime
+      errors.add(:sanity_check, "end time can't be before the start time") if start_datetime > end_datetime
+    end
+  end
 
   def self.assign_multiple_shifts(array_of_ids, doctor)
     # Bulk assign shifts. Return true if successful, false if save fails.
@@ -73,9 +71,48 @@ class Shift < ActiveRecord::Base
   end
 
 
-  def self.get_all_shifts_in_range(start_datetime, end_datetime)
+  def self.create_shifts_for_pay_period(start_datetime, end_datetime, pay_period_id)
+
+    # Storing errors here so we can pass them back up to the front end.
+    # On the front end, need to check 
+    errors_hash = {}
+
     # Have to wrap this instance method because we can't call the class method direclty 
-    return Shift.new().gcal_get_events_in_range(start_datetime, end_datetime)
+    api_response = Shift.new().gcal_get_events_in_range(start_datetime, end_datetime)
+    if api_response.status == 200
+      # Request successful
+      translated_json = Shift.parse_gcal_json(api_response)
+      translated_json.each do |event_hash|
+        errors = Shift.create_shift_from_hash(event_hash, pay_period_id)
+        if errors
+          errors_hash[:shift_save] ||= []
+          errors_hash[:shift_save] << errors
+        end
+      end
+    else
+      # We ran into an error when we tried to talk to the Google Calendar API.
+      # Put it in the error hash
+      jsonified = JSON.parse(api_response.body)['error']
+      errors_hash[:request_error] = "HTTP #{jsonified['code']} -- #{jsonified['message']}"
+    end
+
+    # Pass the errors back up to the front end
+    return errors_hash
+  end
+
+  private
+
+  def self.create_shift_from_hash(data_hash, pay_period_id)
+    # TODO: Tayo to renable after we figure out payment profile stuff.
+    #data_hash[:pay_period_id] = pay_period_id
+
+    # If object is invalid, there were errors when saving.
+    # Return them to the calling method for proper display on the view.
+    if (s = Shift.create(data_hash))?
+      return created_shift.errors.full_messages.to_sentence
+    end
+    # Return nil if no errors
+    return nil
   end
 
 end

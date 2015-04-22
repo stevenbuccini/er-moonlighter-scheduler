@@ -9,7 +9,7 @@ module Calendar
 
   API_VERSION = 'v3'
   CACHED_API_FILE = "calendar-#{API_VERSION}.cache"
-  CALENDAR_ID = ENV['gcal_id']
+  CALENDAR_ID = ENV["gcal_calendar_id"]
 
   # It's really dumb that we have to do this, here is a link w/ more info: 
   # http://www.railstips.org/blog/archives/2009/05/15/include-vs-extend-in-ruby/
@@ -21,9 +21,11 @@ module Calendar
   #   base.extend(ClassMethods)
   # end
 
+
   def gcal_event_insert
+
     params = {
-      calendarId: CALENDAR_ID
+      calendarId: CALENDAR_ID,
     }
     result = client.execute(
       :api_method => calendar.events.insert,
@@ -37,7 +39,7 @@ module Calendar
   def gcal_event_update
     params = {
       calendarId: CALENDAR_ID,
-      eventId: self.gcal_id
+      eventId: self.gcal_event_id
     }
     result = client.execute(
       :api_method => calendar.events.update,
@@ -50,7 +52,7 @@ module Calendar
   def gcal_event_delete
     params = {
       calendarId: CALENDAR_ID,
-      eventId: self.gcal_id
+      eventId: self.gcal_event_id
     }
     result = client.execute(
       :api_method => calendar.events.delete,
@@ -90,25 +92,48 @@ module Calendar
       timeMax: end_datetime
     }
 
-    puts params
     result = client.execute(
       :api_method => calendar.events.list,
       :parameters => params
     )
   end
 
+
+
+  class_methods do
+    def parse_gcal_json(api_response)
+      # Coerce the keys from Google into our own internal representation
+      translated_json = []
+
+      list_of_event_json = JSON.parse(api_response.body)['items']
+      # Now loop through this list, convert JSON to shifts, and save.
+      list_of_event_json.each do |gcal_json|
+        # Code smell, but sometimes the data we need is nested and so it's hard
+        # to refactor this into a one-size-fits-all case.
+
+        # Additionally, updating the model will be such a rare occurrance that
+        # I think we can get away with this.
+        translated_json << {
+          start_datetime: DateTime.strptime(gcal_json['start']['dateTime']),
+          end_datetime: DateTime.strptime(gcal_json['end']['dateTime']),
+          gcal_event_etag: gcal_json['etag'],
+          gcal_event_id: gcal_json['id'],
+        }
+      end
+      return translated_json
+    end
+  end
+
 private
   def convert_to_gcal_event
     event = {
-      'summary' => self.name,
-      'description' => self.description,
+      'summary' => self.doctor.full_name,
       'start' => {
-         'dateTime' => self.tstart
+         'dateTime' => self.start_datetime
       },
       'end' => {
-         'dateTime' => self.tend
+         'dateTime' => self.end_datetime
       },
-      'location' => get_event_location,
       'extendedProperties' => {
         'private' => {
           'id' => self.id
@@ -117,23 +142,17 @@ private
     }
   end
 
-  def get_event_location
-    [self.location.try(:name),
-      self.location.try(:address),
-      self.location.try(:city),
-      self.location.try(:country)].compact.join(", ")
-  end
-
   def init_client
 
-    client = Google::APIClient.new(:application_name => 'EventR', :application_version => '1.0.0')
+    client = Google::APIClient.new(:application_name => 'Moonlighter', :application_version => '1.0.0')
     
-    key = Google::APIClient::KeyUtils.load_from_pkcs12('key.p12', "notasecret")
+    key = OpenSSL::PKey::RSA.new(ENV["gcal_private_key"])
+
     client.authorization = Signet::OAuth2::Client.new(
       :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
       :audience => 'https://accounts.google.com/o/oauth2/token',
       :scope => 'https://www.googleapis.com/auth/calendar',
-      :issuer => ENV['gcal_client_email'],
+      :issuer => ENV["gcal_cal_service_email"],
       # :person => Rails.application.secrets.google_cal['client_email'],
       :signing_key => key)
 
