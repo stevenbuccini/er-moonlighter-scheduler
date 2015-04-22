@@ -186,5 +186,4 @@ $RECYCLE.BIN/
 .env
 # Ignore application configuration
 /config/application.yml
-*.p12
 config/secrets.yml

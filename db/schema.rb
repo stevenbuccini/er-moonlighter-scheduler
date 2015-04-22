@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421080814) do
+ActiveRecord::Schema.define(version: 20150422203509) do
 
   create_table "admins", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -36,10 +36,12 @@ ActiveRecord::Schema.define(version: 20150421080814) do
     t.datetime "start_datetime"
     t.datetime "end_datetime"
     t.boolean  "confirmed"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.integer  "doctor_id"
     t.integer  "pay_period_id"
+    t.string   "gcal_event_etag"
+    t.string   "gcal_event_id"
   end
 
   create_table "users", force: :cascade do |t|
