@@ -29,4 +29,20 @@ class User < ActiveRecord::Base
     self.type == "Admin"
   end
 
+  def first_name_or_nil
+    if self.first_name == nil
+      return ''
+    else
+      return self.first_name
+    end
+  end
+
+  def last_name_or_nil
+    if self.last_name == nil
+      return ''
+    else
+      return self.last_name
+    end
+  end
+
 end
