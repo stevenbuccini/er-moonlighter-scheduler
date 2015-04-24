@@ -29,7 +29,7 @@
         <td><%= doctor.phone_3 %></td>
         <td><%= link_to 'Show', doctor, :id => "show_doctor_"+doctor.id.to_s %></td>
         <td><%= link_to 'Edit', edit_doctor_path(doctor), :id => "edit_doctor_"+doctor.id.to_s %></td>
-        <td><%= link_to 'Delete '+doctor.first_name_or_nil, doctor, :id => "delete_doctor_"+doctor.id.to_s, method: :delete, data: { confirm: 'Are you sure you want to PERMANENTELY delete '+ doctor.first_name_or_nil + ' ' + doctor.last_name_or_nil+ '? (This action cannot be undone).' } %></td>
+        <td><%= link_to "Delete #{doctor.first_name}", doctor, :id => "delete_doctor_"+doctor.id.to_s, method: :delete, data: { confirm: "Are you sure you want to PERMANENTELY delete #{doctor.first_name} #{doctor.last_name}? (This action cannot be undone)." } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -64,7 +64,7 @@
         <td><%= admin.phone_3 %></td>
         <td><%= link_to 'Show', admin, :id => "show_admin_"+admin.id.to_s %></td>
         <td><%= link_to 'Edit', edit_admin_path(admin), :id => "edit_admin_"+admin.id.to_s %></td>
-        <td><%= link_to 'Delete '+admin.first_name_or_nil, admin, :id => "delete_admin_"+admin.id.to_s, method: :delete, data: { confirm: 'Are you sure you want to PERMANENTELY delete '+admin.first_name_or_nil+ ' '+admin.last_name_or_nil+'? (This action cannot be undone).' } %></td>
+        <td><%= link_to "Delete #{admin.first_name}", admin, :id => "delete_admin_"+admin.id.to_s, method: :delete, data: { confirm: "Are you sure you want to PERMANENTELY delete #{admin.first_name} #{admin.last_name}? (This action cannot be undone)." } %></td>
       </tr>
     <% end %>
   </tbody>
