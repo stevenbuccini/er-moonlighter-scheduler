@@ -23,9 +23,9 @@ users = [{:first_name => 'Joe', :last_name => "Biden",:type => "Doctor", :email 
         {:type => "User", :email => 'reg_test@example.com', :password => 11111111}, 
         {:type => "User", :email => 'reg_test2@example.com', :password => 11111111},
         {:type => "User", :email => 'reg_test3@example.com', :password => 11111111},
-        {:type => "Admin", :email => 'admin@example.com', :password => 11111111}, 
+        #{:type => "Admin", :email => 'admin@example.com', :password => 11111111}, 
         #{:type => "Doctor", :email => 'doctor@example.com', :password => 11111111},
-        {:type => "User", :email => 'user@example.com', :password => 11111111}
+        {:type => nil, :email => 'user@example.com', :password => 11111111}
 
   	 ]
 
