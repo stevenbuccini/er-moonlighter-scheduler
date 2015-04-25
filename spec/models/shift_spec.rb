@@ -135,6 +135,7 @@ RSpec.describe Shift, type: :model do
         gcal_event_id: "whoa long string",
       }
       expect(Shift).to receive(:parse_gcal_json).and_return([hash])
+      expect(Shift).to receive(:create_shift_from_hash).and_return(nil)
 
 
       errors = Shift.create_shifts_for_pay_period(DateTime.new(2015, 2, 14, 8, 00), DateTime.new(2015, 3, 15, 8, 00), 1)
