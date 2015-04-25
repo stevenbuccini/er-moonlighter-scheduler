@@ -134,6 +134,9 @@ RSpec.describe Shift, type: :model do
         gcal_event_etag: "some string idc",
         gcal_event_id: "whoa long string",
       }
+      blah = Shift.new
+      expect(Shift).to receive(:new).and_return(blah)
+      expect(blah).to receive(:gcal_get_events_in_range).and_return(response)
       expect(Shift).to receive(:parse_gcal_json).and_return([hash])
       expect(Shift).to receive(:create_shift_from_hash).and_return(nil)
 
