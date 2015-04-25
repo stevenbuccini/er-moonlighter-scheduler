@@ -134,6 +134,10 @@ RSpec.describe Shift, type: :model do
         gcal_event_etag: "some string idc",
         gcal_event_id: "whoa long string",
       }
+
+      # Yo, these unit tests are really hacky. Need to refactor later. Major code smell,
+      # but this is mainly becuase this method is an instance method rather than a class
+      # method right now.
       blah = Shift.new
       expect(Shift).to receive(:new).and_return(blah)
       expect(blah).to receive(:gcal_get_events_in_range).and_return(response)
@@ -147,6 +151,9 @@ RSpec.describe Shift, type: :model do
 
     it "should return error messages if saving a model fails." do 
       response = double("response", status: 200)
+      # Yo, these unit tests are really hacky. Need to refactor later. Major code smell,
+      # but this is mainly becuase this method is an instance method rather than a class
+      # method right now.
       blah = Shift.new
       expect(Shift).to receive(:new).and_return(blah)
       expect(blah).to receive(:gcal_get_events_in_range).and_return(response)
@@ -166,6 +173,10 @@ RSpec.describe Shift, type: :model do
       
       # Hacked to stub out all the random requests to other methods
       response = double("response", status: 404, body: {"error" => {"code" => "404", "message" => "world is ending"}})
+      
+      # Yo, these unit tests are really hacky. Need to refactor later. Major code smell,
+      # but this is mainly becuase this method is an instance method rather than a class
+      # method right now.
       blah = Shift.new
       expect(Shift).to receive(:new).and_return(blah)
       expect(blah).to receive(:gcal_get_events_in_range).and_return(response)
