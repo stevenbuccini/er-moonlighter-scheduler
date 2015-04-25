@@ -29,7 +29,7 @@
         <td><%= doctor.phone_3 %></td>
         <td><%= link_to 'Show', doctor, :id => "show_doctor_"+doctor.id.to_s %></td>
         <td><%= link_to 'Edit', edit_doctor_path(doctor), :id => "edit_doctor_"+doctor.id.to_s %></td>
-        <td><%= link_to 'Delete '+doctor.first_name, doctor, :id => "delete_doctor_"+doctor.id.to_s, method: :delete, data: { confirm: 'Are you sure you want to PERMANENTELY delete '+ doctor.full_name + '? (This action cannot be undone).' } %></td>
+        <td><%= link_to "Delete #{doctor.first_name}", doctor, :id => "delete_doctor_"+doctor.id.to_s, method: :delete, data: { confirm: "Are you sure you want to PERMANENTELY delete #{doctor.first_name} #{doctor.last_name}? (This action cannot be undone)." } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -64,7 +64,7 @@
         <td><%= admin.phone_3 %></td>
         <td><%= link_to 'Show', admin, :id => "show_admin_"+admin.id.to_s %></td>
         <td><%= link_to 'Edit', edit_admin_path(admin), :id => "edit_admin_"+admin.id.to_s %></td>
-        <td><%= link_to 'Delete '+admin.first_name, admin, :id => "delete_admin_"+admin.id.to_s, method: :delete, data: { confirm: 'Are you sure you want to PERMANENTELY delete '+admin.first_name+ ' '+admin.last_name+'? (This action cannot be undone).' } %></td>
+        <td><%= link_to "Delete #{admin.first_name}", admin, :id => "delete_admin_"+admin.id.to_s, method: :delete, data: { confirm: "Are you sure you want to PERMANENTELY delete #{admin.first_name} #{admin.last_name}? (This action cannot be undone)." } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -97,8 +97,8 @@
         <td><%= user.phone_1 %></td>
         <td><%= user.phone_2 %></td>
         <td><%= user.phone_3 %></td>
-        <td><%= link_to 'Aprove as a doctor', approve_doctor_path(user) %></td>
-        <td><%= link_to 'Aprove as an admin', approve_new_admin_path(user) %></td>
+        <td><%= link_to 'Approve as a doctor', approve_doctor_path(user) %></td>
+        <td><%= link_to 'Approve as an admin', approve_new_admin_path(user) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -106,9 +106,6 @@
 
 <br>
 
-<%= link_to 'Send Email', create_email_path %>
-<%= link_to 'New doctor', new_doctor_path %>
-<br>
 <%= link_to 'Release a new pay period for MoonLighters', create_new_pay_period_path %>
 <br>
 <%= link_to 'Edit current pay period', edit_current_pay_period_path %>

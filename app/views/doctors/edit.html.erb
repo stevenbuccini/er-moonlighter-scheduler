@@ -6,39 +6,41 @@
 
   <div class="field">
     <%= f.label :first_name %><br />
-    <%= f.text_field :first_name, :required => true %>
+    <%= f.text_field :first_name, :required => true, :class=>"form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :last_name %><br />
-    <%= f.text_field :last_name, :required => true %>
+    <%= f.text_field :last_name, :required => true, :class=>"form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :phone_1 %><br />
-    <%= f.telephone_field :phone_1, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/, :required => true %>
+    <%= f.telephone_field :phone_1, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/, :required => true, :class=>"form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :phone_2 %><br />
-    <%= f.telephone_field :phone_2, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/ %>
+    <%= f.telephone_field :phone_2, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/, :class=>"form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :phone_3 %><br />
-    <%= f.telephone_field :phone_3, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/ %>
+    <%= f.telephone_field :phone_3, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/, :class=>"form-control" %>
   </div>
 
   <div class="comments_field">
     <%= f.label :comments %><br />
-    <%= f.text_field :comments %>
+    <%= f.text_field :comments, :class=>"form-control" %>
   </div>
+
+</br>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Update Doctor', :class=>'btn btn-primary' %>
   </div>
 
 
-  <%= link_to 'Back', admins_path %>
+  <%= link_to 'Back', admins_path, :class=>'btn btn-link' %>
 
 <% end %>

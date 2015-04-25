@@ -6,37 +6,37 @@
 
   <div class="field">
   <%= f.label :first_name %><br />
-  <%= f.text_field :first_name, :required => true %>
+  <%= f.text_field :first_name, :required => true, :class => 'form-control', :placeholder => 'First Name' %>
   </div>
 
   <div class="field">
   <%= f.label :last_name %><br />
-  <%= f.text_field :last_name, :required => true %>
+  <%= f.text_field :last_name, :required => true, :class => 'form-control', :placeholder => 'Last Name' %>
   </div>
 
   <div class="field">
   <%= f.label :phone_1 %><br />
-  <%= f.telephone_field :phone_1, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/, :required => true %>
+  <%= f.telephone_field :phone_1, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/, :required => true, :class => 'form-control', :placeholder => 'Primary Phone' %>
   </div>
 
   <div class="field">
   <%= f.label :phone_2 %><br />
-  <%= f.telephone_field :phone_2, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/ %>
+  <%= f.telephone_field :phone_2, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/, :class => 'form-control', :placeholder => 'Secondary Phone' %>
   </div>
 
   <div class="field">
   <%= f.label :phone_3 %><br />
-  <%= f.telephone_field :phone_3, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/ %>
+  <%= f.telephone_field :phone_3, :pattern => /^(\+0?1\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/, :class => 'form-control', :placeholder => 'Other Phone' %>
   </div>
 
   <div class="comments_field">
     <%= f.label :comments %><br />
-    <%= f.text_field :comments %>
+    <%= f.text_field :comments, :class => 'form-control', :placeholder => 'Details about preferred shifts' %>
   </div>
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <%= f.email_field :email, autofocus: true , :class => 'form-control', :placeholder => 'Email' %>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -46,26 +46,25 @@
 
   <div class="field">
     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+    <%= f.password_field :password, autocomplete: "off", :class => 'form-control', :placeholder => 'New Password' %>
   </div>
 
   <div class="field">
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'form-control', :placeholder => 'Confirm New Password' %>
   </div>
 
   <div class="field">
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
+    <%= f.password_field :current_password, autocomplete: "off", :class => 'form-control', :placeholder => 'Current Password' %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit "Update", :class => 'btn btn-primary' %>
   </div>
 <% end %>
 
 <h3>Cancel my account</h3>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, :class => 'btn btn-primary' %></p>
 
-<%= link_to "Back", :back %>

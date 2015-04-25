@@ -134,7 +134,7 @@ class AdminsController < ApplicationController
        @user = User.find_by_id params[:user]
       if @user
         @user.update_attribute(:type, user_type)
-        flash[:notice] = "Approved #{@user.first_name} as a #{user_type.downcase}!"
+        flash[:notice] = "Approved #{@user.first_name} as a #{user_type}!"
       end
     end
 end
