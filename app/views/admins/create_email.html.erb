@@ -116,9 +116,6 @@
 
 		$(".activated").click(function(){
 			var all_checked = $("input[class=activated]:checked").length == $(".activated").length
-			console.log('length checked '+ $("input[class=activated]:checked").length)
-			console.log('length global : '+ $(".activated").length)
-			console.log('all_checked: ' + all_checked)
 			$('#select_all').prop("checked", all_checked)
 		})
 
@@ -126,7 +123,6 @@
 				$("#email-body").val($('#'+ idTypeEmail + '-text > pre').text())
 				$("#email-subject").val($('#' + idTypeEmail + '-text > p').text())
 				if (idTypeEmail == "custom") {
-
 					$("#email-body").attr("disabled",false)
 				}
 				else {
