@@ -12,7 +12,7 @@
               <li class="inactive"><a href="#">Promote Users</a><li>
               <% end %>
             
-            <li class="inactive"><a href="#">Contact List</a></li>
+            <li class="inactive"><a href="<%= dashboard_index_path%>">Contact List</a></li>
            
             <% end %>
             <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>

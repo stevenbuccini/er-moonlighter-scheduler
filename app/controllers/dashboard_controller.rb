@@ -9,7 +9,7 @@ class DashboardController < ApplicationController
 				redirect_to :controller => 'admins', :action => 'index'
 			end
 		else
-				flash[:notice] = "Your account is waiting an admin's approval"
+				flash[:notice] = "Your account is awaiting an Administrator's approval"
 				redirect_to :action => 'view'
 		end
 	end
