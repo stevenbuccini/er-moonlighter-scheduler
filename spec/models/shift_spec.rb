@@ -171,4 +171,114 @@ RSpec.describe Shift, type: :model do
       expect(errors).to eql expected
     end
   end
+
+  describe 'parse_gcal_json' do
+    it 'should correctly coerce JSON returned from Google Calendar API to our internal representation.' do
+      response = {
+       "kind": "calendar#events",
+       "etag": "\"1430011440062000\"",
+       "summary": "ermoonlighter@gmail.com",
+       "updated": "2015-04-26T01:24:00.062Z",
+       "timeZone": "America/Los_Angeles",
+       "accessRole": "owner",
+       "defaultReminders": [
+        {
+         "method": "popup",
+         "minutes": 30
+        }
+       ],
+       "nextSyncToken": "CLC8o9_nksUCELC8o9_nksUCGAU=",
+       "items": [
+        {
+
+         "kind": "calendar#event",
+         "etag": "\"2859377892880000\"",
+         "id": "gf1jjlo8snq38ci48f33ip7qq8",
+         "status": "confirmed",
+         "htmlLink": "https://www.google.com/calendar/event?eid=Z2YxampsbzhzbnEzOGNpNDhmMzNpcDdxcTggZXJtb29ubGlnaHRlckBt",
+         "created": "2015-04-22T07:49:06.000Z",
+         "updated": "2015-04-22T07:49:06.440Z",
+         "summary": "Joe Biden",
+         "creator": {
+          "email": "264516961636-krd6qqi0ks41a0bcs31n2smed0qi4ug9@developer.gserviceaccount.com"
+         },
+         "organizer": {
+          "email": "ermoonlighter@gmail.com",
+          "displayName": "er moonlighter",
+          "self": true
+         },
+         "start": {
+          "dateTime": "2015-04-22T00:48:55-07:00"
+         },
+         "end": {
+          "dateTime": "2015-04-22T02:48:55-07:00"
+         },
+         "iCalUID": "gf1jjlo8snq38ci48f33ip7qq8@google.com",
+         "sequence": 0,
+         "extendedProperties": {
+          "private": {
+           "id": "37"
+          }
+         },
+         "reminders": {
+          "useDefault": true
+         }
+        },
+        {
+
+         "kind": "calendar#event",
+         "etag": "\"2859379162166000\"",
+         "id": "huh3a85j41l7kobjgvr8l7s7m4",
+         "status": "confirmed",
+         "htmlLink": "https://www.google.com/calendar/event?eid=aHVoM2E4NWo0MWw3a29iamd2cjhsN3M3bTQgZXJtb29ubGlnaHRlckBt",
+         "created": "2015-04-22T07:59:41.000Z",
+         "updated": "2015-04-22T07:59:41.083Z",
+         "summary": "Joe Biden",
+         "creator": {
+          "email": "264516961636-krd6qqi0ks41a0bcs31n2smed0qi4ug9@developer.gserviceaccount.com"
+         },
+         "organizer": {
+          "email": "ermoonlighter@gmail.com",
+          "displayName": "er moonlighter",
+          "self": true
+         },
+         "start": {
+          "dateTime": "2015-04-22T00:59:36-07:00"
+         },
+         "end": {
+          "dateTime": "2015-04-22T02:59:36-07:00"
+         },
+         "iCalUID": "huh3a85j41l7kobjgvr8l7s7m4@google.com",
+         "sequence": 0,
+         "extendedProperties": {
+          "private": {
+           "id": "38"
+          }
+         },
+         "reminders": {
+          "useDefault": true
+         }
+        }
+      ]
+      }
+      api_response = double(body: response)
+      expected = [
+        {
+          start_datetime: DateTime.strptime("2015-04-22T00:48:55-07:00"),
+          end_datetime: DateTime.strptime("2015-04-22T02:48:55-07:00"),
+          gcal_event_id: "gf1jjlo8snq38ci48f33ip7qq8",
+          gcal_event_etag: "\"2859377892880000\""
+        },
+        {
+          start_datetime: DateTime.strptime("2015-04-22T00:59:36-07:00"),
+          end_datetime: DateTime.strptime("2015-04-22T02:59:36-07:00"),
+          gcal_event_etag: "\"2859379162166000\"",
+          gcal_event_id: "huh3a85j41l7kobjgvr8l7s7m4",
+        }
+      ]
+      expect(JSON).to receive(:parse).and_return(response.deep_stringify_keys!)
+      data = Shift.parse_gcal_json(api_response)
+      expect(data).to eql(expected)
+    end
+  end
 end
