@@ -48,7 +48,7 @@ class Calendar
     logger.debug(result.data.to_yaml)
   end
 
-  def self.gcal_event_delete(shiftshift)
+  def self.gcal_event_delete(shift)
     params = {
       calendarId: CALENDAR_ID,
       eventId: shift.gcal_event_id
