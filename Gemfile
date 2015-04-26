@@ -41,7 +41,7 @@ gem 'figaro'
 gem 'mandrill-api', require: 'mandrill'
 
 #using for Google Calendar integration
-gem 'google_calendar'
+gem 'google-api-client'
 
 group :production do
  gem 'pg'
