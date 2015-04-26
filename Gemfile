@@ -43,6 +43,9 @@ gem 'mandrill-api', require: 'mandrill'
 #using for Google Calendar integration
 gem 'google-api-client'
 
+# Cronjobs made easy.
+gem 'whenever', :require => false
+
 group :production do
  gem 'pg'
 end
