@@ -12,7 +12,7 @@
               <li class="inactive"><a href="<%= pending_users_path %>">Pending Users</a><li>
               <% end %>
             
-            <li class="inactive"><a href="<%= contact_list_path %>">Contact List</a></li>
+            <li class="inactive" id='contacts'><a href="<%= contact_list_path %>">Contact List</a></li>
            
             <% end %>
             <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
