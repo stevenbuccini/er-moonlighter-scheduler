@@ -1,7 +1,7 @@
 class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user! # redirect if user isn't signed in
-  before_filter :check_users_authorization, :except => :destroy# redirect if user is not an admin
+  before_filter :check_users_authorization, :except => [:destroy, :contact_list]# redirect if user is not an admin
   before_filter :admin_only_view, only: [:create_email, :send_email]
 
   # GET /admins
@@ -14,6 +14,16 @@ class AdminsController < ApplicationController
     @current_pay_period = PayPeriod.find_by_id current_user.pay_period_id
   end
 
+  def contact_list
+    @admins = Admin.all
+    @doctors = Doctor.all
+    render 'partials/_contact_list'
+  end
+
+  def pending_users
+    @users_awaiting_approver = User.where(:type =>nil)
+    render 'partials/_pending_users'
+  end
   # GET /admins/1
   # GET /admins/1.json
   def show

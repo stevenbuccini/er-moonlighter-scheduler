@@ -10,6 +10,11 @@ class DoctorsController < ApplicationController
     @shifts = Shift.where(confirmed: false)
   end
 
+  def contact_list
+    @doctors = Doctor.all
+    @admins = Admin.all 
+  end
+
   # GET /doctors/1
   # GET /doctors/1.json
   def show
@@ -46,7 +51,7 @@ class DoctorsController < ApplicationController
   def update
     #@doctor = Doctor.find(params[:id])
     set_doctor
-   update_helper(@doctor, "Doctor", doctor_params)
+    update_helper(@doctor, "Doctor", doctor_params)
   end
 
   # DELETE /doctors/1
