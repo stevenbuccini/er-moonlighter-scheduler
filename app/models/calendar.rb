@@ -1,9 +1,9 @@
-# Literally copied this entire file from this link:
+# Almost copied this entire file verbatim from this link:
 # https://wiki.terena.org/plugins/servlet/mobile#content/view/23691293
 #
 # I take no responsibility for the quality of this code.
 
-module Calendar
+class Calendar
   require 'google/api_client'
   extend ActiveSupport::Concern
 
@@ -22,37 +22,36 @@ module Calendar
   # end
 
 
-  def gcal_event_insert
-
+  def self.gcal_event_insert(shift)
     params = {
       calendarId: CALENDAR_ID,
     }
     result = client.execute(
       :api_method => calendar.events.insert,
       :parameters => params,
-      :body_object => convert_to_gcal_event
+      :body_object => Calendar.convert_to_gcal_event(shift)
     )
     logger.debug(result.data.to_yaml)
     result
   end
 
-  def gcal_event_update
+  def self.gcal_event_update(shift)
     params = {
       calendarId: CALENDAR_ID,
-      eventId: self.gcal_event_id
+      eventId: shift.gcal_event_id
     }
     result = client.execute(
       :api_method => calendar.events.update,
       :parameters => params,
-      :body_object => convert_to_gcal_event
+      :body_object => Calendar.convert_to_gcal_event(shift)
     )
     logger.debug(result.data.to_yaml)
   end
 
-  def gcal_event_delete
+  def self.gcal_event_delete(shiftshift)
     params = {
       calendarId: CALENDAR_ID,
-      eventId: self.gcal_event_id
+      eventId: shift.gcal_event_id
     }
     result = client.execute(
       :api_method => calendar.events.delete,
@@ -61,30 +60,7 @@ module Calendar
     logger.debug(result.data.to_yaml)
   end
 
-  # module ClassMethods
-  #   # NEED TO ADD q parameter so that I can only get events back with '***'
-  #   def gcal_get_events_in_range(start_datetime, end_datetime)
-  #     params = {
-  #       calendarId: CALENDAR_ID,
-  #       q: "***".encode!('utf-8'),
-  #       timeMin: start_datetime,
-  #       timeMax: end_datetime
-  #     }
-
-  #     puts params
-  #     result = client.execute(
-  #       :api_method => calendar.events.list,
-  #       :parameters => params
-  #     )
-  #   end
-  # end
-
-
-  # THIS METHOD SUCKS! EVENTUALLY WE WANT TO MAKE THIS A CLASS METHOD
-  # but we can't because even if we use the solution above, those use
-  # private methods that we don't want to define twice.
-  # In the meantime, call this with Shift.new.gcal_get_events_in_range.
-  def gcal_get_events_in_range(start_datetime, end_datetime)
+  def self.gcal_get_events_in_range(start_datetime, end_datetime)
     params = {
       calendarId: CALENDAR_ID,
       q: "***".encode!('utf-8'),
@@ -98,51 +74,25 @@ module Calendar
     )
   end
 
-
-
-  class_methods do
-    def parse_gcal_json(api_response)
-      # Coerce the keys from Google into our own internal representation
-      translated_json = []
-
-      list_of_event_json = JSON.parse(api_response.body)['items']
-      # Now loop through this list, convert JSON to shifts, and save.
-      list_of_event_json.each do |gcal_json|
-        # Code smell, but sometimes the data we need is nested and so it's hard
-        # to refactor this into a one-size-fits-all case.
-
-        # Additionally, updating the model will be such a rare occurrance that
-        # I think we can get away with this.
-        translated_json << {
-          start_datetime: DateTime.strptime(gcal_json['start']['dateTime']),
-          end_datetime: DateTime.strptime(gcal_json['end']['dateTime']),
-          gcal_event_etag: gcal_json['etag'],
-          gcal_event_id: gcal_json['id'],
-        }
-      end
-      return translated_json
-    end
-  end
-
 private
-  def convert_to_gcal_event
+  def self.convert_to_gcal_event(shift)
     event = {
-      'summary' => self.doctor.full_name,
+      'summary' => shift.doctor.full_name,
       'start' => {
-         'dateTime' => self.start_datetime
+         'dateTime' => shift.start_datetime
       },
       'end' => {
-         'dateTime' => self.end_datetime
+         'dateTime' => shift.end_datetime
       },
       'extendedProperties' => {
         'private' => {
-          'id' => self.id
+          'id' => shift.id
         }
       }
     }
   end
 
-  def init_client
+  def self.init_client
 
     client = Google::APIClient.new(:application_name => 'Moonlighter', :application_version => '1.0.0')
     
@@ -161,28 +111,28 @@ private
     client
   end
 
-  def init_calendar
-    @calendar = nil
+  def self.init_calendar
+    @@calendar = nil
     # Load cached discovered API, if it exists. This prevents retrieving the
     # discovery document on every run, saving a round-trip to the discovery service.
     if File.exists? CACHED_API_FILE
       File.open(CACHED_API_FILE) do |file|
-        @calendar = Marshal.load(file)
+        @@calendar = Marshal.load(file)
       end
     else
-      @calendar = @client.discovered_api('calendar', API_VERSION)
+      @@calendar = @client.discovered_api('calendar', API_VERSION)
       File.open(CACHED_API_FILE, 'w') do |file|
         Marshal.dump(@calendar, file)
       end
     end
   end
 
-  def client
-    @client ||= init_client
+  def self.client
+    @@client ||= init_client
   end
 
-  def calendar
-    @calendar ||= init_calendar
+  def self.calendar
+    @@calendar ||= init_calendar
   end
 
 end

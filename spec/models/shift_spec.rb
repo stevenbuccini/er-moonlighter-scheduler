@@ -66,7 +66,7 @@ RSpec.describe Shift, type: :model do
       expect(c.doctor).to eql nil
       doc = FactoryGirl.create(:doctor)
       ids = [a.id.to_s, b.id.to_s, c.id.to_s]
-      errors = Shift.assign_multiple_shifts(ids, doc)
+      errors = Shift.assign_shifts(ids, doc)
       a = Shift.find(a.id)
       b = Shift.find(b.id)
       c = Shift.find(c.id)
@@ -85,7 +85,7 @@ RSpec.describe Shift, type: :model do
       expect(b.confirmed).to eql false
       ids = [a.id.to_s, b.id.to_s]
       doc = FactoryGirl.create(:doctor)
-      errors = Shift.assign_multiple_shifts(ids, doc)
+      errors = Shift.assign_shifts(ids, doc)
       expect(errors[:claimed_shifts]).to eql [a]
     end
 
@@ -94,7 +94,7 @@ RSpec.describe Shift, type: :model do
       a = FactoryGirl.create(:shift)
       ids = [a.id.to_s]
       doc = FactoryGirl.create(:doctor)
-      errors = Shift.assign_multiple_shifts(ids, doc)
+      errors = Shift.assign_shifts(ids, doc)
       expect(errors[:failed_save]).to eql "Failed to save shift assignments. Please try again."
     end
   end
@@ -134,15 +134,8 @@ RSpec.describe Shift, type: :model do
         gcal_event_etag: "some string idc",
         gcal_event_id: "whoa long string",
       }
-
-      # Yo, these unit tests are really hacky. Need to refactor later. Major code smell,
-      # but this is mainly becuase this method is an instance method rather than a class
-      # method right now.
-      blah = Shift.new
-      expect(Shift).to receive(:new).and_return(blah)
-      expect(blah).to receive(:gcal_get_events_in_range).and_return(response)
+      expect(Calendar).to receive(:gcal_get_events_in_range).and_return(response)
       expect(Shift).to receive(:parse_gcal_json).and_return([hash])
-      expect(Shift).to receive(:create_shift_from_hash).and_return(nil)
 
 
       errors = Shift.create_shifts_for_pay_period(DateTime.new(2015, 2, 14, 8, 00), DateTime.new(2015, 3, 15, 8, 00), 1)
@@ -151,20 +144,15 @@ RSpec.describe Shift, type: :model do
 
     it "should return error messages if saving a model fails." do 
       response = double("response", status: 200)
-      # Yo, these unit tests are really hacky. Need to refactor later. Major code smell,
-      # but this is mainly becuase this method is an instance method rather than a class
-      # method right now.
-      blah = Shift.new
-      expect(Shift).to receive(:new).and_return(blah)
-      expect(blah).to receive(:gcal_get_events_in_range).and_return(response)
-      expect(Shift).to receive(:create_shift_from_hash).and_return("I'm an error")
       hash = {
         start_datetime: DateTime.new(2015, 2, 15, 8, 00),
         end_datetime: DateTime.new(2015, 3, 14, 8, 00),
         gcal_event_etag: "some string idc",
         gcal_event_id: "whoa long string",
       }
+      expect(Calendar).to receive(:gcal_get_events_in_range).and_return(response)
       expect(Shift).to receive(:parse_gcal_json).and_return([hash])
+      expect(Shift).to receive(:create_shift_from_hash).and_return("I'm an error")
       errors = Shift.create_shifts_for_pay_period(DateTime.new(2015, 2, 14, 8, 00), DateTime.new(2015, 3, 15, 8, 00), 1)
       expect(errors).to eql({:shift_save => ["I'm an error"]})
     end
@@ -174,12 +162,7 @@ RSpec.describe Shift, type: :model do
       # Hacked to stub out all the random requests to other methods
       response = double("response", status: 404, body: {"error" => {"code" => "404", "message" => "world is ending"}})
       
-      # Yo, these unit tests are really hacky. Need to refactor later. Major code smell,
-      # but this is mainly becuase this method is an instance method rather than a class
-      # method right now.
-      blah = Shift.new
-      expect(Shift).to receive(:new).and_return(blah)
-      expect(blah).to receive(:gcal_get_events_in_range).and_return(response)
+      expect(Calendar).to receive(:gcal_get_events_in_range).and_return(response)
       expect(JSON).to receive(:parse).and_return(response.body)
       errors = Shift.create_shifts_for_pay_period(DateTime.new(2015, 2, 14, 8, 00), DateTime.new(2015, 3, 15, 8, 00), 1)
       

@@ -1,7 +1,5 @@
 class Shift < ActiveRecord::Base
 
-  include Calendar
-
   belongs_to :doctor
   belongs_to :pay_period
 
@@ -41,7 +39,7 @@ class Shift < ActiveRecord::Base
     end
   end
 
-  def self.assign_multiple_shifts(array_of_ids, doctor)
+  def self.assign_shifts(array_of_ids, doctor)
     # Bulk assign shifts. Return true if successful, false if save fails.
     transaction_errors = {}
     transaction_errors.default = nil
@@ -79,9 +77,10 @@ class Shift < ActiveRecord::Base
     errors_hash = {}
 
     # Have to wrap this instance method because we can't call the class method direclty 
-    api_response = Shift.new().gcal_get_events_in_range(start_datetime, end_datetime)
+    api_response = Calendar.gcal_get_events_in_range(start_datetime, end_datetime)
     if api_response.status == 200
       # Request successful
+      # Coerce GCal JSON into our own internal representation
       translated_json = Shift.parse_gcal_json(api_response)
       translated_json.each do |event_hash|
         errors = Shift.create_shift_from_hash(event_hash, pay_period_id)
@@ -115,6 +114,28 @@ class Shift < ActiveRecord::Base
     end
     # Return nil if no errors
     return nil
+  end
+
+  def self.parse_gcal_json(api_response)
+    # Coerce the keys from Google into our own internal representation
+    translated_json = []
+
+    list_of_event_json = JSON.parse(api_response.body)['items']
+    # Now loop through this list, convert JSON to shifts, and save.
+    list_of_event_json.each do |gcal_json|
+      # Code smell, but sometimes the data we need is nested and so it's hard
+      # to refactor this into a one-size-fits-all case.
+
+      # Additionally, updating the model will be such a rare occurrance that
+      # I think we can get away with this.
+      translated_json << {
+        start_datetime: DateTime.strptime(gcal_json['start']['dateTime']),
+        end_datetime: DateTime.strptime(gcal_json['end']['dateTime']),
+        gcal_event_etag: gcal_json['etag'],
+        gcal_event_id: gcal_json['id'],
+      }
+    end
+    return translated_json
   end
 
 end
