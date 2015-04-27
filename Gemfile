@@ -72,4 +72,7 @@ group :development, :test do
   gem 'capybara'
   gem 'poltergeist'
   gem 'autotest-rails'
+
+  # Used for time-dependent RSpec tests
+  gem 'timecop'
 end
