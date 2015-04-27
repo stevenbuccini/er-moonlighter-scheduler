@@ -13,12 +13,12 @@ RSpec.describe DoctorsController, type: :controller do
     before :each do
       @doctor = FactoryGirl.create(:doctor, :first_name => "Jennifer", :last_name => "Lopez", :phone_1 => '222-222-2222')
       @new_first_name = "Sara"
-      Doctor.stub(:find).and_return(@doctor)
+      expect(Doctor).to receive(:find).at_least(:once).and_return(@doctor)
     end
 
     it 'should call the update Model method' do
       
-      @doctor.should_receive(:update).with({"first_name" => @new_first_name}.with_indifferent_access)
+      expect(@doctor).to receive(:update).with({"first_name" => @new_first_name}.with_indifferent_access)
       put :update, :id => @doctor.id, :doctor => {:first_name => @new_first_name}
     end
 
@@ -43,7 +43,7 @@ RSpec.describe DoctorsController, type: :controller do
       get :edit, :id => @doctor.id
     end
     it 'should render the show page' do 
-      Doctor.stub(:find).and_return(@doctor)
+      expect(Doctor).to receive(:find).at_least(:once).and_return(@doctor)
       get :edit, :id => @doctor.id
       expect(response).to render_template('doctors/edit/')
     end
