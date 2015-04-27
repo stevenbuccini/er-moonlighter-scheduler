@@ -9,7 +9,7 @@ class Doctor < User
 	def self.NAME; @@NAME; end
 
 	def self.update_pay_period(id)
-		Doctor.update_all(:pay_period_id, id)
+		Doctor.update_all({pay_period_id: id})
 	end
 
   def is_delinquent?
