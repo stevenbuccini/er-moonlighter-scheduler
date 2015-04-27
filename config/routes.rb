@@ -29,6 +29,10 @@ Rails.application.routes.draw do
   get 'create-new-pay-period', to: 'admins#create_new_pay_period', as: "create_new_pay_period"
   get 'edit-current-pay-period', to: 'admins#edit_current_pay_period', as: "edit_current_pay_period"
 
+  #Contact List
+  get '/contact-list', to: 'admins#contact_list', as: "contact_list"
+  #Pending Users List
+  get '/pending-list', to: 'admins#pending_users', as: "pending_users"
 
   post '/request-shifts', to:'shifts#update', as: "sign_up_for_shifts"
 

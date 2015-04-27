@@ -19,6 +19,5 @@ Scenario: delete doctor (happy path)
   And I am on the admin index
   When I delete "Alex"
   Then I should see "Doctor was successfully destroyed."
-  Given I am on the admin index
   Then I should not see "at@example.com"
 

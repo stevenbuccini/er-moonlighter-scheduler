@@ -1,8 +1,9 @@
 class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user! # redirect if user isn't signed in
-  before_filter :check_users_authorization, :except => :destroy# redirect if user is not an admin
+  before_filter :check_users_authorization, :except => [:destroy, :contact_list]# redirect if user is not an admin
   before_filter :admin_only_view, only: [:create_email, :send_email]
+  before_filter :doctor_or_admin_view, only: [:contact_list]
 
   # GET /admins
   # GET /admins.json
@@ -14,6 +15,16 @@ class AdminsController < ApplicationController
     @current_pay_period = PayPeriod.find_by_id current_user.pay_period_id
   end
 
+  def contact_list
+    @admins = Admin.all
+    @doctors = Doctor.all
+    render 'partials/_contact_list'
+  end
+
+  def pending_users
+    @users_awaiting_approver = User.where(:type =>nil)
+    render 'partials/_pending_users'
+  end
   # GET /admins/1
   # GET /admins/1.json
   def show
@@ -136,5 +147,12 @@ class AdminsController < ApplicationController
         @user.update_attribute(:type, user_type)
         flash[:notice] = "Approved #{@user.first_name} as a #{user_type}!"
       end
+    end
+
+    def is_not_nil
+      if current_user.type != nil
+        return true
+      end
+      return false
     end
 end
