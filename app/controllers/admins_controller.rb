@@ -3,6 +3,7 @@ class AdminsController < ApplicationController
   before_filter :authenticate_user! # redirect if user isn't signed in
   before_filter :check_users_authorization, :except => [:destroy, :contact_list]# redirect if user is not an admin
   before_filter :admin_only_view, only: [:create_email, :send_email]
+  before_filter :doctor_or_admin_view, only: [:contact_list]
 
   # GET /admins
   # GET /admins.json
@@ -146,5 +147,12 @@ class AdminsController < ApplicationController
         @user.update_attribute(:type, user_type)
         flash[:notice] = "Approved #{@user.first_name} as a #{user_type}!"
       end
+    end
+
+    def is_not_nil
+      if current_user.type != nil
+        return true
+      end
+      return false
     end
 end
