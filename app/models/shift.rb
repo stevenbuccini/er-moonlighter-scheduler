@@ -100,6 +100,28 @@ class Shift < ActiveRecord::Base
     return errors_hash
   end
 
+  def self.delete_completed_shifts
+    # We could just delete these right away, but we need to update the doctors `last_shift_completion_date` field.
+    # This shouldn't be too expensive becuase there will be a maximum of like 20 shifts to delete at any given
+    # time becuase we're just deleting the shifts from the previous 24 hours.
+
+
+    # We fix this time because we only want to delete shifts for which we've updated the doctors,
+    # and there is (albeit small) possiblity that a shift could have completed while we're running
+    # this query
+    fixed_time = DateTime.now
+    completed_shifts = Shift.where("end_datetime <= ?", fixed_time)
+    completed_shifts.each do |shift|
+      doc = shift.doctor
+      doc.last_shift_completion_date = shift.end_datetime.to_date #convert to date because it shouldn't matter at the exact time they stopped.
+      doc.save
+    end
+    # Delete all shifts at once so we do less transactions.
+    # NOTE: This does NOT invoke the callbacks nor does it use the destroy method.
+    # This prevents instanation of each object a la destroy_all
+    Shift.where("end_datetime <= ?", fixed_time).delete_all 
+  end
+
   private
 
   def self.create_shift_from_hash(data_hash, pay_period_id)

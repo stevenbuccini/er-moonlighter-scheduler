@@ -281,4 +281,41 @@ RSpec.describe Shift, type: :model do
       expect(data).to eql(expected)
     end
   end
+
+  describe "Shift.delete_completed_shifts" do
+    before do
+      Timecop.freeze(DateTime.new(2015, 4, 1, 12, 0, 0))
+      stub_const("Doctor::MAX_TIME_SINCE_LAST_SHIFT", 3)
+    end
+
+    it 'should delete all shifts that have occurred but leave pending shifts untouched' do
+      
+      # These shifts are in the past.
+      doc_to_check = FactoryGirl.create(:doctor, email: "test1@example.com")
+      random_doctor = FactoryGirl.create(:doctor, email: "test2@example.com")
+      FactoryGirl.create(:shift, start_datetime: DateTime.now.advance(days: -1), end_datetime: DateTime.now.advance(days: -1, hours: 3), doctor: doc_to_check)
+      FactoryGirl.create(:shift, start_datetime: DateTime.now.advance(days: -3), end_datetime: DateTime.now.advance(days: -3, hours: 3), doctor: random_doctor)
+      FactoryGirl.create(:shift, start_datetime: DateTime.now.advance(days: -5), end_datetime: DateTime.now.advance(days: -5, hours: 3), doctor: random_doctor)
+      # This shift is in the future
+      FactoryGirl.create(:shift, start_datetime: DateTime.now.advance(days: 1), end_datetime: DateTime.now.advance(days: 1, hours: 3), doctor: random_doctor)
+      expect(Shift.all.length).to eql(4)
+      Shift.delete_completed_shifts
+      expect(Shift.all.length).to eql(1)
+      expect(Doctor.find_by_id(doc_to_check.id).last_shift_completion_date).to eql(DateTime.now.advance(days: -1, hours: 3).to_date)
+    end
+
+    it 'should leave shifts that are in progress intact.' do 
+      random_doctor = FactoryGirl.create(:doctor, email: "test1@example.com") 
+      # These shifts are in the past.
+      FactoryGirl.create(:shift, start_datetime: DateTime.now.advance(days: -1), end_datetime: DateTime.now.advance(days: -1, hours: 3), doctor: random_doctor)
+      FactoryGirl.create(:shift, start_datetime: DateTime.now.advance(days: -3), end_datetime: DateTime.now.advance(days: -3, hours: 3), doctor: random_doctor)
+      FactoryGirl.create(:shift, start_datetime: DateTime.now.advance(days: -5), end_datetime: DateTime.now.advance(days: -5, hours: 3), doctor: random_doctor)
+    
+      # This shift is in progress.
+      a = FactoryGirl.create(:shift, start_datetime: DateTime.now.advance(hours: -2), end_datetime: DateTime.now.advance(hours: 1), doctor: random_doctor)
+      expect(Shift.all.length).to eql(4)
+      Shift.delete_completed_shifts
+      expect(Shift.all.length).to eql(1)
+    end
+  end
 end

@@ -9,11 +9,11 @@ RSpec.describe AdminsController, type: :controller do
       @admin = FactoryGirl.build(:admin, :first_name => "Jennifer", :last_name => "Lopez", :phone_1 => '222-222-2222')
       @admin.save!
       @new_first_name = "Sara"
-      Admin.stub(:find).and_return(@admin)
+      expect(Admin).to receive(:find).at_least(:once).and_return(@admin)
     end
 
     it 'should call the update Model method' do
-      @admin.should_receive(:update).with({"first_name" => @new_first_name}.with_indifferent_access)#.and_return(:true)
+      expect(@admin).to receive(:update).with({"first_name" => @new_first_name}.with_indifferent_access)#.and_return(:true)
       put :update, :id => @admin.id, :admin => {:first_name => @new_first_name}
     end
 
@@ -35,7 +35,6 @@ RSpec.describe AdminsController, type: :controller do
       @admin = FactoryGirl.build(:admin, :first_name => "Jennifer", :last_name => "Lopez", :phone_1 => '222-222-2222')
       @admin.save!
       @new_first_name = "Sara"
-      Admin.stub(:find).and_return(@admin)
     end
 
     it "renders the create_email template" do
@@ -74,7 +73,7 @@ RSpec.describe AdminsController, type: :controller do
       get :show, :id => @admin.id
     end
     it 'should render the show page' do 
-      Admin.stub(:find).and_return(@admin)
+      expect(Admin).to receive(:find).at_least(:once).and_return(@admin)
       get :show, :id => @admin.id
       expect(response).to render_template('admins/show/')
     end
@@ -98,7 +97,7 @@ RSpec.describe AdminsController, type: :controller do
       get :edit, :id => @admin.id
     end
     it 'should render the show page' do 
-      Admin.stub(:find).and_return(@admin)
+      expect(Admin).to receive(:find).at_least(:once).and_return(@admin)
       get :edit, :id => @admin.id
       expect(response).to render_template('admins/edit/')
     end
