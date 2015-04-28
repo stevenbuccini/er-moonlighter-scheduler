@@ -28,7 +28,7 @@ class PayPeriodsController < ApplicationController
   # POST /pay_periods
   # POST /pay_periods.json
   def create
-    @pay_period = PayPeriod.new(pay_period_params)
+    @pay_period = PayPeriod.create_next
 
     respond_to do |format|
       if @pay_period.save
