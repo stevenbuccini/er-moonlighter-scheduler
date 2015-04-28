@@ -3,9 +3,9 @@ class ShiftsController < ApplicationController
 
   def update
     shifts = params["post"]["shifts"]
-    errors = Shift.assign_multiple_shifts(shifts, current_user)
+    errors = Shift.assign_shifts(shifts, current_user)
     if errors[:failed_save]
-      flash[:error] = "Failed to save shift assignments. Please try again."
+      flash[:error] = errors[:failed_save]
     else
       flash[:notice] = "You successfully signed up for your requested shifts!"
     end

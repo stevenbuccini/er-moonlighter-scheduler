@@ -18,7 +18,6 @@ Scenario: update doctor (happy path)
   Given I am logged in as the default admin
   Given I am on the admin index
   When I edit "Sep" with "Last name" as "Flowers"
-  Given I am on the admin index
   Then I should see "Flowers"
   Then I should not see "Sep"
 

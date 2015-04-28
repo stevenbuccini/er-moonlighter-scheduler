@@ -27,6 +27,7 @@ Given /I am logged in as the default (.*)/ do |user_type|
 end
 
 When /I delete "(.*)"/ do |doctor|
+  visit contact_list_path
   id = Doctor.find_by_first_name(doctor).id
   click_on("delete_doctor_"+id.to_s)
   #page.driver.browser.accept_js_confirms
@@ -44,7 +45,9 @@ When /I change my mind to not delete "(.*)"/ do |doctor|
 end
 
 When /I edit "(.*)" with "(.*)" as "(.*)"/ do |doctor, field, new_name|
+
   id = Doctor.find_by_last_name(doctor).id
+  visit contact_list_path
   click_link("edit_doctor_"+id.to_s)
   fill_in field, :with => new_name
   click_button("Update Doctor")
@@ -104,6 +107,10 @@ When /I sign up with email "(.*)" and password "(.*)"/ do |email, password|
   fill_in 'user_email', :with => email
   fill_in 'user_password', :with => password
   click_button 'Log in'
+end
+
+When /I visit (.*)/ do |elem|
+  visit elem
 end
 
 private

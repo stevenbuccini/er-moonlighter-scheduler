@@ -9,11 +9,11 @@
             <% if current_user.registration_complete %> 
               <% if current_user.is_admin? %>
               <li class="inactive"><a href="<%= create_email_path %>">Send Email</a></li>
-              <li class="inactive"><a href="#">Promote Users</a><li>
+              <li class="inactive"><a href="<%= pending_users_path %>">Pending Users</a><li>
               <% end %>
-            
-            <li class="inactive"><a href="<%= dashboard_index_path%>">Contact List</a></li>
-           
+              <% if current_user.type != nil %>
+                <li class="inactive" id='contacts'><a href="<%= contact_list_path %>">Contact List</a></li>
+              <% end %>
             <% end %>
             <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
           <% else %>

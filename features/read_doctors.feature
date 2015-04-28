@@ -16,7 +16,7 @@ Background: admin existing and doctors in database
 
 Scenario: View all doctors after logging in
   Given I am logged in as the default admin
-  And I am on the admin index
+  When I visit contact-list
   Then I should see "at@b.edu"
   And I should see "theboss@me.com"
   And I should see "supercool@gmail.com"

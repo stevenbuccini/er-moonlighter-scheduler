@@ -41,7 +41,10 @@ gem 'figaro'
 gem 'mandrill-api', require: 'mandrill'
 
 #using for Google Calendar integration
-gem 'google_calendar'
+gem 'google-api-client'
+
+# Cronjobs made easy.
+gem 'whenever', :require => false
 
 group :production do
  gem 'pg'
@@ -69,4 +72,7 @@ group :development, :test do
   gem 'capybara'
   gem 'poltergeist'
   gem 'autotest-rails'
+
+  # Used for time-dependent RSpec tests
+  gem 'timecop'
 end

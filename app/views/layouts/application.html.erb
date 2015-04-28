@@ -11,18 +11,6 @@
 <%= render 'layouts/navbar' %>
 <body>
 <div class="container">
-<div id="flash_messages">
-  <% flash.each do |key, value| %>
-    <%= content_tag(:div, value, :class => "alert alert-dismissible alert-#{key}") %>
-  <% end %>
-</div>
-
-
-
-<!-- Refactor this into the menue bar partial -->
-<!-- Super helpful link: https://github.com/plataformatec/devise/wiki/How-To:-Add-sign_in,-sign_out,-and-sign_up-links-to-your-layout-template -->
-
-<!-- Also, we need to decide whether or not we should implement logout links via DELETE or GET. -->
 
 <%= yield %>
 
