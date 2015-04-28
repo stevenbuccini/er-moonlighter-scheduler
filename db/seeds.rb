@@ -45,3 +45,12 @@ shifts = [
 shifts.each do |shift|
   Shift.create!(shift)
 end
+
+pay_periods = [
+  {start_date: DateTime.new(2015, 2, 14), end_date: DateTime.new(2015, 2, 28)},
+  {start_date: DateTime.new(2015, 3, 14), end_date: DateTime.new(2015, 3, 28)}
+]
+
+pay_periods.each do |p|
+  PayPeriod.create!(p)
+end

@@ -36,6 +36,10 @@ Rails.application.routes.draw do
 
   post '/request-shifts', to:'shifts#update', as: "sign_up_for_shifts"
 
+  #payperiod routes goes here
+  post 'create_next_pay_period', to: 'pay_periods#create_next', as: "create_next"
+
+
   # TO DO: Replace this with a splash page/login page
   root 'dashboard#index'
 
