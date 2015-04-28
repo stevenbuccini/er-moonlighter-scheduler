@@ -33,6 +33,7 @@ class AdminsController < ApplicationController
 
   def create_email
     @doctors = Doctor.all
+    @pay_periods = [1,2,3]
   end
 
   def send_email
@@ -129,7 +130,7 @@ class AdminsController < ApplicationController
       check_users_authorization_helper(Admin.NAME)
     end
 
-    #TODO: 
+    #TODO:
     def approve_user(user_type)
        @user = User.find_by_id params[:user]
       if @user
