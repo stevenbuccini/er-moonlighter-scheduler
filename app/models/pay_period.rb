@@ -7,6 +7,12 @@ class PayPeriod < ActiveRecord::Base
 	validates_presence_of :start_date, :end_date
 	validate :pay_range
 
+	def self.create_next
+		last = PayPeriod.last!
+		return PayPeriod.new({:start_date => last.end_date, :end_date => last.end_date + 14})
+	end
+
+	private
 	def pay_range
 		errors[:base] << "End date cannot be less than start date" unless start_date and end_date and end_date >= start_date	
 	end

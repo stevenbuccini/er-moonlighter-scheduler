@@ -25,11 +25,18 @@ class PayPeriodsController < ApplicationController
     @payperiod = PayPeriod.find_by_id params[:id]
   end
 
-  # POST /pay_periods
-  # POST /pay_periods.json
+  def create_next
+    @pay_period = PayPeriod.create_next
+    create_helper(@pay_period)
+  end
   def create
     @pay_period = PayPeriod.new(pay_period_params)
-
+    create_helper(@pay_period)
+  end
+  # POST /pay_periods
+  # POST /pay_periods.json
+  def create_helper(pay_period)
+    @pay_period = pay_period
     respond_to do |format|
       if @pay_period.save
         change_pay_period_id_for_users()
