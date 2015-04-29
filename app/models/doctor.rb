@@ -6,7 +6,7 @@ class Doctor < User
   MAX_TIME_SINCE_LAST_SHIFT = 2
 
 	@@NAME = "Doctor"
-	def self.NAME; @@NAME; end
+	def NAME; @@NAME; end
 
 	def self.update_pay_period(id)
 		Doctor.update_all({pay_period_id: id})

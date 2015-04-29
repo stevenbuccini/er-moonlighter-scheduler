@@ -11,10 +11,10 @@ class Calendar
   CACHED_API_FILE = "calendar-#{API_VERSION}.cache"
   CALENDAR_ID = ENV["gcal_calendar_id"]
 
-  # It's really dumb that we have to do this, here is a link w/ more info: 
+  # It's really dumb that we have to do this, here is a link w/ more info:
   # http://www.railstips.org/blog/archives/2009/05/15/include-vs-extend-in-ruby/
-  # 
-  # In short, 'including' a module mixes in only instance methods. 'extend'ing 
+  #
+  # In short, 'including' a module mixes in only instance methods. 'extend'ing
   # allows you get class methods, but it doesn't make sense to do it both.
   # So we have our module mix in a class method because abstraction
   # def self.included(base)
@@ -31,7 +31,8 @@ class Calendar
       :parameters => params,
       :body_object => Calendar.convert_to_gcal_event(shift)
     )
-    logger.debug(result.data.to_yaml)
+    #logger.debug(result.data.to_yaml)
+    puts result.data.to_yaml
     result
   end
 
@@ -45,7 +46,7 @@ class Calendar
       :parameters => params,
       :body_object => Calendar.convert_to_gcal_event(shift)
     )
-    logger.debug(result.data.to_yaml)
+    #logger.debug(result.data.to_yaml)
   end
 
   def self.gcal_event_delete(shift)
@@ -95,8 +96,14 @@ private
   def self.init_client
 
     client = Google::APIClient.new(:application_name => 'Moonlighter', :application_version => '1.0.0')
-    
+
+    puts ENV['RAILS_ENV']
+    puts ENV["gcal_private_key"]
+
     key = OpenSSL::PKey::RSA.new(ENV["gcal_private_key"])
+
+    #puts ENV["gcal_private_key"]
+    #puts key
 
     client.authorization = Signet::OAuth2::Client.new(
       :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',

@@ -4,6 +4,10 @@ require 'devise'
 require 'support/controller_macros'
 require 'capybara/rspec'
 require 'simplecov'
+
+require File.expand_path("../../config/environment", __FILE__)
+Figaro.load
+
 SimpleCov.start
 CodeClimate::TestReporter.start
 FactoryGirl.find_definitions
