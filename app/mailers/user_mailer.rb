@@ -24,8 +24,24 @@ class UserMailer < ApplicationMailer
     mandrill_client.messages.send_template template_name, template_content, message
 	end
 
-	def welcome_email(user,pay_period)
+	def welcome_email(user)
 		template_name = "welcome-email"
+      template_content = []
+      message = {
+        to: [{email: user.email}],
+        merge_vars: [
+          {rcpt: user.email,
+           vars: [
+              { name: "first_name", content: user.first_name }
+          	]
+          }
+        ]
+      }
+    mandrill_client.messages.send_template template_name, template_content, message
+	end
+
+	def urgent_email(user,pay_period)
+		template_name = "urgent-shifts-still-need-to-be-filled"
       template_content = []
       message = {
         to: [{email: user.email}],
@@ -34,22 +50,6 @@ class UserMailer < ApplicationMailer
            vars: [
               { name: "first_name", content: user.first_name },
 							{ name: "pay_period_range", content: pay_period }
-          	]
-          }
-        ]
-      }
-    mandrill_client.messages.send_template template_name, template_content, message
-	end
-
-	def urgent_email(user)
-		template_name = "urgent-shifts-still-need-to-be-filled"
-      template_content = []
-      message = {
-        to: [{email: user.email}],
-        merge_vars: [
-          {rcpt: user.email,
-           vars: [
-              { name: "first_name", content: user.first_name }
           	]
           }
         ]

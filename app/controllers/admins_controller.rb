@@ -44,13 +44,14 @@ class AdminsController < ApplicationController
 
   def create_email
     @doctors = Doctor.all
-    @pay_periods = [1,2,3]
+    @pay_periods = PayPeriod.get_open
   end
 
   def send_email
     if params[:activated] == nil || params[:activated] == ""
       flash[:notice] = "Please select doctors you want to send emails to"
       redirect_to '/create-email'
+    #params[:pay_period] ||= " "
     else
       @doctors = Doctor.find(params[:activated])
       sent_to = "Email sent to: " + Admin.get_doctor_names(@doctors)
