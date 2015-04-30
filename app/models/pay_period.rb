@@ -18,6 +18,6 @@ class PayPeriod < ActiveRecord::Base
 	end
 
 	def self.get_open
-		PayPeriod.where(is_open: false)
+		PayPeriod.where(is_open: true)
 	end
 end
