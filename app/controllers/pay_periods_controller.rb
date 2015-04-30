@@ -12,7 +12,7 @@ class PayPeriodsController < ApplicationController
 
   # GET /pay_periods/1
   # GET /pay_periods/1.json
-  def show
+  def show 
   end
 
   # GET /pay_periods/new
@@ -22,11 +22,10 @@ class PayPeriodsController < ApplicationController
 
   # GET /pay_periods/1/edit
   def edit
-    @payperiod = PayPeriod.find_by_id params[:id]
   end
 
   def create_next
-    @pay_period = PayPeriod.create_next
+    @pay_period = PayPeriod.create_next(pay_period_params[:is_open])
     create_helper(@pay_period)
   end
   def create
@@ -37,9 +36,11 @@ class PayPeriodsController < ApplicationController
   # POST /pay_periods.json
   def create_helper(pay_period)
     @pay_period = pay_period
+    # TODO: uncomment the next line after Steven and I figure out why the calendar model is failing
+    #Shift.create_shifts_for_pay_period(@pay_period.start_date, @pay_period.end_date, @pay_period.id)
     respond_to do |format|
-      if @pay_period.save
-        change_pay_period_id_for_users()
+      if @pay_period.save!
+        #change_pay_period_id_for_users()
         format.html { redirect_to @pay_period, notice: 'Pay period was successfully created.' }
         format.json { render :show, status: :created, location: @pay_period }        
       else
@@ -58,7 +59,7 @@ class PayPeriodsController < ApplicationController
   # PATCH/PUT /pay_periods/1
   # PATCH/PUT /pay_periods/1.json
   def update
-    update_helper(@pay_period, "Pay period", pay_period_params)
+    update_helper(@pay_period, 'Pay period', pay_period_params)
   end
 
   # DELETE /pay_periods/1
@@ -70,7 +71,7 @@ class PayPeriodsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pay_period
-      @pay_period = PayPeriod.find(params[:id])
+      @pay_period = PayPeriod.find_by_id params[:id]
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

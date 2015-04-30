@@ -28,7 +28,6 @@ class AdminsController < ApplicationController
   # GET /admins/1
   # GET /admins/1.json
   def show
-    @admin = Admin.find(params[:id])
   end
 
   # GET /admins/new
@@ -38,8 +37,6 @@ class AdminsController < ApplicationController
 
   # GET /admins/1/edit
   def edit
-    @admin = Admin.find(params[:id])
-
   end
 
   def create_email
@@ -61,26 +58,7 @@ class AdminsController < ApplicationController
     end
   end
 
-  # POST /admins
-  # POST /admins.json
-  # def create
-  #   @admin = Admin.new(admin_params)
-
-  #   respond_to do |format|
-  #     if @admin.save
-  #       format.html { redirect_to @admin, notice: 'Admin was successfully created.' }
-  #       format.json { render :show, status: :created, location: @admin }
-  #     else
-  #       format.html { render :new }
-  #       format.json { render json: @admin.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
-
-  # PATCH/PUT /admins/1
-  # PATCH/PUT /admins/1.json
   def update
-    @admin = Admin.find(params[:id])
     update_helper(@admin, "Admin", admin_params)
   end
 
@@ -92,21 +70,8 @@ class AdminsController < ApplicationController
   end
 
 
-  # def approve_doctor
-  #   @user = User.find_by_id params[:user]
-  #   if @user
-  #     @user.update_attribute(:type, "Doctor")
-  #     flash[:notice] = "Approved #{@user.first_name} as a doctor!"
-  #   end
-  # end
-
   def approve_doctor
     approve_user("Doctor")
-    # @user = User.find_by_id params[:user]
-    # if @user
-    #   @user.update_attribute(:type, "Doctor")
-    #   flash[:notice] = "Approved #{@user.first_name} as a doctor!"
-    # end
   end
 
   def approve_new_admin
