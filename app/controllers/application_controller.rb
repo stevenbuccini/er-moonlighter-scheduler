@@ -68,7 +68,7 @@ class ApplicationController < ActionController::Base
   def update_helper(model, model_name, params)
     respond_to do |format|
       if model.update(params)
-        format.html { redirect_to model, notice: '#{model_name} was successfully updated.' }
+        format.html { redirect_to model, notice: "#{model_name} was successfully updated." }
         format.json { render :show, status: :ok, location: model }
       else
         format.html { render :edit }

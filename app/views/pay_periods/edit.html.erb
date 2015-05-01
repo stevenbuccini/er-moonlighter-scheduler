@@ -1,6 +1,6 @@
 <h1>Editing Pay Period</h1>
 
-<%= render 'form' %>
+<%= render 'form', :locals => { :action => "update"} %>
 
 <%= link_to 'Show', @pay_period %> |
 <%= link_to 'Back', pay_periods_path %>
