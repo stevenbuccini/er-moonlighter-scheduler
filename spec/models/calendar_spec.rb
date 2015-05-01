@@ -18,7 +18,7 @@ RSpec.describe Calendar, type: :model do
 
 
 		it 'should update an event with a given shift object input with the proper parameters' do
-			shift = Shift.create({start_datetime: DateTime.new(2015, 2, 14, 8, 00), end_datetime: DateTime.new(2015, 3, 15, 8, 00)})
+			shift = Shift.create({start_datetime: DateTime.new(2015, 2, 14, 8, 00), end_datetime: DateTime.new(2015, 2, 15, 8, 00)})
 			doctor = Doctor.create({first_name: 'Donald', last_name: 'Doctor'})
 
 			shift.doctor = doctor
@@ -38,7 +38,7 @@ RSpec.describe Calendar, type: :model do
 
 			Calendar.init_calendar
 
-			puts Calendar.gcal_get_events_in_range(shift.start_datetime, shift.end_datetime).body
+			puts "\n\n\nTHIS IS THE EVENT: \n" + Calendar.gcal_get_events_in_range(shift.start_datetime, shift.end_datetime).body
 
 		end
 

@@ -32,7 +32,7 @@ class Calendar
       :body_object => Calendar.convert_to_gcal_event(shift)
     )
     #logger.debug(result.data.to_yaml)
-    puts result.data.to_yaml
+    puts "\n\nBEGIN RESULT.DATA.TO_YAML HERE: \n\n" + result.data.to_yaml
     result
   end
 
@@ -64,9 +64,10 @@ class Calendar
   def self.gcal_get_events_in_range(start_datetime, end_datetime)
     params = {
       calendarId: CALENDAR_ID,
-      q: "***".encode!('utf-8'),
-      timeMin: start_datetime,
-      timeMax: end_datetime
+      #q: "***".encode!('utf-8'),
+      q: "(open)",
+      timeMin: start_datetime.to_datetime.iso8601, #FORMATTING ISSUES HERE
+      timeMax: end_datetime.to_datetime.iso8601  #FORMATTING ISSUES HERE
     }
 
     result = client.execute(
@@ -97,13 +98,13 @@ private
 
     client = Google::APIClient.new(:application_name => 'Moonlighter', :application_version => '1.0.0')
 
-    puts ENV['RAILS_ENV']
-    puts ENV["gcal_private_key"]
+    #puts ENV['RAILS_ENV']
+    #puts ENV["gcal_private_key"]
 
     key = OpenSSL::PKey::RSA.new(ENV["gcal_private_key"])
 
     #puts ENV["gcal_private_key"]
-    #puts key
+    puts key
 
     client.authorization = Signet::OAuth2::Client.new(
       :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
