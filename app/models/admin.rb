@@ -10,8 +10,8 @@ class Admin < User
 
 	def self.get_doctor_names(doctors)
 		names = ""
-		doctors.each do |doctor|	
-			names = names + doctor.full_name + " and " 
+		doctors.each do |doctor|
+			names = names + doctor.full_name + " and "
 		end
 		names[0..-6]
 	end
@@ -19,7 +19,7 @@ class Admin < User
 	def send_email(doctor, params)
 		case params[:email_type]
       when 'urgent'
-        UserMailer.urgent_email(doctor).deliver_now
+        UserMailer.urgent_email(doctor,params[:pay_period]).deliver_now
       when 'new_pay_period'
         UserMailer.new_pay_period_email(doctor).deliver_now
       else

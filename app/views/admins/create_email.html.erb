@@ -15,7 +15,14 @@
 								<%= radio_button_tag :email_type, :urgent, false, :onclick => "fillEmailBody('urgent')"%>
 								Use urgent email template
 							</label>
-
+						</div>
+						<div class="pay_period_radio" style="display:none">
+							<% @pay_periods.each do |pay_period| %>
+							<div class="radio">
+									<%= radio_button_tag 'pay_period', "#{pay_period.start_date} to #{pay_period.end_date}", true,:id=>"pay_period_#{pay_period}"%>
+									<%= label_tag :pay_period, "#{pay_period.start_date} to #{pay_period.end_date}"  %>
+							</div>
+							<% end %>
 						</div>
 						<div class="radio">
 							<label>
@@ -98,9 +105,9 @@ The VAPA ER scheduling team</pre>
 				<p>Urgent: VA ER Shifts Need Coverage for Pay Period *|pay_period_range|*</p>
 		<pre>Urgent Email template:
  Hi *|first_name|*,
-			
-There are still unstaffed shifts for the *|pay_period_range|* pay period.  We are dependent on your help to cover these shifts, so please check your calendars and sign up *|here|*.  
-			
+
+There are still unstaffed shifts for the *|pay_period_range|* pay period.  We are dependent on your help to cover these shifts, so please check your calendars and sign up *|here|*.
+
 As a reminder, these shifts do not require approval by the scheduler, so consider them final once you have signed up.  They will be updated on the official Google Calendar schedule automatically.
 
 Thank you for supporting our department and our Veterans!
@@ -122,7 +129,21 @@ The VAPA ER scheduling team</pre>
 		$(".activated").click(function(){
 			var all_checked = $("input[class=activated]:checked").length == $(".activated").length
 			$('#select_all').prop("checked", all_checked)
-		})
+		});
+
+		$("#email_type_urgent").click(function() {
+			$(".pay_period_radio").show();
+		});
+
+		$("#email_type_new_pay_period").click(function() {
+			$(".pay_period_radio").hide();
+		});
+
+		$("#email_type_custom").click(function() {
+			$(".pay_period_radio").hide();
+		});
+
+
 
 		var fillEmailBody = function (idTypeEmail) {
 				$("#email-body").val($('#'+ idTypeEmail + '-text > pre').text())

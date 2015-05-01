@@ -41,12 +41,14 @@ class AdminsController < ApplicationController
 
   def create_email
     @doctors = Doctor.all
+    @pay_periods = PayPeriod.get_open
   end
 
   def send_email
     if params[:activated] == nil || params[:activated] == ""
       flash[:notice] = "Please select doctors you want to send emails to"
       redirect_to '/create-email'
+    #params[:pay_period] ||= " "
     else
       @doctors = Doctor.find(params[:activated])
       sent_to = "Email sent to: " + Admin.get_doctor_names(@doctors)
@@ -105,7 +107,7 @@ class AdminsController < ApplicationController
       check_users_authorization_helper(Admin.NAME)
     end
 
-    #TODO: 
+    #TODO:
     def approve_user(user_type)
        @user = User.find_by_id params[:user]
       if @user
