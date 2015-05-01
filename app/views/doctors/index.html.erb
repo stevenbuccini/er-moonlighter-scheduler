@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-<h2> Welcome Doctor <td><%= current_user.first_name %></td></h2> 
+<h2> Welcome <td><%= current_user.first_name + " " + current_user.last_name %></td></h2> 
 
 <iframe src=<%= ENV["CALENDAR_URL"] %> style=" border-width:0 " width="800" height="600" frameborder="0" scrolling="no"></iframe>
 
