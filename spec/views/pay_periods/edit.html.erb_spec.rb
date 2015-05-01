@@ -6,8 +6,7 @@ RSpec.describe "pay_periods/edit", type: :view do
   end
 
   it "renders the edit pay_period form" do
-    render
-
+    #render pay_periods_path(@pay_period)
     #assert_select "form[action=?][method=?]", pay_periods_path, "post" do
    # end
   end

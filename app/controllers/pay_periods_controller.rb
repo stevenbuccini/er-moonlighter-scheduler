@@ -39,7 +39,7 @@ class PayPeriodsController < ApplicationController
     # TODO: uncomment the next line after Steven and I figure out why the calendar model is failing
     #Shift.create_shifts_for_pay_period(@pay_period.start_date, @pay_period.end_date, @pay_period.id)
     respond_to do |format|
-      if @pay_period.save!
+      if @pay_period.save
         #change_pay_period_id_for_users()
         format.html { redirect_to @pay_period, notice: 'Pay period was successfully created.' }
         format.json { render :show, status: :created, location: @pay_period }        
