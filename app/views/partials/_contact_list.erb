@@ -17,7 +17,7 @@
       <th>Phone 2</th>
       <th>Phone 3</th>
     <% @doctors.each do |doctor| %>
-      <tr>
+      <tr <%= puts 'class="hilite"' if doctor.is_delinquent? %>>
         <td><%= doctor.first_name %></td>
         <td><%= doctor.last_name %></td>
         <td><%= doctor.email %></td>
