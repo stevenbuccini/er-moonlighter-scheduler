@@ -2,3 +2,8 @@
 .highlight {
 	background-color: #FFFF00;
 }
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
