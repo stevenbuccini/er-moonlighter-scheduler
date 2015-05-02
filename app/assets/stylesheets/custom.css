@@ -1,0 +1,6 @@
+/* Custom CSS to override and augment Bootstrap */
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
