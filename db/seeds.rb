@@ -48,7 +48,9 @@ end
 
 pay_periods = [
   {start_date: DateTime.new(2015, 2, 14), end_date: DateTime.new(2015, 2, 28)},
-  {start_date: DateTime.new(2015, 3, 14), end_date: DateTime.new(2015, 3, 28)}
+  {start_date: DateTime.new(2015, 3, 14), end_date: DateTime.new(2015, 3, 28)},
+  {start_date: DateTime.new(2015, 4, 14), end_date: DateTime.new(2015, 4, 28), is_open: true},
+  {start_date: DateTime.new(2015, 5, 14), end_date: DateTime.new(2015, 5, 28), is_open: true}
 ]
 
 pay_periods.each do |p|
