@@ -50,7 +50,11 @@ class Shift < ActiveRecord::Base
     shifts.each do |s|
       p = PayPeriod.find_by_id s.pay_period_id
       if p and p.phase = "1"
-        self.candidates << doctor
+        if s.candidates.nil?
+          s.candidates = [doctor.id]
+        else
+          s.candidates << doctor.id 
+        end
       else
         phase_two_shifts << s.id
       end
@@ -58,6 +62,7 @@ class Shift < ActiveRecord::Base
     if !phase_two_shifts.empty?
       return assign_shifts(phase_two_shifts, doctor)
     end
+    return {}
   end
 
   def self.assign_shifts(array_of_ids, doctor)
