@@ -49,6 +49,12 @@ class DoctorsController < ApplicationController
     @unconfirmedShifts = Shift.where(doctor_id: current_user.id, confirmed: false)
   end
 
+  def vacant_shifts
+    @doctor = Doctor.where(doctor_id: current_user.id)
+    @vacant_shifts = Shift.where(confirmed: false)
+  end
+
+
   # PATCH/PUT /doctors/1
   # PATCH/PUT /doctors/1.json
   def update

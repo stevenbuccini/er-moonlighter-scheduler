@@ -12,7 +12,8 @@
         <li class="inactive"><a href="<%= pay_periods_path %>"><%= fa_icon "calendar", class:"icon-middle"%>Manage Pay Periods</a></li>
         <% end %>
         <% if current_user.type == "Doctor" %>
-          <li class="inactive"><a href="<%= my_shifts_path %>"><%= fa_icon "clock-o", class:"icon-middle"%>My Shifts</a></li>
+          <li class="inactive"><a href="<%= my_shifts_path %>"><%= fa_icon "clock-o 2x", class:"icon-middle"%>My Shifts</a></li>
+          <li class="inactive"><a href="<%= vacant_shifts_path %>"><%= fa_icon "clock-o 2x", class:"icon-middle"%>Vacant Shifts</a></li>
         <% end %>
         <% if current_user.type != nil %>
           <li class="inactive"><a href="<%= create_email_path %>"><%= fa_icon "envelope-o", class:"icon-middle"%>Email Doctors</a></li>
