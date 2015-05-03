@@ -3,7 +3,7 @@ class Admin < User
 	belongs_to :pay_period
 
   # We only want to read this field, should never be able to update it for admins
-  # The only reason this exists is because we're leveraging STI even though we've 
+  # The only reason this exists is because we're leveraging STI even though we've
   # grown out of it at this point.
 
 	def self.NAME; @@NAME; end
@@ -21,7 +21,7 @@ class Admin < User
       when 'urgent'
         UserMailer.urgent_email(doctor,params[:pay_period]).deliver_now
       when 'new_pay_period'
-        UserMailer.new_pay_period_email(doctor).deliver_now
+        UserMailer.new_pay_period_email(doctor,params[:pay_period]).deliver_now
       else
         subject = params[:subject]
         text = params[:body]
@@ -35,7 +35,7 @@ class Admin < User
 	end
 
   # We only want to read this field, should never be able to update it for admins
-  # The only reason this exists is because we're leveraging STI even though we've 
+  # The only reason this exists is because we're leveraging STI even though we've
   # grown out of it at this point. Always return nil here.
   def last_shift_completion_date
     return nil
@@ -46,7 +46,7 @@ class Admin < User
   # attempting to use this method will enconter this error in testing and come here.
   # Remember -- This construction doesn't make sense for Admins. The only reason it's even
   # available to admins is because we're using STI, which we're hoping to refactor soon.
-  def last_shift_completion_date= 
+  def last_shift_completion_date=
     raise Exception
   end
 end
