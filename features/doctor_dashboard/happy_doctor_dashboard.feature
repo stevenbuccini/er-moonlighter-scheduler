@@ -12,5 +12,6 @@ Feature: doctors should be able select shifts
 	Scenario: Sign up for an open shift
 	  Given I am logged in as the default doctor
 	  And I am on the doctor index
+    When I visit vacant-shifts
 	  Then I should be able to sign up for a shift
 	  And I should receive confirmation that the request was successful.
