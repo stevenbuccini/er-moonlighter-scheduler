@@ -3,17 +3,21 @@
     <legend>Unassigned Shifts</legend>
   
       <% @shifts.each do |shift| %>
-      <table cellspacing="10" class="table table-striped table-hover ">
-      <tbody>
-      <tr>
-        <td><%= shift.to_s %></td>
-        <% shift.candidates.each do |candidate| %>
-          <td><%= check_box_tag 'chosen[]', candidate, false, class: 'chosen'%></td>
+        <% if shift.candidates != nil %>
+          <table cellspacing="10" class="table table-striped table-hover ">
+            <tbody>
+            <tr>
+              <td><%= shift.to_s %></td>
+              <% shift.candidates.each do |candidate| %>
+                <td><%= check_box_tag 'chosen[]', candidate, false, class: 'chosen'%></td>
+              <% end %>
+          
+            </tr>
+              <% end %>
+            </tbody>
+          </table>
         <% end %>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+
 
   <div class="form-group">
     <div class="col-lg-10">
@@ -21,4 +25,4 @@
     </div>
   </div>
 </fieldset>
-<% end%>
+<% end %>

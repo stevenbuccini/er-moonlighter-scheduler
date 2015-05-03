@@ -35,7 +35,7 @@ end
 
 
 shifts = [
-  {start_datetime: DateTime.new(2015, 2, 14, 8, 00), end_datetime: DateTime.new(2015, 2, 14, 14, 30), confirmed: true, doctor_id: 1, pay_period_id: 1},
+  {start_datetime: DateTime.new(2015, 2, 14, 8, 00), end_datetime: DateTime.new(2015, 2, 14, 14, 30), confirmed: true, candidates: 1, pay_period_id: 1},
   {start_datetime: DateTime.new(2015, 2, 14, 4, 00), end_datetime: DateTime.new(2015, 2, 14, 12, 30), confirmed: true, doctor_id: 1, pay_period_id: 2},
   {start_datetime: DateTime.new(2015, 6, 28, 20, 00), end_datetime: DateTime.new(2015, 6, 29, 8, 30), confirmed: false, doctor_id: 2, pay_period_id: 2},
   {start_datetime: DateTime.new(2015, 7, 6, 5, 43), end_datetime: DateTime.new(2015, 7, 6, 12, 30)},
