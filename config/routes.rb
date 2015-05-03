@@ -41,6 +41,9 @@ Rails.application.routes.draw do
 
   get '/my-shifts', to: 'doctors#my_shifts', as: "my_shifts"
 
+  get '/vacant-shifts', to: 'doctors#vacant_shifts', as: "vacant-shifts"
+  post 'shifts_sign_up', to: 'doctors#shifts_sign_up', as: "shifts_sign_up"
+
   # TO DO: Replace this with a splash page/login page
   root 'dashboard#index'
 
