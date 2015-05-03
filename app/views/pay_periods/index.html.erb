@@ -18,9 +18,9 @@
       <tr>
         <td><%= pay_period.start_date %></td>
         <td><%= pay_period.end_date %></td>
-        <td><%= pay_period.is_open? ? "Yes" : "No" %>
-        <td><strong>Not yet implemented</strong></td>
-        <td><td><%= link_to 'Edit', edit_pay_period_path(pay_period) %></td></td>
+        <td><%= pay_period.is_open? ? "Yes" : "No" %></td>
+        <td><%= pay_period.phase == "1" ? "Yes" : "No" %></td>
+        <td><%= link_to 'Edit', edit_pay_period_path(pay_period) %></td>
       </tr>
     <% end %>
   </tbody>

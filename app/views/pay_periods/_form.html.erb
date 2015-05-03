@@ -13,7 +13,7 @@
   <% end %>
 
   <div class="field">
-    <h3>Shift During this time period are available for sign up</h3>
+    <h3>Shift during this pay period are available for sign up</h3>
     <label>
     <%= f.radio_button(:is_open, true) %>
     Yes
@@ -23,8 +23,21 @@
     No
   </label>
   </div>
+  <div class="field">
+    <h3>Shifts Signup Restrictions</h3>
+    <label>
+    <%= f.radio_button(:phase, "1") %>
+    When a doctor requests a shift during this time period, it must be approved by an administrator before it is added to the calendar.
+  </label>
+    <label>
+    <%= f.radio_button(:phase, "2") %>
+     When a doctor requests a shift during this time period, it does not need to be approved by an administrator before it is added to the calendar.
+  </label>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+<%= link_to 'Show', @pay_period %> |
+<%= link_to 'Back', pay_periods_path %>
 </div>
