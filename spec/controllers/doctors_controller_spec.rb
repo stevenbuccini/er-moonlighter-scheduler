@@ -79,4 +79,63 @@ RSpec.describe DoctorsController, type: :controller do
       end
     end
   end
+
+  describe 'doctor index' do
+    before :each do 
+      @doctor = FactoryGirl.create(:doctor)
+      sign_in @doctor
+    end
+    it 'should set @claimed_shifts if there is data in the session' do 
+      shift = FactoryGirl.create(:shift)
+      get :index, nil, {claimed_shifts: [shift]} # Params hash is empty, but set session hash.
+      expect(session[:claimed_shifts]).to eql nil
+      expect(assigns(:claimed_shifts)).to eq([shift])
+    end
+  end
+
+  describe 'contact list' do
+    before :each do 
+      @doctor = FactoryGirl.create(:doctor)
+      sign_in @doctor
+    end
+
+    it 'should correctly set the instance variables' do
+      a = FactoryGirl.create(:doctor, {email: "a@xample.com"})
+      b = FactoryGirl.create(:doctor, {email: "b@example.com"})
+      x = FactoryGirl.create(:admin, {email: "x@example.com"})
+      y = FactoryGirl.create(:admin, {email: "y@example.com"})
+      controller.contact_list
+      expect(assigns(:doctors).length).to eql 3
+      expect(assigns(:admins).length).to eql 2
+    end
+  end
+
+  describe 'doctor#new' do
+    before :each do 
+      @doctor = FactoryGirl.create(:doctor)
+      sign_in @doctor
+    end
+    it 'should set @claimed_shifts if there is data in the session' do
+      get :new
+      assert_response :success
+      expect(assigns(:doctor)).not_to eql nil
+      expect(assigns(:doctor).new_record?).to eql true
+    end
+  end
+
+  describe 'doctor#my_shifts' do
+    before :each do 
+      @doctor = FactoryGirl.create(:doctor)
+      sign_in @doctor
+    end
+    it 'should correctly assign shifts' do
+      FactoryGirl.create(:shift, {doctor: @doctor, confirmed: true})
+      FactoryGirl.create(:shift, {doctor: @doctor, confirmed: true})
+      FactoryGirl.create(:shift, {doctor: @doctor, confirmed: true})
+      expect(Shift.all.count).to eql 3
+      get :my_shifts
+      expect(assigns(:confirmedShifts).length).to eql 3
+    end
+  end
+
 end
