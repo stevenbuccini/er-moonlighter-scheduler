@@ -7,11 +7,11 @@
       <ul class="nav navbar-nav">
         <% if user_signed_in? %>
         <% if current_user.registration_complete %>
-        <li class="inactive"><a href="<%= create_email_path %>"><%= fa_icon "envelope-o 2x", class:"icon-middle"%>Send Email </a></li>
         <% if current_user.is_admin? %>
         <li class="inactive"><a href="<%= pending_users_path %>"><%= fa_icon "user-plus 2x", class:"icon-middle"%>Pending Users</a><li>
         <% end %>
         <% if current_user.type != nil %>
+        <li class="inactive"><a href="<%= create_email_path %>"><%= fa_icon "envelope-o 2x", class:"icon-middle"%>Send Email </a></li>
         <li class="inactive" id='contacts'><a href="<%= contact_list_path %>"><%= fa_icon "list 2x", class:"icon-middle"%>Contact List</a></li>
         <% end %>
         <% end %>
