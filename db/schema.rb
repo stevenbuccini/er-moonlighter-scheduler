@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150503051646) do
+ActiveRecord::Schema.define(version: 20150503070827) do
+
+  create_table "add_candidates_to_shifts", force: :cascade do |t|
+    t.integer  "candidates"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "add_is_open_to_shifts", force: :cascade do |t|
+    t.boolean  "is_open",    default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "admins", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -43,6 +55,7 @@ ActiveRecord::Schema.define(version: 20150503051646) do
     t.integer  "pay_period_id"
     t.string   "gcal_event_etag"
     t.string   "gcal_event_id"
+    t.integer  "candidates"
   end
 
   create_table "users", force: :cascade do |t|

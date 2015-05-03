@@ -3,7 +3,7 @@ class ShiftsController < ApplicationController
 
   def update
     shifts = params["post"]["shifts"]
-    errors = Shift.assign_shifts(shifts, current_user)
+    errors = Shift.sign_up(shifts, current_user)
     if errors[:failed_save]
       flash[:error] = errors[:failed_save]
     elsif errors[:claimed_shifts].present?

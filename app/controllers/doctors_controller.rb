@@ -8,7 +8,6 @@ class DoctorsController < ApplicationController
   def index
     @doctors = Doctor.all
     @shifts = Shift.where(confirmed: false)
-
     # A doctor may be redirected here after signing up for shifts. 
     # If they attempted to sign up for shifts, the update controller
     # method in shifts will redirect to this controller.
@@ -18,12 +17,18 @@ class DoctorsController < ApplicationController
       @claimed_shifts = session[:claimed_shifts]
       session[:claimed_shifts] = nil
     end
+
   end
 
   def contact_list
     @doctors = Doctor.all
     @admins = Admin.all 
   end
+
+  # def shift_phase_one
+  #   @shifts = Shift.where(is_open: true)
+  # end
+
 
   # GET /doctors/1
   # GET /doctors/1.json
@@ -37,7 +42,6 @@ class DoctorsController < ApplicationController
 
   # GET /doctors/1/edit
   def edit
-    @doctor = Doctor.find(params[:id])
   end
 
   def my_shifts
@@ -57,6 +61,10 @@ class DoctorsController < ApplicationController
   # DELETE /doctors/1.json
   def destroy
     destroy_helper(@doctor, :back, "Doctor")
+  end
+
+  def sign_up_for_shift
+
   end
 
   private

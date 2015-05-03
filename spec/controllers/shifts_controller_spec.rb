@@ -16,7 +16,7 @@ RSpec.describe ShiftsController, type: :controller do
       ids = [a.id, b.id, c.id]
       str_ids = [a.id.to_s, b.id.to_s, c.id.to_s]
       allow(controller).to receive(:current_user).and_return(factory_doctor)
-      expect(Shift).to receive(:assign_shifts).with(str_ids, factory_doctor).and_return({})
+      expect(Shift).to receive(:sign_up).with(str_ids, factory_doctor).and_return({})
       post :update, post: {shifts: ids}
     end
 
@@ -28,7 +28,7 @@ RSpec.describe ShiftsController, type: :controller do
       c = FactoryGirl.create(:shift)
       ids = [a.id, b.id, c.id]
       str_ids = [a.id.to_s, b.id.to_s, c.id.to_s]
-      expect(Shift).to receive(:assign_shifts).with(str_ids, factory_doctor).and_return({failed_save: "test_error"})
+      expect(Shift).to receive(:sign_up).with(str_ids, factory_doctor).and_return({failed_save: "test_error"})
       post :update, post: {shifts: ids}
       expect(flash[:error]).to eql("test_error")
       #assigns(flash).should eql({failed_save: "test_error"})
