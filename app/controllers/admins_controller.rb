@@ -25,6 +25,10 @@ class AdminsController < ApplicationController
     @users_awaiting_approver = User.where(:type =>nil)
     render 'partials/_pending_users'
   end
+
+  def assign_doc_to_shift
+    @shifts = Shift.where(is_open:true)
+  end
   # GET /admins/1
   # GET /admins/1.json
   def show

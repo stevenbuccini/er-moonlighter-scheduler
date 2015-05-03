@@ -39,6 +39,12 @@ class Shift < ActiveRecord::Base
     end
   end
 
+  # To help doctors sign up for shift. Since multiple doctors can signup for a shift in phase
+  # argument: int doctors id
+  def sign_up(doctor_id)
+    self.candidates << doctor_id
+  end
+
   def self.assign_shifts(array_of_ids, doctor)
     # Bulk assign shifts. Return true if successful, false if save fails.
     transaction_errors = {}
@@ -51,10 +57,15 @@ class Shift < ActiveRecord::Base
       # Find shifts that have already been taken.
       shifts = Shift.find(array_of_ids)
       shifts.each do |s|
-        if s.confirmed
-          taken_shifts.push(s)
+        pay_period = Pay_period.find_by_id s.pay_period_id
+        if pay_period and !pay_period.is_open
+          if s.confirmed
+            taken_shifts.push(s)
+          else
+            shifts_to_update_ids.push(s.id)
+          end
         else
-          shifts_to_update_ids.push(s.id)
+          s.candidates << doctor.id 
         end
       end
       Shift.where(id: shifts_to_update_ids).update_all({confirmed: true, doctor_id: doctor.id})
@@ -126,7 +137,8 @@ class Shift < ActiveRecord::Base
 
   def self.create_shift_from_hash(data_hash, pay_period_id)
     # TODO: Tayo to renable after we figure out payment profile stuff.
-    #data_hash[:pay_period_id] = pay_period_id
+    data_hash[:pay_period_id] = pay_period_id
+    data_hash[:is_open] = open
 
     s = Shift.create(data_hash)
     # If object is invalid, there were errors when saving.

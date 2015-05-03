@@ -8,12 +8,18 @@ class DoctorsController < ApplicationController
   def index
     @doctors = Doctor.all
     @shifts = Shift.where(confirmed: false)
+    # @shifts_phase_one = Shift.where(is_open: true)
   end
 
   def contact_list
     @doctors = Doctor.all
     @admins = Admin.all 
   end
+
+  # def shift_phase_one
+  #   @shifts = Shift.where(is_open: true)
+  # end
+
 
   # GET /doctors/1
   # GET /doctors/1.json
@@ -27,7 +33,6 @@ class DoctorsController < ApplicationController
 
   # GET /doctors/1/edit
   def edit
-    @doctor = Doctor.find(params[:id])
   end
 
   # POST /doctors
@@ -58,6 +63,10 @@ class DoctorsController < ApplicationController
   # DELETE /doctors/1.json
   def destroy
     destroy_helper(@doctor, :back, "Doctor")
+  end
+
+  def sign_up_for_shift
+
   end
 
   private
