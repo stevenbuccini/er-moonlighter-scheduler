@@ -58,7 +58,7 @@ class Shift < ActiveRecord::Base
       shifts = Shift.find(array_of_ids)
       shifts.each do |s|
         pay_period = Pay_period.find_by_id s.pay_period_id
-        if pay_period and !pay_period.is_open
+        if pay_period and pay_period.phase == 2
           if s.confirmed
             taken_shifts.push(s)
           else
@@ -138,8 +138,6 @@ class Shift < ActiveRecord::Base
   def self.create_shift_from_hash(data_hash, pay_period_id)
     # TODO: Tayo to renable after we figure out payment profile stuff.
     data_hash[:pay_period_id] = pay_period_id
-    data_hash[:is_open] = open
-
     s = Shift.create(data_hash)
     # If object is invalid, there were errors when saving.
     # Return them to the calling method for proper display on the view.

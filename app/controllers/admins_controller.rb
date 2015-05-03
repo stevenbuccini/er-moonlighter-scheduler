@@ -1,9 +1,8 @@
 class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user! # redirect if user isn't signed in
-  before_filter :check_users_authorization, :except => [:destroy, :contact_list]# redirect if user is not an admin
-  before_filter :admin_only_view, only: [:create_email, :send_email]
-  before_filter :doctor_or_admin_view, only: [:contact_list]
+  before_filter :check_users_authorization, :except => [:destroy, :contact_list, :create_email]# redirect if user is not an admin
+  before_filter :doctor_or_admin_view, only: [:contact_list, :create_email, :send_email]
 
   # GET /admins
   # GET /admins.json
@@ -55,6 +54,9 @@ class AdminsController < ApplicationController
     #params[:pay_period] ||= " "
     else
       @doctors = Doctor.find(params[:activated])
+      if params[:pay_period]
+        params[:pay_period] = "#{params[:pay_period]['start']} to #{params[:pay_period]['end']}"
+      end
       sent_to = "Email sent to: " + Admin.get_doctor_names(@doctors)
       @doctors.each do |doctor|
         current_user.send_email(doctor, params)

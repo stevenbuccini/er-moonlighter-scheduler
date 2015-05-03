@@ -7,6 +7,7 @@
 			<div class="col-lg-8">
 			<fieldset>
 				<legend>Create New Email</legend>
+				<% if current_user.is_admin? %>
 				<div class="form-group">
 					<label class="col-lg-2 control-label">Choose a prefill</label>
 					<div class="col-lg-10">
@@ -16,19 +17,25 @@
 								Use urgent email template
 							</label>
 						</div>
-						<div class="pay_period_radio" style="display:none">
-							<% @pay_periods.each do |pay_period| %>
-							<div class="radio">
-									<%= radio_button_tag 'pay_period', "#{pay_period.start_date} to #{pay_period.end_date}", true,:id=>"pay_period_#{pay_period}"%>
-									<%= label_tag :pay_period, "#{pay_period.start_date} to #{pay_period.end_date}"  %>
-							</div>
-							<% end %>
+						<div class = 'pay_period_radio_urgent'>
+							<%= label_tag :pay_period_start, " Select Starting Pay Period Date:" %>
+							<%= select("pay_period", "start", @pay_periods.collect {|p| [ p.start_date.strftime("%b %d"), p.start_date.strftime("%b %d")] }) %>
+							<br>
+							<%= label_tag :pay_period_end, " Select Ending Pay Period Date:" %>
+							<%= select("pay_period", "end", @pay_periods.collect {|p| [ p.end_date.strftime("%b %d"), p.end_date.strftime("%b %d")] }) %>
 						</div>
 						<div class="radio">
 							<label>
 								<%= radio_button_tag :email_type, :new_pay_period, false, :onclick => "fillEmailBody('new_pay_period')"%>
 								Use new pay period email template
 							</label>
+						</div>
+						<div class = 'pay_period_radio_new'>
+							<%= label_tag :pay_period_start, " Select Starting Pay Period Date:" %>
+							<%= select("pay_period", "start", @pay_periods.collect {|p| [ p.start_date.strftime("%b %d"), p.start_date.strftime("%b %d")] }) %>
+							<br>
+							<%= label_tag :pay_period_end, " Select Ending Pay Period Date:" %>
+							<%= select("pay_period", "end", @pay_periods.collect {|p| [ p.end_date.strftime("%b %d"), p.end_date.strftime("%b %d")] }) %>
 						</div>
 						<div class="radio">
 							<label>
@@ -38,6 +45,7 @@
 						</div>
 					</div>
 				</div>
+				<% end %>
 				<div class="form-group">
 					<label for="inputEmail" class="col-lg-2 control-label">Subject</label>
 					<div class="col-lg-10">
@@ -132,15 +140,18 @@ The VAPA ER scheduling team</pre>
 		});
 
 		$("#email_type_urgent").click(function() {
-			$(".pay_period_radio").show();
+			$(".pay_period_radio_urgent").show();
+			$(".pay_period_radio_new").hide();
 		});
 
 		$("#email_type_new_pay_period").click(function() {
-			$(".pay_period_radio").hide();
+			$(".pay_period_radio_urgent").hide();
+			$(".pay_period_radio_new").show();
 		});
 
 		$("#email_type_custom").click(function() {
-			$(".pay_period_radio").hide();
+			$(".pay_period_radio_urgent").hide();
+			$(".pay_period_radio_new").hide();
 		});
 
 

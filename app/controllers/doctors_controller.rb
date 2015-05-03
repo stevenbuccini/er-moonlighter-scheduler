@@ -8,7 +8,16 @@ class DoctorsController < ApplicationController
   def index
     @doctors = Doctor.all
     @shifts = Shift.where(confirmed: false)
-    # @shifts_phase_one = Shift.where(is_open: true)
+    # A doctor may be redirected here after signing up for shifts. 
+    # If they attempted to sign up for shifts, the update controller
+    # method in shifts will redirect to this controller.
+    # The only way to persist data across the requests is to store it in the session.
+    # So we will check if the session key exists, then clear the session data.
+    if session[:claimed_shifts].present?
+      @claimed_shifts = session[:claimed_shifts]
+      session[:claimed_shifts] = nil
+    end
+
   end
 
   def contact_list
@@ -35,21 +44,10 @@ class DoctorsController < ApplicationController
   def edit
   end
 
-  # POST /doctors
-  # POST /doctors.json
-  # def create
-  #   @doctor = Doctor.new(doctor_params)
-
-  #   respond_to do |format|
-  #     if @doctor.save
-  #       format.html { redirect_to @doctor, notice: 'Doctor was successfully created.' }
-  #       format.json { render :show, status: :created, location: @doctor }
-  #     else
-  #       format.html { render :new }
-  #       format.json { render json: @doctor.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  def my_shifts
+    @confirmedShifts = Shift.where(doctor_id: current_user.id, confirmed: true)
+    @unconfirmedShifts = Shift.where(doctor_id: current_user.id, confirmed: false)
+  end
 
   # PATCH/PUT /doctors/1
   # PATCH/PUT /doctors/1.json

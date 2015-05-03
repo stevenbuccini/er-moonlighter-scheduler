@@ -1,14 +1,25 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Start date:</strong>
-  <%= @pay_period.start_date %>
-</p>
+<table class="table table-striped table-hover ">
+  <thead>
+    <tr>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Shift Signup Enabled</th>
+      <th>Admin Approval Required for Shift Signup</th>
+      <th colspan="5"></th>
+    </tr>
+  </thead>
 
-<p>
-  <strong>End date:</strong>
-  <%= @pay_period.end_date %>
-</p>
-
+  <tbody>
+      <tr>
+        <td><%= @pay_period.start_date %></td>
+        <td><%= @pay_period.end_date %></td>
+        <td><%= @pay_period.is_open? ? "Yes" : "No" %></td>
+        <td><%= @pay_period.phase == "1" ? "Yes" : "No" %></td>
+        <td><%= link_to 'Edit', edit_pay_period_path(@pay_period) %></td>
+      </tr>
+  </tbody>
+</table>
 <%= link_to 'Edit', edit_pay_period_path(@pay_period) %> |
-<%= link_to 'Back', pay_periods_path %>
+<%= link_to 'Return to All Pay Periods', pay_periods_path %>
