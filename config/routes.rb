@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   #payperiod routes goes here
   post 'create_next_pay_period', to: 'pay_periods#create_next', as: "create_next"
 
+  get '/my-shifts', to: 'doctors#my_shifts', as: "my_shifts"
 
   # TO DO: Replace this with a splash page/login page
   root 'dashboard#index'

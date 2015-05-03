@@ -10,9 +10,12 @@
         <% if current_user.is_admin? %>
         <li class="inactive"><a href="<%= pending_users_path %>"><%= fa_icon "user-plus 2x", class:"icon-middle"%>Pending Users</a><li>
         <% end %>
+        <% if current_user.type == "Doctor" %>
+          <li class="inactive"><a href="<%= my_shifts_path %>"><%= fa_icon "clock-o 2x", class:"icon-middle"%>My Shifts</a></li>
+        <% end %>
         <% if current_user.type != nil %>
-        <li class="inactive"><a href="<%= create_email_path %>"><%= fa_icon "envelope-o 2x", class:"icon-middle"%>Send Email </a></li>
-        <li class="inactive" id='contacts'><a href="<%= contact_list_path %>"><%= fa_icon "list 2x", class:"icon-middle"%>Contact List</a></li>
+          <li class="inactive"><a href="<%= create_email_path %>"><%= fa_icon "envelope-o 2x", class:"icon-middle"%>Email Doctors</a></li>
+          <li class="inactive" id='contacts'><a href="<%= contact_list_path %>"><%= fa_icon "list 2x", class:"icon-middle"%>Contact List</a></li>
         <% end %>
         <% end %>
         <%end %>
