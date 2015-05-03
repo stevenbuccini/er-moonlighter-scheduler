@@ -18,6 +18,43 @@ RSpec.describe Calendar, type: :model do
 
 
 		it 'should update an event with a given shift object input with the proper parameters' do
+			#shift = Shift.create({start_datetime: DateTime.new(2015, 2, 14, 8, 00), end_datetime: DateTime.new(2015, 2, 15, 8, 00)})
+			#doctor = Doctor.create({first_name: 'Donald', last_name: 'Doctor'})
+			#doctor1 = FactoryGirl.create(:doctor, :first_name => "(open)", :last_name => "", :phone_1 => '222-222-2222')
+			doctor1 = FactoryGirl.create(:doctor, :first_name => "JEN", :last_name => "LOPEZ", :phone_1 => '222-222-2222')
+
+
+			#puts doctor
+
+			#puts "NUMBER OF DOCTORS: ", Doctor.all.count
+			#puts "doctor id: ", doctor.id
+
+			shift1 = FactoryGirl.create(:shift, :start_datetime => DateTime.new(2015, 1, 14, 8, 00), :end_datetime => DateTime.new(2015, 1, 15, 8, 00)})
+			shift1.book(doctor)
+
+			Calendar.gcal_event_update(shift1)
+			expect(shift1.doctor).to eql doctor
+
+			expect(Calendar.result)
+
+
+
+
+=begin
+			Shift.create_shifts_for_pay_period(DateTime.new(2015, 1, 14, 8, 00), DateTime.new(2015, 1, 17, 8, 00), 1)
+
+			puts "NUMBER OF SHIFTS: ", Shift.all.count
+
+			first_shift = Shift.first
+			first_shift.doctor = doctor
+			first_shift.save!
+			Calendar.gcal_event_update(first_shift)
+=end
+
+
+			#TODO:expect that the client.execute params are correct
+
+=begin
 			shift = Shift.create({start_datetime: DateTime.new(2015, 2, 14, 8, 00), end_datetime: DateTime.new(2015, 2, 15, 8, 00)})
 			doctor = Doctor.create({first_name: 'Donald', last_name: 'Doctor'})
 
@@ -39,6 +76,7 @@ RSpec.describe Calendar, type: :model do
 			Calendar.init_calendar
 
 			puts "\n\n\nTHIS IS THE EVENT: \n" + Calendar.gcal_get_events_in_range(shift.start_datetime, shift.end_datetime).body
+=end
 
 		end
 

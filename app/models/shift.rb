@@ -79,6 +79,10 @@ class Shift < ActiveRecord::Base
       shifts.each do |s|
         if s.confirmed
           taken_shifts.push(s)
+
+          #UPDATE THE SHIFT TO THE SPECIFIC GOOGLE CALENDAR EVENT
+          #s.update_gcal_event(s.start_datetime, s.end_datetime)
+
         else
           shifts_to_update_ids.push(s.id)
         end
@@ -100,10 +104,10 @@ class Shift < ActiveRecord::Base
   def self.create_shifts_for_pay_period(start_datetime, end_datetime, pay_period_id)
 
     # Storing errors here so we can pass them back up to the front end.
-    # On the front end, need to check 
+    # On the front end, need to check
     errors_hash = {}
 
-    # Have to wrap this instance method because we can't call the class method direclty 
+    # Have to wrap this instance method because we can't call the class method direclty
     api_response = Calendar.gcal_get_events_in_range(start_datetime, end_datetime)
     if api_response.status == 200
       # Request successful
@@ -146,7 +150,7 @@ class Shift < ActiveRecord::Base
     # Delete all shifts at once so we do less transactions.
     # NOTE: This does NOT invoke the callbacks nor does it use the destroy method.
     # This prevents instanation of each object a la destroy_all
-    Shift.where("end_datetime <= ?", fixed_time).delete_all 
+    Shift.where("end_datetime <= ?", fixed_time).delete_all
   end
 
   private
@@ -181,6 +185,9 @@ class Shift < ActiveRecord::Base
         end_datetime: DateTime.strptime(gcal_json['end']['dateTime']),
         gcal_event_etag: gcal_json['etag'],
         gcal_event_id: gcal_json['id'],
+
+        #THIS IS FOR THE UPDATE METHOD
+        #gcal_event_body: gcal_json['summary'],
       }
     end
     return translated_json

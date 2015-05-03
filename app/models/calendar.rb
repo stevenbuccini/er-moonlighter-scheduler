@@ -32,7 +32,8 @@ class Calendar
       :body_object => Calendar.convert_to_gcal_event(shift)
     )
     #logger.debug(result.data.to_yaml)
-    puts "\n\nBEGIN RESULT.DATA.TO_YAML HERE: \n\n" + result.data.to_yaml
+    #puts "\n\nBEGIN RESULT.DATA.TO_YAML HERE: \n\n" + result.data.to_yaml
+
     result
   end
 
@@ -58,7 +59,7 @@ class Calendar
       :api_method => calendar.events.delete,
       :parameters => params
     )
-    logger.debug(result.data.to_yaml)
+    #logger.debug(result.data.to_yaml)
   end
 
   def self.gcal_get_events_in_range(start_datetime, end_datetime)
@@ -104,7 +105,7 @@ private
     key = OpenSSL::PKey::RSA.new(ENV["gcal_private_key"])
 
     #puts ENV["gcal_private_key"]
-    puts key
+    #puts key
 
     client.authorization = Signet::OAuth2::Client.new(
       :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
