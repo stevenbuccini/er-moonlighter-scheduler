@@ -5,7 +5,11 @@
   <% if @vacant_shifts.count != 0 %>
     <%=  form_tag sign_up_for_shifts_path(@id) do%>
     <fieldset>
-      <%= collection_check_boxes(:post, :shifts, @vacant_shifts, :id, :to_s,  include_hidden: false) %>
+      <%= collection_check_boxes(:post, :shifts, @vacant_shifts, :id, :to_s, include_hidden: false) do |b| %>
+        <div class="col-log-10">
+        <%= b.label(class: "check_box") { b.check_box + b.text } %>
+      </div>
+        <% end %>
       <div class="form-group">
         <div class="col-lg-10">
           <%= submit_tag 'Sign up for these shifts', :class=>'btn btn-primary' %>
