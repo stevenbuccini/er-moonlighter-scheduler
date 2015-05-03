@@ -8,6 +8,16 @@ class DoctorsController < ApplicationController
   def index
     @doctors = Doctor.all
     @shifts = Shift.where(confirmed: false)
+
+    # A doctor may be redirected here after signing up for shifts. 
+    # If they attempted to sign up for shifts, the update controller
+    # method in shifts will redirect to this controller.
+    # The only way to persist data across the requests is to store it in the session.
+    # So we will check if the session key exists, then clear the session data.
+    if session[:claimed_shifts].present?
+      @claimed_shifts = session[:claimed_shifts]
+      session[:claimed_shifts] = nil
+    end
   end
 
   def contact_list
