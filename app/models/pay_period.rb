@@ -7,6 +7,14 @@ class PayPeriod < ActiveRecord::Base
 	validates_presence_of :start_date, :end_date
 	validate :pay_range
 
+	def to_s
+    self.start_date.strftime("%b %e") + " - " +  self.end_date.strftime("%b %e")
+  end
+
+  def to_str
+    self.start_date.strftime("%b %e") + " - " +  self.end_date.strftime("%b %e")
+  end
+
 	def self.create_next(open)
 		last = PayPeriod.last!
 		return PayPeriod.new({:start_date => last.end_date, :end_date => last.end_date + 14, :is_open => open})
