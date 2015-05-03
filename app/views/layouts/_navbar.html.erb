@@ -1,21 +1,21 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand nav-logo" href=<%= root_url %> >ER Moonlighter Scheduler <%= fa_icon "heartbeat 2x", class:"icon-middle"%> </a>
+      <a class="navbar-brand nav-logo" href=<%= root_url %> >ER Moonlighter Scheduler <%= fa_icon "heartbeat", class:"icon-middle"%> </a>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <% if user_signed_in? %>
         <% if current_user.registration_complete %>
         <% if current_user.is_admin? %>
-        <li class="inactive"><a href="<%= pending_users_path %>"><%= fa_icon "user-plus 2x", class:"icon-middle"%>Pending Users</a><li>
+        <li class="inactive"><a href="<%= pending_users_path %>"><%= fa_icon "user-plus", class:"icon-middle"%>Pending Users</a><li>
         <% end %>
         <% if current_user.type == "Doctor" %>
-          <li class="inactive"><a href="<%= my_shifts_path %>"><%= fa_icon "clock-o 2x", class:"icon-middle"%>My Shifts</a></li>
+          <li class="inactive"><a href="<%= my_shifts_path %>"><%= fa_icon "clock-o", class:"icon-middle"%>My Shifts</a></li>
         <% end %>
         <% if current_user.type != nil %>
-          <li class="inactive"><a href="<%= create_email_path %>"><%= fa_icon "envelope-o 2x", class:"icon-middle"%>Email Doctors</a></li>
-          <li class="inactive" id='contacts'><a href="<%= contact_list_path %>"><%= fa_icon "list 2x", class:"icon-middle"%>Contact List</a></li>
+          <li class="inactive"><a href="<%= create_email_path %>"><%= fa_icon "envelope-o", class:"icon-middle"%>Email Doctors</a></li>
+          <li class="inactive" id='contacts'><a href="<%= contact_list_path %>"><%= fa_icon "list", class:"icon-middle"%>Contact List</a></li>
         <% end %>
         <% end %>
         <%end %>
@@ -23,11 +23,11 @@
       
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
-        <li><a href=<%= destroy_user_session_path%> data-method="delete">Logout <%= fa_icon "mail-forward 2x", class:"icon-middle" %></a></li>
+        <li><a href=<%= destroy_user_session_path%> data-method="delete">Logout <%= fa_icon "mail-forward", class:"icon-middle" %></a></li>
         <% else %>
         <li><%= link_to('Login', new_user_session_path)  %></li>
         <% end %>
-        <li><a href="/help">Settings <%= fa_icon "gear 2x", class:"icon-middle"%></a>
+        <li><a href=<%= edit_user_registration_path %>>Settings <%= fa_icon "gear", class:"icon-middle"%></a>
       </ul>
     </div>
   </div>
