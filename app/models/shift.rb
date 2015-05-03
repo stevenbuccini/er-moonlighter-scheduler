@@ -41,7 +41,7 @@ class Shift < ActiveRecord::Base
 
   # To help doctors sign up for shift. Since multiple doctors can signup for a shift in phase
   # argument: int doctors id
-  def sign_up(doctor_id)
+  def sign_up(array_of_ids, doctor)
     self.candidates << doctor_id
   end
 
@@ -67,7 +67,7 @@ class Shift < ActiveRecord::Base
       #   else
       #     s.candidates << doctor.id 
       #   end
-      # end
+      end
       Shift.where(id: shifts_to_update_ids).update_all({confirmed: true, doctor_id: doctor.id})
 
     end
