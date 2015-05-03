@@ -26,7 +26,7 @@ class AdminsController < ApplicationController
   end
 
   def assign_doc_to_shift
-    @shifts = Shift.where(is_open:true)
+    @shifts =  Shift.where(:pay_period => PayPeriod.where(phase:"2"))
   end
   # GET /admins/1
   # GET /admins/1.json
