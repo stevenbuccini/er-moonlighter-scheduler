@@ -57,17 +57,17 @@ class Shift < ActiveRecord::Base
       # Find shifts that have already been taken.
       shifts = Shift.find(array_of_ids)
       shifts.each do |s|
-        pay_period = Pay_period.find_by_id s.pay_period_id
-        if pay_period and pay_period.phase == 2
+        #pay_period = Pay_period.find_by_id s.pay_period_id
+        #if pay_period and pay_period.phase == 2
           if s.confirmed
             taken_shifts.push(s)
           else
             shifts_to_update_ids.push(s.id)
           end
-        else
-          s.candidates << doctor.id 
-        end
-      end
+      #   else
+      #     s.candidates << doctor.id 
+      #   end
+      # end
       Shift.where(id: shifts_to_update_ids).update_all({confirmed: true, doctor_id: doctor.id})
 
     end
