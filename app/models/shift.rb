@@ -41,8 +41,23 @@ class Shift < ActiveRecord::Base
 
   # To help doctors sign up for shift. Since multiple doctors can signup for a shift in phase
   # argument: int doctors id
-  def sign_up(array_of_ids, doctor)
-    self.candidates << doctor_id
+  def self.sign_up(array_of_ids, doctor)
+    phase_two_shifts = []
+    shifts = Shift.find(array_of_ids)
+    if shifts.empty? 
+      return assign_shifts(array_of_ids, doctor)
+    end
+    shifts.each do |s|
+      p = PayPeriod.find_by_id s.pay_period_id
+      if p and p.phase = "1"
+        self.candidates << doctor
+      else
+        phase_two_shifts << s.id
+      end
+    end
+    if !phase_two_shifts.empty?
+      return assign_shifts(phase_two_shifts, doctor)
+    end
   end
 
   def self.assign_shifts(array_of_ids, doctor)
@@ -57,16 +72,12 @@ class Shift < ActiveRecord::Base
       # Find shifts that have already been taken.
       shifts = Shift.find(array_of_ids)
       shifts.each do |s|
-        #pay_period = Pay_period.find_by_id s.pay_period_id
-        #if pay_period and pay_period.phase == 2
-          if s.confirmed
-            taken_shifts.push(s)
-          else
-            shifts_to_update_ids.push(s.id)
-          end
-      #   else
-      #     s.candidates << doctor.id 
-      #   end
+        if s.confirmed
+          taken_shifts.push(s)
+        else
+          shifts_to_update_ids.push(s.id)
+        end
+      
       end
       Shift.where(id: shifts_to_update_ids).update_all({confirmed: true, doctor_id: doctor.id})
 
