@@ -37,10 +37,10 @@ end
 shifts = [
   {start_datetime: DateTime.new(2015, 2, 14, 8, 00), end_datetime: DateTime.new(2015, 2, 14, 14, 30), confirmed: true, candidates: 1, pay_period_id: 1},
   {start_datetime: DateTime.new(2015, 2, 14, 4, 00), end_datetime: DateTime.new(2015, 2, 14, 12, 30), confirmed: true, doctor_id: 1, pay_period_id: 2},
-  {start_datetime: DateTime.new(2015, 6, 28, 20, 00), end_datetime: DateTime.new(2015, 6, 29, 8, 30), confirmed: false, doctor_id: 2, pay_period_id: 2},
-  {start_datetime: DateTime.new(2015, 7, 6, 5, 43), end_datetime: DateTime.new(2015, 7, 6, 12, 30)},
-  {start_datetime: DateTime.new(2015, 3, 14, 12, 14), end_datetime: DateTime.new(2015, 3, 14, 14, 30)},
-  {start_datetime: DateTime.new(2015, 5, 3, 2, 50), end_datetime: DateTime.new(2015, 6, 2, 15, 30)}
+  {start_datetime: DateTime.new(2015, 6, 28, 20, 00), end_datetime: DateTime.new(2015, 6, 29, 8, 30), confirmed: false, doctor_id: 2, pay_period_id: 4},
+  {start_datetime: DateTime.new(2015, 7, 6, 5, 43), end_datetime: DateTime.new(2015, 7, 6, 12, 30), pay_period_id:4},
+  {start_datetime: DateTime.new(2015, 3, 14, 12, 14), end_datetime: DateTime.new(2015, 3, 14, 14, 30), pay_period_id: 2},
+  {start_datetime: DateTime.new(2015, 5, 3, 2, 50), end_datetime: DateTime.new(2015, 6, 2, 15, 30), pay_period_id: 3}
 ]
 
 shifts.each do |shift|
@@ -48,10 +48,12 @@ shifts.each do |shift|
 end
 
 pay_periods = [
-  {start_date: DateTime.new(2015, 2, 14), end_date: DateTime.new(2015, 2, 28), is_open: true, phase: 1},
+  {start_date: DateTime.new(2015, 2, 14), end_date: DateTime.new(2015, 2, 28), is_open: true, phase: 2},
   {start_date: DateTime.new(2015, 3, 14), end_date: DateTime.new(2015, 3, 28), is_open: true, phase: 2},
-  {start_date: DateTime.new(2015, 4, 14), end_date: DateTime.new(2015, 4, 28), is_open: true},
-  {start_date: DateTime.new(2015, 5, 14), end_date: DateTime.new(2015, 5, 28), is_open: true}
+  {start_date: DateTime.new(2015, 5, 2), end_date: DateTime.new(2015, 5, 28), is_open: true, phase: 2},
+  {start_date: DateTime.new(2015, 6, 28), end_date: DateTime.new(2015, 7, 10), is_open: true, phase: 2},
+  {start_date: DateTime.new(2015, 5, 14), end_date: DateTime.new(2015, 5, 28), is_open: true, phase: 2},
+  {start_date: DateTime.new(2015, 5, 14), end_date: DateTime.new(2015, 5, 28), is_open: true, phase: 2}
 ]
 
 pay_periods.each do |p|

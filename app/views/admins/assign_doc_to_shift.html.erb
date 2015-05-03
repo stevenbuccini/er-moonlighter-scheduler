@@ -4,10 +4,10 @@
   
       <% @shifts.each do |shift| %>
         <% if shift.candidates != nil %>
+          <%= shift.to_s %>
           <table cellspacing="10" class="table table-striped table-hover ">
             <tbody>
             <tr>
-              <td><%= shift.to_s %></td>
               <% shift.candidates.each do |candidate| %>
                 <td><%= check_box_tag 'chosen[]', candidate, false, class: 'chosen'%></td>
               <% end %>
