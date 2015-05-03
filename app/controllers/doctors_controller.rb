@@ -30,21 +30,10 @@ class DoctorsController < ApplicationController
     @doctor = Doctor.find(params[:id])
   end
 
-  # POST /doctors
-  # POST /doctors.json
-  # def create
-  #   @doctor = Doctor.new(doctor_params)
-
-  #   respond_to do |format|
-  #     if @doctor.save
-  #       format.html { redirect_to @doctor, notice: 'Doctor was successfully created.' }
-  #       format.json { render :show, status: :created, location: @doctor }
-  #     else
-  #       format.html { render :new }
-  #       format.json { render json: @doctor.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  def my_shifts
+    @confirmedShifts = Shift.where(doctor_id: current_user.id, confirmed: true)
+    @unconfirmedShifts = Shift.where(doctor_id: current_user.id, confirmed: false)
+  end
 
   # PATCH/PUT /doctors/1
   # PATCH/PUT /doctors/1.json
