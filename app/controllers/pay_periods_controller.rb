@@ -25,7 +25,7 @@ class PayPeriodsController < ApplicationController
   end
 
   def create_next
-    @pay_period = PayPeriod.create_next(pay_period_params[:is_open])
+    @pay_period = PayPeriod.create_next(pay_period_params)
     create_helper(@pay_period)
     # TODO: notifiy doctors if pay_period is open
     if pay_period_params[:is_open]

@@ -15,9 +15,11 @@ class PayPeriod < ActiveRecord::Base
     self.start_date.strftime("%b %e") + " - " +  self.end_date.strftime("%b %e")
   end
 
-	def self.create_next(open)
+	def self.create_next(pay_period_params)
 		last = PayPeriod.last!
-		return PayPeriod.new({:start_date => last.end_date, :end_date => last.end_date + 14, :is_open => open})
+		pay_period_params[:start_date] = last.end_date
+		pay_period_params[:end_date] = last.end_date
+		return PayPeriod.new(pay_period_params)
 	end
 
 	private
