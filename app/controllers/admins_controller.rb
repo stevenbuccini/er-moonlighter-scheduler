@@ -50,6 +50,7 @@ class AdminsController < ApplicationController
     #params[:pay_period] ||= " "
     else
       @doctors = Doctor.find(params[:activated])
+      params[:pay_period] = "#{params[:pay_period]['start']} to #{params[:pay_period]['end']}"
       sent_to = "Email sent to: " + Admin.get_doctor_names(@doctors)
       @doctors.each do |doctor|
         current_user.send_email(doctor, params)
