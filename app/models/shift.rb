@@ -81,7 +81,7 @@ class Shift < ActiveRecord::Base
           taken_shifts.push(s)
 
           #UPDATE THE SHIFT TO THE SPECIFIC GOOGLE CALENDAR EVENT
-          Calendar.gcal_event_update(s)
+          #Calendar.gcal_event_update(s)
 
         else
           shifts_to_update_ids.push(s.id)
