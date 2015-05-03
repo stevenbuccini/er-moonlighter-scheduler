@@ -1,9 +1,8 @@
 class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user! # redirect if user isn't signed in
-  before_filter :check_users_authorization, :except => [:destroy, :contact_list]# redirect if user is not an admin
-  before_filter :admin_only_view, only: [:create_email, :send_email]
-  before_filter :doctor_or_admin_view, only: [:contact_list]
+  before_filter :check_users_authorization, :except => [:destroy, :contact_list, :create_email]# redirect if user is not an admin
+  before_filter :doctor_or_admin_view, only: [:contact_list, :create_email, :send_email]
 
   # GET /admins
   # GET /admins.json
