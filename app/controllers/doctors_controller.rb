@@ -54,22 +54,6 @@ class DoctorsController < ApplicationController
     @vacant_shifts = Shift.where(confirmed: false)
   end
 
-  def shifts_sign_up
-    @doctor = Doctor.where(doctor_id: current_user.id)
-    @shifts = params[:chosen]
-    puts params[:chosen]
-    @shifts.each do |shift|
-      #if shift in phase_1:
-      full_shift = Shift.find(shift)
-      if full_shift.doctor_id == nil
-        sign_up_for_shifts(@doctor.id)
-        #flash[:message] = "You have been confirmed for shift #{shift}"
-      else
-        shift.candidates.add(@doctor)
-        flash[:message] = "You have been added to the request list for shift #{shift}"
-      end
-    end
-  end
 
   # PATCH/PUT /doctors/1
   # PATCH/PUT /doctors/1.json
