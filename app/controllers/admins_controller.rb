@@ -28,6 +28,12 @@ class AdminsController < ApplicationController
   def assign_doc_to_shift
     @shifts =  Shift.where(:pay_period => PayPeriod.where(phase:"1"), confirmed: false)
   end
+  def confirm_shift
+    shifts= Shift.find(:id => params[:shift])
+    shifts.each do |s|
+      s.comfirm_shift(params[s][:candidate])
+    end
+  end
   # GET /admins/1
   # GET /admins/1.json
   def show
