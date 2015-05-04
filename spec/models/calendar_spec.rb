@@ -29,14 +29,18 @@ RSpec.describe Calendar, type: :model do
 			#puts "NUMBER OF DOCTORS: ", Doctor.all.count
 			#puts "doctor id: ", doctor.id
 
-			shift1 = FactoryGirl.create(:shift, :start_datetime => DateTime.new(2015, 1, 14, 8, 00), :end_datetime => DateTime.new(2015, 1, 15, 8, 00)})
-			shift1.book(doctor)
+			shift1 = FactoryGirl.create(:shift, {start_datetime: DateTime.new(2015, 2, 14, 8, 00), end_datetime: DateTime.new(2015, 3, 15, 13, 00)})
+
+			#shift1.book(doctor)
+
+			shift1.create_shifts_for_pay_period(DateTime.now, DateTime.now.advance(days: 3), 1)
+			shift1.doctor = doctor1
+			shift1.save!
 
 			Calendar.gcal_event_update(shift1)
 			expect(shift1.doctor).to eql doctor
 
 			expect(Calendar.result)
-
 
 
 

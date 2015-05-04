@@ -44,7 +44,7 @@ class Shift < ActiveRecord::Base
   def self.sign_up(array_of_ids, doctor)
     phase_two_shifts = []
     shifts = Shift.find(array_of_ids)
-    if shifts.empty? 
+    if shifts.empty?
       return assign_shifts(array_of_ids, doctor)
     end
     shifts.each do |s|
@@ -53,7 +53,7 @@ class Shift < ActiveRecord::Base
         if s.candidates.nil?
           s.candidates = [doctor.id]
         else
-          s.candidates << doctor.id 
+          s.candidates << doctor.id
         end
       else
         phase_two_shifts << s.id
@@ -81,12 +81,13 @@ class Shift < ActiveRecord::Base
           taken_shifts.push(s)
 
           #UPDATE THE SHIFT TO THE SPECIFIC GOOGLE CALENDAR EVENT
-          #Calendar.gcal_event_update(s)
+          s.doctor = doctor
+          Calendar.gcal_event_update(s)
 
         else
           shifts_to_update_ids.push(s.id)
         end
-      
+
       end
       Shift.where(id: shifts_to_update_ids).update_all({confirmed: true, doctor_id: doctor.id})
 
