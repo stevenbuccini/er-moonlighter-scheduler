@@ -29,7 +29,7 @@ class AdminsController < ApplicationController
     @shifts =  Shift.where(:pay_period => PayPeriod.where(phase:"1"))
   end
   def confirm_shift
-    shifts= Shift.find(:id => params[:shifts])
+    shifts= Shift.find(:id => params[:shift])
     shifts.each do |s|
       s.comfirm_shift(params[s][:candidate])
     end
