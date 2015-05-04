@@ -41,6 +41,12 @@ class Shift < ActiveRecord::Base
 
   # To help doctors sign up for shift. Since multiple doctors can signup for a shift in phase
   # argument: int doctors id
+  def comfirm_shift(doctor_id)
+    self.candidates =[]
+    self.doctor_id = doctor_id
+    self.confirmed = true
+    self.save
+  end
   def self.sign_up(array_of_ids, doctor)
     phase_two_shifts = []
     shifts = Shift.find(array_of_ids)
