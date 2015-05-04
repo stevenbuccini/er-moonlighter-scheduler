@@ -81,6 +81,8 @@ class Shift < ActiveRecord::Base
           taken_shifts.push(s)
         else
           shifts_to_update_ids.push(s.id)
+          s.doctor = doctor
+          Calendar.gcal_event_update(s)
         end
       
       end
