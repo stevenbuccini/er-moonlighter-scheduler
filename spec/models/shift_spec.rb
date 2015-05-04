@@ -4,12 +4,12 @@ require 'rails_helper'
 RSpec.describe Shift, type: :model do
 
   describe 'creating a shift' do
-    
+
     it 'should set self.confirmed to false on create' do
       shift = Shift.create({start_datetime: DateTime.new(2015, 2, 14, 8, 00), end_datetime: DateTime.new(2015, 3, 15, 8, 00)})
       expect(shift.confirmed).to eql false
     end
-      
+
     it 'should not create a shift if we are missing a start OR end time.' do
       shift = Shift.create({end_datetime: DateTime.new(2015, 3, 15, 8, 00)})
       expect(shift.errors[:start_datetime]).to include("can't be blank")
@@ -32,7 +32,7 @@ RSpec.describe Shift, type: :model do
 
   describe 'pretty printing a shift' do
     it 'should pretty print a shift using to_s' do
-      # create manually 
+      # create manually
       shift = Shift.create({start_datetime: DateTime.new(2015, 2, 14, 8, 00), end_datetime: DateTime.new(2015, 3, 15, 13, 00)})
       expect(shift.to_s).to eql "Feb 14, 8:00 AM - Mar 15, 1:00 PM"
     end
@@ -54,7 +54,7 @@ RSpec.describe Shift, type: :model do
   end
 
   describe 'booking multiple shifts at once' do
-    it 'should confirm multiple shifts at once' do 
+    it 'should confirm multiple shifts at once' do
       a = FactoryGirl.create(:shift)
       b = FactoryGirl.create(:shift)
       c = FactoryGirl.create(:shift)
@@ -142,7 +142,7 @@ RSpec.describe Shift, type: :model do
       expect(errors).to eql({})
     end
 
-    it "should return error messages if saving a model fails." do 
+    it "should return error messages if saving a model fails." do
       response = double("response", status: 200)
       hash = {
         start_datetime: DateTime.new(2015, 2, 15, 8, 00),
@@ -157,15 +157,15 @@ RSpec.describe Shift, type: :model do
       expect(errors).to eql({:shift_save => ["I'm an error"]})
     end
 
-    it "should return an error message if the request to Google fails" do 
-      
+    it "should return an error message if the request to Google fails" do
+
       # Hacked to stub out all the random requests to other methods
       response = double("response", status: 404, body: {"error" => {"code" => "404", "message" => "world is ending"}})
-      
+
       expect(Calendar).to receive(:gcal_get_events_in_range).and_return(response)
       expect(JSON).to receive(:parse).and_return(response.body)
       errors = Shift.create_shifts_for_pay_period(DateTime.new(2015, 2, 14, 8, 00), DateTime.new(2015, 3, 15, 8, 00), 1)
-      
+
       expected = {request_error: "HTTP 404 -- world is ending"}
 
       expect(errors).to eql expected
@@ -289,7 +289,7 @@ RSpec.describe Shift, type: :model do
     end
 
     it 'should delete all shifts that have occurred but leave pending shifts untouched' do
-      
+
       # These shifts are in the past.
       doc_to_check = FactoryGirl.create(:doctor, email: "test1@example.com")
       random_doctor = FactoryGirl.create(:doctor, email: "test2@example.com")
@@ -304,13 +304,13 @@ RSpec.describe Shift, type: :model do
       expect(Doctor.find_by_id(doc_to_check.id).last_shift_completion_date).to eql(DateTime.now.advance(days: -1, hours: 3).to_date)
     end
 
-    it 'should leave shifts that are in progress intact.' do 
-      random_doctor = FactoryGirl.create(:doctor, email: "test1@example.com") 
+    it 'should leave shifts that are in progress intact.' do
+      random_doctor = FactoryGirl.create(:doctor, email: "test1@example.com")
       # These shifts are in the past.
       FactoryGirl.create(:shift, start_datetime: DateTime.now.advance(days: -1), end_datetime: DateTime.now.advance(days: -1, hours: 3), doctor: random_doctor)
       FactoryGirl.create(:shift, start_datetime: DateTime.now.advance(days: -3), end_datetime: DateTime.now.advance(days: -3, hours: 3), doctor: random_doctor)
       FactoryGirl.create(:shift, start_datetime: DateTime.now.advance(days: -5), end_datetime: DateTime.now.advance(days: -5, hours: 3), doctor: random_doctor)
-    
+
       # This shift is in progress.
       a = FactoryGirl.create(:shift, start_datetime: DateTime.now.advance(hours: -2), end_datetime: DateTime.now.advance(hours: 1), doctor: random_doctor)
       expect(Shift.all.length).to eql(4)
