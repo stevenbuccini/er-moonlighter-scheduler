@@ -193,4 +193,15 @@ class Shift < ActiveRecord::Base
     return Doctor.find(candidate_id).full_name
   end
 
+  def self.find_requested_shifts(doctor_id)
+    @shifts = Shift.where(confirmed: false)
+    @return_shifts = []
+    @shifts.each do |shift|
+      if shift.candidates.include? doctor_id
+        @return_shifts.append(shift)
+      end
+    end
+    return @return_shifts
+  end
+
 end

@@ -2,12 +2,12 @@
 <p>These are shifts that you have currently signed up for </p>
 <ul>
 <% @confirmedShifts.each do |shift| %>
-	<li><%= shift.start_datetime.strftime("%b %d") + " - " + shift.start_datetime.strftime("%b %d") %></li>
+	<li><%= shift.start_datetime.strftime("%b %d %l:%M %p") + " - " + shift.end_datetime.strftime("%b %d %l:%M %p") %></li>
 <% end %>
 </ul>
 <p>These are the shifts you have requested but not yet been approved for</p>
 <ul>
 <% @unconfirmedShifts.each do |shift| %>
-	<li><%= shift.start_datetime.strftime("%b %d") + " - " + shift.start_datetime.strftime("%b %d") %></li>
+	<li><%= shift.start_datetime.strftime("%b %d %l:%M %p") + " - " + shift.end_datetime.strftime("%b %d %l:%M %p") %></li>
 <% end %>
 </ul>
