@@ -59,7 +59,7 @@ class Calendar
   def self.gcal_get_events_in_range(start_datetime, end_datetime)
     params = {
       calendarId: CALENDAR_ID,
-      q: "***".encode!('utf-8'),
+      q: "(open)".encode!('utf-8'),
       timeMin: start_datetime,
       timeMax: end_datetime
     }
