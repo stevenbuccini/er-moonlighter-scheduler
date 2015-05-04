@@ -10,7 +10,7 @@
         <% if current_user.is_admin? %>
         <li class="inactive"><a href="<%= pending_users_path %>"><%= fa_icon "user-plus", class:"icon-middle"%>Pending Users</a><li>
         <li class="inactive"><a href="<%= pay_periods_path %>"><%= fa_icon "calendar", class:"icon-middle"%>Manage Pay Periods</a></li>
-        <li class="inactive"><a href="<%= assign_doc_to_shift_path %>"><%= fa_icon "user-plus", class:"icon-middle"%>Assign Shifts</a></li>
+        <li class="inactive"><a href="<%= assign_doc_to_shift_path %>"><%= fa_icon "pencil", class:"icon-middle"%>Assign Shifts</a></li>
         <% end %>
         <% if current_user.type == "Doctor" %>
           <li class="inactive"><a href="<%= my_shifts_path %>"><%= fa_icon "clock-o 2x", class:"icon-middle"%>My Shifts</a></li>
