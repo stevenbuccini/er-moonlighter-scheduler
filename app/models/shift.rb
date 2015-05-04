@@ -61,6 +61,7 @@ class Shift < ActiveRecord::Base
           s.candidates = [doctor.id]
         else
           s.candidates << doctor.id 
+          s.save 
         end
       else
         phase_two_shifts << s.id
