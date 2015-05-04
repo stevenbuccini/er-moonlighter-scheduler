@@ -1,4 +1,5 @@
 class Shift < ActiveRecord::Base
+  serialize :candidates
 
   belongs_to :doctor
   belongs_to :pay_period
@@ -192,6 +193,10 @@ class Shift < ActiveRecord::Base
       }
     end
     return translated_json
+  end
+
+  def self.find_doctor_name(candidate_id)
+    return Doctor.find(candidate_id).full_name
   end
 
 end

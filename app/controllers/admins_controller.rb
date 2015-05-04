@@ -26,7 +26,7 @@ class AdminsController < ApplicationController
   end
 
   def assign_doc_to_shift
-    @shifts =  Shift.where(:pay_period => PayPeriod.where(phase:"1"))
+    @shifts =  Shift.where(:pay_period => PayPeriod.where(phase:"1"), confirmed: false)
   end
   def confirm_shift
     shifts= Shift.find(:id => params[:shift])
