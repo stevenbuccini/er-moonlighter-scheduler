@@ -37,13 +37,13 @@ ActiveRecord::Schema.define(version: 20150503070827) do
     t.datetime "start_datetime"
     t.datetime "end_datetime"
     t.boolean  "confirmed"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.integer  "doctor_id"
     t.integer  "pay_period_id"
     t.string   "gcal_event_etag"
     t.string   "gcal_event_id"
-    t.integer  "candidates"
+    t.text     "candidates",      default: "--- []\n"
   end
 
   create_table "users", force: :cascade do |t|
