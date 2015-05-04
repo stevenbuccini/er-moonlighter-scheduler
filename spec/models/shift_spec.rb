@@ -66,6 +66,8 @@ RSpec.describe Shift, type: :model do
       expect(c.doctor).to eql nil
       doc = FactoryGirl.create(:doctor)
       ids = [a.id.to_s, b.id.to_s, c.id.to_s]
+      # Stub out call to Google Calendar
+      expect(Calendar).to receive(:gcal_event_update).at_least(:once)
       errors = Shift.assign_shifts(ids, doc)
       a = Shift.find(a.id)
       b = Shift.find(b.id)
@@ -85,6 +87,8 @@ RSpec.describe Shift, type: :model do
       expect(b.confirmed).to eql false
       ids = [a.id.to_s, b.id.to_s]
       doc = FactoryGirl.create(:doctor)
+      # Stub out call to Google Calendar
+      expect(Calendar).to receive(:gcal_event_update).at_least(:once)
       errors = Shift.assign_shifts(ids, doc)
       expect(errors[:claimed_shifts]).to eql [a]
     end

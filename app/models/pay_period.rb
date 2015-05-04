@@ -18,8 +18,12 @@ class PayPeriod < ActiveRecord::Base
 	def self.create_next(pay_period_params)
 		last = PayPeriod.last!
 		pay_period_params[:start_date] = last.end_date
-		pay_period_params[:end_date] = last.end_date
-		return PayPeriod.new(pay_period_params)
+		pay_period_params[:end_date] = last.end_date + 14 # Pay periods are always 2 weeks long
+		temp = PayPeriod.new(pay_period_params)
+		# Create shifts for this pay period in our local database.
+		byebug
+		Shift.create_shifts_for_pay_period(temp.start_date.to_datetime, temp.end_date.to_datetime, temp.id)
+		return temp
 	end
 
 	private

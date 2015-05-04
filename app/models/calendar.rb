@@ -31,8 +31,6 @@ class Calendar
       :parameters => params,
       :body_object => Calendar.convert_to_gcal_event(shift)
     )
-    logger.debug(result.data.to_yaml)
-    result
   end
 
   def self.gcal_event_update(shift)
@@ -45,7 +43,6 @@ class Calendar
       :parameters => params,
       :body_object => Calendar.convert_to_gcal_event(shift)
     )
-    logger.debug(result.data.to_yaml)
   end
 
   def self.gcal_event_delete(shift)
@@ -57,13 +54,12 @@ class Calendar
       :api_method => calendar.events.delete,
       :parameters => params
     )
-    logger.debug(result.data.to_yaml)
   end
 
   def self.gcal_get_events_in_range(start_datetime, end_datetime)
     params = {
       calendarId: CALENDAR_ID,
-      q: "***".encode!('utf-8'),
+      q: "(open)".encode!('utf-8'),
       timeMin: start_datetime,
       timeMax: end_datetime
     }
