@@ -32,6 +32,13 @@ class AdminsController < ApplicationController
   # GET /admins/1.json
   def show
   end
+  
+  def confirm_shift
+    shift = Shift.find(params[:shift])
+    # if @shift
+      flash= shift.confirm_shift(params[:candidate])
+    # end
+  end
 
   # GET /admins/new
   def new
