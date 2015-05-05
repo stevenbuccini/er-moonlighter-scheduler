@@ -46,7 +46,8 @@ class DoctorsController < ApplicationController
 
   def my_shifts
     @confirmedShifts = Shift.where(doctor_id: current_user.id, confirmed: true)
-    @unconfirmedShifts = Shift.where(doctor_id: current_user.id, confirmed: false)
+    #@unconfirmedShifts = Shift.where("current_user.id IN (?)", candidates)
+    @unconfirmedShifts = Shift.find_requested_shifts(current_user.id)
   end
 
   def vacant_shifts
