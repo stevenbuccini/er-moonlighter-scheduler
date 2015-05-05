@@ -44,9 +44,10 @@ class Shift < ActiveRecord::Base
   # argument: int doctors id
   def confirm_shift(doctor_id)
     self.candidates =[]
-    self.doctor_id = doctor_id
-    self.confirmed = true
-    self.save
+    return assign_shifts([self.id], Doctor.find_by_id(doctor_id))
+    # self.doctor_id = doctor_id
+    # self.confirmed = true
+    # self.save
   end
   def self.sign_up(array_of_ids, doctor)
     phase_two_shifts = []
