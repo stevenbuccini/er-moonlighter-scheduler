@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
 
   #get 'update-doctor-and-admin-pay-period', to: 'admin#update_doctor_and_admin_pay_period', as: "update_doctor_and_admin_pay_period"
-  post '/confirm-shift', to: 'admins#confirm-shift', as: 'confirm_shift'
+  post '/confirm-shift', to: 'admins#confirm_shift', as: 'confirm_shift'
   post '/send-email', to: 'admins#send_email', as: "send_email"
   get '/create-email', to: 'admins#create_email', as: "create_email"
 

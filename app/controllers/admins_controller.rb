@@ -29,9 +29,9 @@ class AdminsController < ApplicationController
     @shifts =  Shift.where(:pay_period => PayPeriod.where(phase:"1"), confirmed: false)
   end
   def confirm_shift
-    shifts= Shift.find(:id => params[:shift])
-    shifts.each do |s|
-      s.comfirm_shift(params[s][:candidate])
+    shift = Shift.find(params[:shift])
+    if shift
+      shift.confirm_shift(params[:candidate])
     end
   end
   # GET /admins/1

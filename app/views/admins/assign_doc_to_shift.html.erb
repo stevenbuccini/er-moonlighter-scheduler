@@ -1,7 +1,7 @@
 <legend>Unassigned Shifts</legend>
 <% @shifts.each do |shift| %>
   <%= shift.to_s %>
-  <%= form_tag confirm_shift_path(shift), :id => 'vacant_shifts_form', :class => "form-horizontal" do %>
+  <%= form_tag confirm_shift_path(shift), :id => 'vacant_shifts_form', params[:shift] => shift,:class => "form-horizontal" do %>
     <fieldset>    
       <table cellspacing="10" class="table table-striped table-hover ">
         <tbody>
@@ -11,7 +11,7 @@
           <% else %>
             <% shift.candidates.each do |candidate| %>
               <tbody>
-              <td><%= radio_button_tag 'shift', candidate, false %> <%= Shift.find_doctor_name(candidate) %></td>
+              <td><%= radio_button_tag 'candidate', candidate, false %> <%= Shift.find_doctor_name(candidate) %></td>
             </tbody>
               <% end %>
           <% end %>

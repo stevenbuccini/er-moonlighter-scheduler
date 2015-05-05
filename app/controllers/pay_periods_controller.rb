@@ -45,6 +45,7 @@ class PayPeriodsController < ApplicationController
     respond_to do |format|
       if @pay_period.save
         #change_pay_period_id_for_users()
+        pay_period.create_shifts
         format.html { redirect_to @pay_period, notice: 'Pay period was successfully created.' }
         format.json { render :show, status: :created, location: @pay_period }        
       else
