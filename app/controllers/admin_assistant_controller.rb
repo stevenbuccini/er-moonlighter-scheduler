@@ -1,0 +1,2 @@
+class AdminAssistantController < AdminsController
+end

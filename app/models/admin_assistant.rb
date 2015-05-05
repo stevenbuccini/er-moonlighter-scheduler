@@ -1,0 +1,2 @@
+class AdminAssistant < Admin
+end
