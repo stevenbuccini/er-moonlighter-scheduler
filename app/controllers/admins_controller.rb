@@ -32,7 +32,7 @@ class AdminsController < ApplicationController
   # GET /admins/1.json
   def show
   end
-  
+
   def confirm_shift
     shift = Shift.find(params[:shift])
     # if @shift
@@ -91,6 +91,9 @@ class AdminsController < ApplicationController
 
   def approve_new_admin
     approve_user("Admin")
+  end
+  def approve_admin_assist
+    approve_user("AdminAssistant")
   end
 
   #To create a new payperiod for doctors and admins

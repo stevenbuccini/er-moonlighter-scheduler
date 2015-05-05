@@ -25,6 +25,7 @@
         <td><%= user.phone_3 %></td>
         <td><%= link_to 'Approve as a doctor', approve_doctor_path(user), :class => 'btn btn-link' %></td>
         <td><%= link_to 'Approve as an admin', approve_new_admin_path(user), :class => 'btn btn-link' %></td>
+        <td><%= link_to 'Approve as an admin assistant', approve_new_admin_assist_path(user), :class => 'btn btn-link' %></td>
       </tr>
     <% end %>
   </tbody>
