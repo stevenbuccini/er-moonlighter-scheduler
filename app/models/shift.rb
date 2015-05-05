@@ -42,6 +42,15 @@ class Shift < ActiveRecord::Base
 
   # To help doctors sign up for shift. Since multiple doctors can signup for a shift in phase
   # argument: int doctors id
+  def confirm_shift(doctor_id)
+    self.candidates =[]
+    # return assign_shifts([self.id], Doctor.find_by_id(doctor_id))
+    self.doctor_id = doctor_id
+    self.confirmed = true
+    self.save
+    Calendar.gcal_event_update(self)
+  end
+
   def self.sign_up(array_of_ids, doctor)
     phase_two_shifts = []
     shifts = Shift.find(array_of_ids)
@@ -56,6 +65,7 @@ class Shift < ActiveRecord::Base
         else
           s.candidates << doctor.id 
         end
+        s.save
       else
         phase_two_shifts << s.id
       end
