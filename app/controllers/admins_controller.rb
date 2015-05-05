@@ -30,12 +30,9 @@ class AdminsController < ApplicationController
   end
   def confirm_shift
     shift = Shift.find(params[:shift])
-    #byebug
-    if @shift
-      flash[:error] = "error"
-      flash= @shift.confirm_shift(params[:candidate])
-      byebug
-    end
+    # if @shift
+      flash= shift.confirm_shift(params[:candidate])
+    # end
   end
   # GET /admins/1
   # GET /admins/1.json
