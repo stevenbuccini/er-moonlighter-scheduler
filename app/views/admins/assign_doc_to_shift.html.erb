@@ -2,7 +2,7 @@
 <% @shifts.each do |shift| %>
   <%= shift.to_s %>
   <%= form_tag sign_up_for_shifts_path(shift), :id => 'vacant_shifts_form', :class => "form-horizontal" do %>
-    <fieldset>    
+    <fieldset>
       <table cellspacing="10" class="table table-striped table-hover ">
         <tbody>
         <tr>
@@ -11,7 +11,7 @@
           <% else %>
             <% shift.candidates.each do |candidate| %>
               <tbody>
-              <td><%= radio_button_tag 'shift', candidate, false %> <%= Shift.find_doctor_name(candidate) %></td>
+              <td><%= radio_button_tag 'candidate', candidate, false %> <%= Shift.find_doctor_name(candidate) %></td>
             </tbody>
               <% end %>
           <% end %>
@@ -22,7 +22,7 @@
     <% if shift.candidates.length > 0 %>
       <div class="form-group">
         <div class="col-lg-10">
-          <%= submit_tag "Assign Shift", :class => "btn btn-primary" %>
+          <button type="submit" class = "btn btn-primary" name="assign_shift" value = <%= shift.id %> > Assign Shift </button>
         </div>
       </div>
       <% end %>

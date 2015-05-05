@@ -2,15 +2,17 @@ class ShiftsController < ApplicationController
   before_filter :authenticate_user! # Redirects if user isn't signed in
 
   def update
-    shifts = params["post"]["shifts"]
+    shifts = params["commit"]
+    candidates = params["candidate"]
     errors = Shift.sign_up(shifts, current_user)
+    1/0
     if errors[:failed_save]
       flash[:error] = errors[:failed_save]
     elsif errors[:claimed_shifts].present?
       # These are shifts that we could not assign because they had already been
       # assigned to another user.
       # It will be the view's responsibility to loop through these
-      # and to correctly display the error message. 
+      # and to correctly display the error message.
       # We have to put these in the session because we're redirecting back to the
       # index and those variables aren't persisted across requests.
       session[:claimed_shifts] = errors[:claimed_shifts]
