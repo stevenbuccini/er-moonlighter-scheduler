@@ -6,7 +6,7 @@
       <table cellspacing="10" class="table table-striped table-hover ">
         <tbody>
         <tr>
-          <% if shift.condidates and shift.candidates.length == 0 %>
+          <% if shift.candidates and shift.candidates.length == 0 %>
             <td>No one has chosen this shift</td>
           <% else %>
             <% shift.candidates.each do |candidate| %>
