@@ -45,7 +45,7 @@ class Shift < ActiveRecord::Base
   def self.sign_up(array_of_ids, doctor)
     phase_two_shifts = []
     shifts = Shift.find(array_of_ids)
-    if shifts.empty? 
+    if shifts.empty?
       return assign_shifts(array_of_ids, doctor)
     end
     shifts.each do |s|
@@ -54,7 +54,7 @@ class Shift < ActiveRecord::Base
         if s.candidates.nil?
           s.candidates = [doctor.id]
         else
-          s.candidates << doctor.id 
+          s.candidates << doctor.id
         end
       else
         phase_two_shifts << s.id
@@ -85,7 +85,7 @@ class Shift < ActiveRecord::Base
           s.doctor = doctor
           Calendar.gcal_event_update(s)
         end
-      
+
       end
       Shift.where(id: shifts_to_update_ids).update_all({confirmed: true, doctor_id: doctor.id})
 
@@ -103,17 +103,19 @@ class Shift < ActiveRecord::Base
   def self.create_shifts_for_pay_period(start_datetime, end_datetime, pay_period_id)
 
     # Storing errors here so we can pass them back up to the front end.
-    # On the front end, need to check 
+    # On the front end, need to check
     errors_hash = {}
 
-    # Have to wrap this instance method because we can't call the class method direclty 
+    # Have to wrap this instance method because we can't call the class method direclty
     api_response = Calendar.gcal_get_events_in_range(start_datetime, end_datetime)
     if api_response.status == 200
       # Request successful
       # Coerce GCal JSON into our own internal representation
       translated_json = Shift.parse_gcal_json(api_response)
+      #puts "TRANSLATED JSON: ", translated_json
       translated_json.each do |event_hash|
         errors = Shift.create_shift_from_hash(event_hash, pay_period_id)
+        #puts "ERRORS: ", errors
         if errors
           errors_hash[:shift_save] ||= []
           errors_hash[:shift_save] << errors
@@ -149,7 +151,7 @@ class Shift < ActiveRecord::Base
     # Delete all shifts at once so we do less transactions.
     # NOTE: This does NOT invoke the callbacks nor does it use the destroy method.
     # This prevents instanation of each object a la destroy_all
-    Shift.where("end_datetime <= ?", fixed_time).delete_all 
+    Shift.where("end_datetime <= ?", fixed_time).delete_all
   end
 
   private
