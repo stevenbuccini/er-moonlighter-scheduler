@@ -121,13 +121,13 @@ class Shift < ActiveRecord::Base
     if api_response.status == 200
       # Request successful
       # Coerce GCal JSON into our own internal representation
-      # translated_json = Shift.parse_gcal_json(api_response)
-      # translated_json.each do |event_hash|
-      #   errors = Shift.create_shift_from_hash(event_hash, pay_period_id)
-      #   if errors
-      #     errors_hash[:shift_save] ||= []
-      #     errors_hash[:shift_save] << errors
-      #   end
+      translated_json = Shift.parse_gcal_json(api_response)
+      translated_json.each do |event_hash|
+        errors = Shift.create_shift_from_hash(event_hash, pay_period_id)
+        if errors
+          errors_hash[:shift_save] ||= []
+          errors_hash[:shift_save] << errors
+        end
       end
     else
       # We ran into an error when we tried to talk to the Google Calendar API.
