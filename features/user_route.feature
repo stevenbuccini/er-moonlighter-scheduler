@@ -16,14 +16,13 @@ Background: admin, regular user and doctors exist in database
   | Tayo        | Olukoya   | theboss@example.com    | 123-456-7890 | 122-222-2345 | 554-446-6456 |
   | Kristina    | Sep       | supercool@example.com  | 760-805-9889 | nil          | nil          |
 
-Scenario: User awainting approval login happy path!
+Scenario: User awaiting approval login happy path!
   Given I am signed in as a user awaiting admin approval
-  And I update my profile page
-  Then I should see user awaiting admin approval on my login page
+  Then I should see "Your account is awaiting admin's approval" 
 
 Scenario: User awainting approval login sad path!
   Given I am signed in as a user awaiting admin approval
-  Then I should see user awaiting admin approval on my login page
+  Then I should not see "Contact List"
 
 Scenario: Doctor Login happy path!
   Given I am an existing doctor

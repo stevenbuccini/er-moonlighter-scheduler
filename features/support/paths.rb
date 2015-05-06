@@ -5,6 +5,8 @@ module NavigationHelpers
       '/admins'
     when /^the create email page$/
       '/create-email'
+    when /^the edit page$/
+      '/users'
     end
   end
 end
