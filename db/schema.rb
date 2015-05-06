@@ -42,14 +42,18 @@ ActiveRecord::Schema.define(version: 20150505131902) do
     t.datetime "start_datetime"
     t.datetime "end_datetime"
     t.boolean  "confirmed"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.integer  "doctor_id"
     t.integer  "pay_period_id"
     t.string   "gcal_event_etag"
     t.string   "gcal_event_id"
-    t.text     "candidates",      default: "--- []\n"
+    t.text     "candidates",         default: "--- []\n"
+    t.integer  "assigned_doctor_id"
+    t.integer  "doctors_id"
   end
+
+  add_index "shifts", ["doctors_id"], name: "index_shifts_on_doctors_id"
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                              null: false
