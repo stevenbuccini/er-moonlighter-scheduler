@@ -133,7 +133,8 @@ class Shift < ActiveRecord::Base
       # We ran into an error when we tried to talk to the Google Calendar API.
       # Put it in the error hash
       jsonified = JSON.parse(api_response.body)['error']
-      errors_hash[:request_error] = "HTTP #{jsonified['code']} -- #{jsonified['message']}"
+      errors_hash[:request_error] = "I AM CONFUSED"
+      #{}"HTTP #{jsonified['code']} -- #{jsonified['message']}"
     end
 
     # Pass the errors back up to the front end
