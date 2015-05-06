@@ -60,8 +60,8 @@ class Calendar
     params = {
       calendarId: CALENDAR_ID,
       q: "(o)",
-      timeMin: start_datetime,
-      timeMax: end_datetime
+      timeMin: start_datetime.to_datetime.iso8601,
+      timeMax: end_datetime.to_datetime.iso8601
     }
 
     result = client.execute(
