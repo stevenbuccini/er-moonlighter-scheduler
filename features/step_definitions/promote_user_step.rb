@@ -22,3 +22,10 @@ end
 When(/^I click on "(.*?)"$/) do |arg1|
   click_button arg1
 end
+
+When(/^I sign up with username "(.*)" and password (\d+)$/) do |arg1, arg2|
+  visit '/users/sign_up'
+  fill_in 'user_email', :with => arg1
+  fill_in 'user_password', :with => arg2
+  click_button 'Sign up'
+end
