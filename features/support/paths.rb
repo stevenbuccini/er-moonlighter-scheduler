@@ -7,6 +7,8 @@ module NavigationHelpers
       '/create-email'
     when /^the edit page$/
       '/users'
+    when /^the doctor's index$/
+      '/doctors'
     end
   end
 end
