@@ -23,7 +23,7 @@ class PayPeriod < ActiveRecord::Base
 		pay_period_params[:end_date] = DateTime.new(2015, 3, 8) + 14 # Pay periods are always 2 weeks long
 		temp = PayPeriod.new(pay_period_params)
 		# Create shifts for this pay period in our local database.
-		Shift.create_shifts_for_pay_period(temp.start_date.to_datetime, temp.end_date.to_datetime, temp.id)
+		#Shift.create_shifts_for_pay_period(temp.start_date.to_datetime, temp.end_date.to_datetime, temp.id)
 		return temp
 	end
 
