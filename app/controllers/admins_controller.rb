@@ -130,6 +130,7 @@ class AdminsController < ApplicationController
         @user.update_attribute(:type, user_type)
         flash[:notice] = "Approved #{@user.first_name} as a #{user_type}!"
       end
+      redirect_to '/pending-list'
     end
 
     def is_not_nil

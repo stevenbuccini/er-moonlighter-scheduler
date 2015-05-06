@@ -26,9 +26,9 @@ Rails.application.routes.draw do
   get '/create-email', to: 'admins#create_email', as: "create_email"
 
   #Approve new user route:
-  get '/approve-doctor/:user', to: 'admins#approve_doctor', as: "approve_doctor"
-  get '/approve-new-admin/:user', to: 'admins#approve_new_admin', as: "approve_new_admin"
-  get '/approve-new-admin-assist/:user', to: 'admins#approve_new_admin_assist', as: "approve_new_admin_assist"
+  post '/approve-doctor/:user', to: 'admins#approve_doctor', as: "approve_doctor"
+  post '/approve-new-admin/:user', to: 'admins#approve_new_admin', as: "approve_new_admin"
+  post '/approve-new-admin-assist/:user', to: 'admins#approve_new_admin_assist', as: "approve_new_admin_assist"
 
   get 'create-new-pay-period', to: 'admins#create_new_pay_period', as: "create_new_pay_period"
   get 'edit-current-pay-period', to: 'admins#edit_current_pay_period', as: "edit_current_pay_period"
