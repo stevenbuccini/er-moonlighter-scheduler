@@ -11,10 +11,10 @@ class Calendar
   CACHED_API_FILE = "calendar-#{API_VERSION}.cache"
   CALENDAR_ID = ENV["gcal_calendar_id"]
 
-  # It's really dumb that we have to do this, here is a link w/ more info: 
+  # It's really dumb that we have to do this, here is a link w/ more info:
   # http://www.railstips.org/blog/archives/2009/05/15/include-vs-extend-in-ruby/
-  # 
-  # In short, 'including' a module mixes in only instance methods. 'extend'ing 
+  #
+  # In short, 'including' a module mixes in only instance methods. 'extend'ing
   # allows you get class methods, but it doesn't make sense to do it both.
   # So we have our module mix in a class method because abstraction
   # def self.included(base)
@@ -59,7 +59,7 @@ class Calendar
   def self.gcal_get_events_in_range(start_datetime, end_datetime)
     params = {
       calendarId: CALENDAR_ID,
-      q: "(open)".encode!('utf-8'),
+      q: "(o)",
       timeMin: start_datetime,
       timeMax: end_datetime
     }
@@ -91,7 +91,7 @@ private
   def self.init_client
 
     client = Google::APIClient.new(:application_name => 'Moonlighter', :application_version => '1.0.0')
-    
+
     key = OpenSSL::PKey::RSA.new(ENV["gcal_private_key"])
 
     client.authorization = Signet::OAuth2::Client.new(
