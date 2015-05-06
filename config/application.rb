@@ -33,5 +33,8 @@ module ErMoonlighterScheduler
 
     # Load values from application.yml
     Figaro.load
+
+    # Set up a logger
+    config.logger = Logger.new(STDOUT)
   end
 end
