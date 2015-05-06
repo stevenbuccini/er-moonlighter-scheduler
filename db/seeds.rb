@@ -53,11 +53,11 @@ end
 
 pay_periods = [
   {start_date: DateTime.new(2015, 2, 14), end_date: DateTime.new(2015, 2, 28), is_open: true, phase: 1},
-  {start_date: DateTime.new(2015, 3, 14), end_date: DateTime.new(2015, 3, 28), is_open: true, phase: 1},
-  {start_date: DateTime.new(2015, 5, 2), end_date: DateTime.new(2015, 5, 28), is_open: true, phase: 1},
-  {start_date: DateTime.new(2015, 6, 28), end_date: DateTime.new(2015, 7, 10), is_open: true, phase: 2},
-  {start_date: DateTime.new(2015, 5, 14), end_date: DateTime.new(2015, 5, 28), is_open: true, phase: 2},
-  {start_date: DateTime.new(2015, 5, 14), end_date: DateTime.new(2015, 5, 28), is_open: true, phase: 2}
+  # {start_date: DateTime.new(2015, 3, 14), end_date: DateTime.new(2015, 3, 28), is_open: true, phase: 1},
+  # {start_date: DateTime.new(2015, 5, 2), end_date: DateTime.new(2015, 5, 28), is_open: true, phase: 1},
+  # {start_date: DateTime.new(2015, 6, 28), end_date: DateTime.new(2015, 7, 10), is_open: true, phase: 2},
+  # {start_date: DateTime.new(2015, 5, 14), end_date: DateTime.new(2015, 5, 28), is_open: true, phase: 2},
+  # {start_date: DateTime.new(2015, 5, 14), end_date: DateTime.new(2015, 5, 28), is_open: true, phase: 2}
 ]
 
 pay_periods.each do |p|
