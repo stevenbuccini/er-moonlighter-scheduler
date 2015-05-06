@@ -117,13 +117,13 @@ class Shift < ActiveRecord::Base
     errors_hash = {}
 
     # Have to wrap this instance method because we can't call the class method direclty 
-    api_response = Calendar.gcal_get_events_in_range(start_datetime, end_datetime)
+    #api_response = Calendar.gcal_get_events_in_range(start_datetime, end_datetime)
     if api_response.status == 200
       # Request successful
       # Coerce GCal JSON into our own internal representation
       translated_json = Shift.parse_gcal_json(api_response)
       translated_json.each do |event_hash|
-        #errors = Shift.create_shift_from_hash(event_hash, pay_period_id)
+        errors = Shift.create_shift_from_hash(event_hash, pay_period_id)
         if errors
           errors_hash[:shift_save] ||= []
           errors_hash[:shift_save] << errors
