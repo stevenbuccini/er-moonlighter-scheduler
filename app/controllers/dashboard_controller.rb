@@ -5,17 +5,14 @@ class DashboardController < ApplicationController
 		if current_user.type
 	  	if current_user.type == Doctor.NAME 
 				redirect_to :controller => 'doctors', :action => 'index'
-			elsif current_user.type == Admin.NAME
+			elsif current_user.type == Admin.NAME or current_user.type == "AdminAssistant"
 				redirect_to :controller => 'admins', :action => 'index'
+			# elsif current_user.type == "AdminAssistant"
+			# 	redirect_to :controller => 'admin_assistant', :action => 'index'
 			end
 		end
-		# else
-		# 		flash[:notice] = "Your account is awaiting an Administrator's approval"
-		# 		redirect_to :action => 'view'
-		# end
 	end
 
   def view
-  	
   end
 end
