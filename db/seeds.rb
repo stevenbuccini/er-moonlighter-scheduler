@@ -37,20 +37,6 @@ users.each do |user|
   User.create!(user)
 end
 
-
-shifts = [
-  {start_datetime: DateTime.new(2015, 2, 14, 8, 00), end_datetime: DateTime.new(2015, 2, 14, 14, 30), confirmed: true, pay_period_id: 1},
-  {start_datetime: DateTime.new(2015, 2, 14, 4, 00), end_datetime: DateTime.new(2015, 2, 14, 12, 30), confirmed: false, candidates:[1,2,3], pay_period_id: 1},
-  {start_datetime: DateTime.new(2015, 6, 28, 20, 00), end_datetime: DateTime.new(2015, 6, 29, 8, 30), confirmed: false, pay_period_id: 4},
-  {start_datetime: DateTime.new(2015, 7, 6, 5, 43), end_datetime: DateTime.new(2015, 7, 6, 12, 30), pay_period_id:4},
-  {start_datetime: DateTime.new(2015, 3, 14, 12, 14), end_datetime: DateTime.new(2015, 3, 14, 14, 30), pay_period_id: 2},
-  {start_datetime: DateTime.new(2015, 5, 3, 2, 50), end_datetime: DateTime.new(2015, 6, 2, 15, 30), pay_period_id: 3}
-]
-
-shifts.each do |shift|
-  Shift.create!(shift)
-end
-
 pay_periods = [
   {start_date: DateTime.new(2015, 1, 14), end_date: DateTime.new(2015, 1, 25), is_open: true, phase: 1},
   {start_date: DateTime.new(2015, 2, 25), end_date: DateTime.new(2015, 3, 8), is_open: true, phase: 1}
@@ -59,3 +45,19 @@ pay_periods = [
 pay_periods.each do |p|
   PayPeriod.create!(p)
 end
+
+
+shifts = [
+  {start_datetime: DateTime.new(2015, 2, 14, 8, 00), end_datetime: DateTime.new(2015, 2, 14, 14, 30), confirmed: true, pay_period_id: 1},
+  {start_datetime: DateTime.new(2015, 2, 14, 4, 00), end_datetime: DateTime.new(2015, 2, 14, 12, 30), confirmed: false, candidates:[1,2,3], pay_period_id: 1},
+  {start_datetime: DateTime.new(2015, 6, 28, 20, 00), end_datetime: DateTime.new(2015, 6, 29, 8, 30), confirmed: false, pay_period_id: 2},
+  {start_datetime: DateTime.new(2015, 7, 6, 5, 43), end_datetime: DateTime.new(2015, 7, 6, 12, 30), pay_period_id:4},
+  {start_datetime: DateTime.new(2015, 3, 14, 12, 14), end_datetime: DateTime.new(2015, 3, 14, 14, 30), pay_period_id: 2},
+  {start_datetime: DateTime.new(2015, 5, 3, 2, 50), end_datetime: DateTime.new(2015, 6, 2, 15, 30), pay_period_id: 2}
+]
+
+shifts.each do |shift|
+  Shift.create!(shift)
+end
+
+
