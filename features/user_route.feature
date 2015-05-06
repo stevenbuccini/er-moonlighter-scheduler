@@ -6,6 +6,7 @@ Feature: Routes for users
 
 Background: admin, regular user and doctors exist in database
   Given one default admin exists
+  Given one default doctor exists
 
   Given a new user exists
 
@@ -16,31 +17,28 @@ Background: admin, regular user and doctors exist in database
   | Tayo        | Olukoya   | theboss@example.com    | 123-456-7890 | 122-222-2345 | 554-446-6456 |
   | Kristina    | Sep       | supercool@example.com  | 760-805-9889 | nil          | nil          |
 
-Scenario: User awainting approval login happy path!
+Scenario: User awaiting approval login happy path!
   Given I am signed in as a user awaiting admin approval
-  And I update my profile page
-  Then I should see user awaiting admin approval on my login page
+  Then I should see "Your account is awaiting admin's approval" 
 
 Scenario: User awainting approval login sad path!
   Given I am signed in as a user awaiting admin approval
-  Then I should see user awaiting admin approval on my login page
+  Then I should not see "Contact List"
 
 Scenario: Doctor Login happy path!
-  Given I am an existing doctor
-  When I sign in with my Login credentials
-  Then I should be taking to the doctor's login page
+  Given I am logged in as the default doctor
+  Then I should be on the doctor's index
 
 Scenario: Doctor Login sad path!
-  Given I am signed in as a doctor
-  When I try to visit the admin homepage
-  Then I should see "You are not authorised to view an Admin's page"
+  Given I am logged in as the default doctor
+  When I visit admins
+  Then I should see "You are not authorised to visit this page"
 
 Scenario: Admin Login happy path!
-  Given I am an existing admin
-  When I sign in with my Login credentials
-  Then I should be taking to the admin's login page
+  Given I am logged in as the default admin
+  Then I should be on the admin index
 
 Scenario: Admin Login sad path!
-  Given I am signed in as an admin
-  When I try to visit the doctor's homepage
-  Then I should see a notice You are not authorised to view Doctor's page
+  Given I am logged in as the default admin
+  When I visit doctors
+  Then I should see "You are not authorised to visit this page"

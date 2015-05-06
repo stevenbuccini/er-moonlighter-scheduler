@@ -1,5 +1,6 @@
+require 'spec_helper'
 require 'rails_helper'
-
+require 'support/controller_macros'
 RSpec.describe DashboardController, type: :controller do
 
   describe "GET #view" do
@@ -11,6 +12,9 @@ RSpec.describe DashboardController, type: :controller do
   end
 
   describe 'GET#index' do 
+    # subject { get :index }
+    # specify { should render_template('/dashboard/index') }
+    # specify { should render_template("layouts/application") }
     #login_user
     before :each do 
       @doctor = FactoryGirl.create(:doctor)
@@ -27,10 +31,6 @@ RSpec.describe DashboardController, type: :controller do
       get :index
       expect(response).to redirect_to doctors_path
     end
-    it 'should redirect nil to view' do 
-      sign_in @user
-      get :index
-      expect(response).to redirect_to('/dashboard/view')
-    end
+  
   end
 end

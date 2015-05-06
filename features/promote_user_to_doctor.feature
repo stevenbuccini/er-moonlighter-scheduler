@@ -20,5 +20,6 @@ Background: admin, a user awaiting approval and doctors exist in database
 Scenario: Promote user to doctor
   Given I am logged in as the default admin
   When I approve Jame Jones to become a doctor
-  Then I should see Jame Jones in the table of doctors
+  And I click on "Contact List"
+  Then I should see "Jame Jones"
   
