@@ -2,6 +2,7 @@ class DoctorsController < ApplicationController
   before_action :set_doctor, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user! 
   before_filter :check_users_authorization, :except => [:destroy, :show, :edit, :update]# Redirects if user isn't signed in
+  before_filter :admin_only_view, only: [:edit]
 
   # GET /doctors
   # GET /doctors.json
@@ -88,4 +89,15 @@ class DoctorsController < ApplicationController
     def check_users_authorization
       check_users_authorization_helper(Doctor.NAME)
     end
+    def admin_only_view
+    if !current_user.is_a? Admin and current_user.type != "AdminAssistant"
+      flash[:error] = "You are not authorized to view this page."
+      redirect_to :root
+      # Explictly tell the caller that this check failed
+      return false
+    else
+      # Explictly tell the caller that this check was successful
+      return true
+    end
+  end
 end
