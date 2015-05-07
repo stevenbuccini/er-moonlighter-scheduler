@@ -120,9 +120,7 @@ class AdminsController < ApplicationController
       params.require(:admin).permit(:first_name, :last_name, :phone_1, :phone_2, :phone_3, :comments)
     end
     def check_users_authorization
-      if current_user.type != "AdminAssistant" 
-        check_users_authorization_helper(Admin.NAME)
-      end
+      check_users_authorization_helper(Admin.NAME)
     end
 
     #TODO:

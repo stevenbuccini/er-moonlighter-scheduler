@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_users_authorization_helper(type)
-    if current_user.type != type
+    if current_user.type != type and !current_user.is_a? AdminAssistant
       flash[:alert] = "You are not authorised to perform this action"
       redirect_to :controller => 'dashboard', :action => 'view'
     end
