@@ -64,24 +64,10 @@ class Calendar
       timeMax: end_datetime.to_datetime
     }
 
-    puts "Calendar ID: #{CALENDAR_ID}"
-
-    puts client
-
-    puts calendar.events.list
-
-    puts params
-
-    #puts client.execute
-
     result = client.execute(
       :api_method => calendar.events.list,
       :parameters => params
     )
-    puts result
-    puts result.status
-    puts result.body
-    return result
   end
 
 private
@@ -105,10 +91,7 @@ private
   def self.init_client
 
     client = Google::APIClient.new(:application_name => 'Moonlighter', :application_version => '1.0.0')
-    puts client
-    puts ENV["gcal_private_key"]
     key = OpenSSL::PKey::RSA.new(ENV["gcal_private_key"])
-    puts key
 
     client.authorization = Signet::OAuth2::Client.new(
       :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
@@ -120,8 +103,6 @@ private
 
     # Request a token for our service account
     client.authorization.fetch_access_token!
-    puts client.authorization.fetch_access_token!
-    puts client
     client
   end
 
@@ -142,7 +123,7 @@ private
   end
 
   def self.client
-    init_client
+    @@client ||= init_client
   end
 
   def self.calendar
