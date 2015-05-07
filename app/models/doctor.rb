@@ -20,7 +20,6 @@ class Doctor < User
   def send_email(doctor, params)
     subject = params[:subject]['Subject']
     text = params[:body]['Email Body']
-    #UserMailer.custom_email(doctor, subject, text).deliver_now
     Notifier.notify(doctor, subject, text).deliver_now
   end
 end

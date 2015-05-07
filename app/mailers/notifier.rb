@@ -2,10 +2,9 @@ class Notifier < ApplicationMailer
 	def mandrill_client
       @mandrill_client ||= Mandrill::API.new ENV["MANDRILL_APIKEY"]
   end
+
+  #This method sends the email to do recipient and notify an admin assistant
 	def notify(doctor, subject, text)
-    # @account = recipient
-    # mail(to: recipient.email_address_with_name,
-    #      bcc: ["bcc@example.com", "Order Watcher <watcher@example.com>"])
     @user = doctor
 		template_name = "custom-template"
       template_content = []
