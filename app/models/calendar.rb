@@ -60,8 +60,8 @@ class Calendar
     params = {
       calendarId: CALENDAR_ID,
       q: "(o)",
-      timeMin: start_datetime.to_datetime.iso8601,
-      timeMax: end_datetime.to_datetime.iso8601
+      timeMin: start_datetime.to_datetime,
+      timeMax: end_datetime.to_datetime
     }
 
     result = client.execute(
@@ -91,7 +91,6 @@ private
   def self.init_client
 
     client = Google::APIClient.new(:application_name => 'Moonlighter', :application_version => '1.0.0')
-
     key = OpenSSL::PKey::RSA.new(ENV["gcal_private_key"])
 
     client.authorization = Signet::OAuth2::Client.new(
@@ -116,9 +115,9 @@ private
         @@calendar = Marshal.load(file)
       end
     else
-      @@calendar = @client.discovered_api('calendar', API_VERSION)
+      @@calendar = client.discovered_api('calendar', API_VERSION)
       File.open(CACHED_API_FILE, 'w') do |file|
-        Marshal.dump(@calendar, file)
+        Marshal.dump(@@calendar, file)
       end
     end
   end

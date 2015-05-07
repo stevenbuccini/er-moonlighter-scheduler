@@ -117,8 +117,6 @@ class Shift < ActiveRecord::Base
     errors_hash = {}
 
     # Have to wrap this instance method because we can't call the class method direclty 
-
-    # The bug is here !!!!!!!!!!!!!!!
     api_response = Calendar.gcal_get_events_in_range(start_datetime, end_datetime)
     if api_response.status == 200
       # Request successful

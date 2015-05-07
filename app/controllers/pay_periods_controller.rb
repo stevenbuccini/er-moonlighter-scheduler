@@ -26,9 +26,7 @@ class PayPeriodsController < ApplicationController
 
   def create_next
     @pay_period = PayPeriod.create_next(pay_period_params)
-    logger.debug("Hey guys I'm about to call the helper ")
     create_helper(@pay_period)
-    logger.debug("Hey guys I just called the helper")
     # TODO: notifiy doctors if pay_period is open
     if pay_period_params[:is_open]
     end
@@ -47,13 +45,11 @@ class PayPeriodsController < ApplicationController
    # Shift.create_shifts_for_pay_period(@pay_period.start_date, @pay_period.end_date, @pay_period.id)
     respond_to do |format|
       if @pay_period.save
-        logger.debug("Pay period successfully saved")
         #change_pay_period_id_for_users()
         # format.html { redirect_to @pay_period, notice: 'Pay period was successfully created.' }
         format.html { redirect_to @pay_period, notice: 'Pay period was successfully created.' }
         format.json { render :show, status: :created, location: @pay_period }        
       else
-        logger.debug("Pay period not successfully saved")
         format.html { render :new }
         format.json { render json: @pay_period.errors, status: :unprocessable_entity }
       end

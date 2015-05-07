@@ -17,9 +17,17 @@ class Doctor < User
     # completion date is occurred over MAX_TIME_SINCE_LAST_SHIFT time ago
     return (self.last_shift_completion_date.advance(months: MAX_TIME_SINCE_LAST_SHIFT) < Date.today) if self.last_shift_completion_date
   end
+
   def send_email(doctor, params)
-    subject = params[:subject]['Subject']
-    text = params[:body]['Email Body']
-    UserMailer.custom_email(doctor, subject, text).deliver_now
+    case params[:email_type]
+      when 'urgent'
+        UserMailer.urgent_email(doctor,params[:pay_period]).deliver_now
+      when 'new_pay_period'
+        UserMailer.new_pay_period_email(doctor,params[:pay_period]).deliver_now
+      else
+        subject = params[:subject]['Subject']
+        text = params[:body]['Email Body']
+        UserMailer.custom_email(doctor, subject, text).deliver_now
+    end
   end
 end

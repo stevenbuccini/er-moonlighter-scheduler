@@ -1,8 +1,8 @@
 class AdminsController < ApplicationController
-  before_action :set_admin, only: [:show, :edit, :update, :destroy]
+  before_action :set_admin, only: [:edit, :update, :destroy]
   before_filter :authenticate_user! # redirect if user isn't signed in
-  before_filter :check_users_authorization, :except => [:destroy, :contact_list, :create_email, :send_email]# redirect if user is not an admin
-  before_filter :doctor_or_admin_view, only: [:contact_list, :create_email, :send_email]
+  before_filter :check_users_authorization, :except => [:destroy, :contact_list, :create_email, :send_email, :show]# redirect if user is not an admin
+  before_filter :doctor_or_admin_view, only: [:contact_list, :create_email, :send_email, :show]
 
   # GET /admins
   # GET /admins.json
@@ -31,13 +31,15 @@ class AdminsController < ApplicationController
   # GET /admins/1
   # GET /admins/1.json
   def show
+    @admin = Admin.find(params[:id])
   end
 
   def confirm_shift
     shift = Shift.find(params[:shift])
-    # if @shift
-      flash= shift.confirm_shift(params[:candidate])
-    # end
+    if shift
+      flash[:notice] = shift.confirm_shift(params[:candidate])
+    end
+    redirect_to assign_doc_to_shift_path
   end
 
   # GET /admins/new
@@ -73,7 +75,7 @@ class AdminsController < ApplicationController
         Notifier.notify(current_user,recipients, params[:subject]['Subject'], params[:body]['Email Body']).deliver_now
       end
       flash[:notice] = sent_to
-      redirect_to '/'
+      redirect_to dashboard_index_path
     end
   end
 
