@@ -8,5 +8,8 @@
 <div>Phone 3:  <%= @admin.phone_3 %></div>
 <div>General Shift Preferences: <%= @admin.comments %></div>
 <br>
-<%= link_to 'Edit', edit_admin_path(@admin) %> |
-<%= link_to 'Back', admins_path %>
+
+<% if current_user.is_admin? or current_user.is_a? AdminAssistant%>
+  <%= link_to 'Edit', edit_admin_path(@admin) %> |
+  <% end %>
+<%= link_to 'Back', contact_list_path %>

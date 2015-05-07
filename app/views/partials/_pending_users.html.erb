@@ -3,7 +3,7 @@
 <table cellspacing="30" class="table table-striped table-hover">
   <thead>
     <tr>
-      <th colspan="8"></th>
+      <th colspan="12"></th>
     </tr>
   </thead>
 
@@ -15,6 +15,9 @@
       <th>Phone 1</th>
       <th>Phone 2</th>
       <th>Phone 3</th>
+      <th></th>
+      <th></th>
+      <th></th>
     <% @users_awaiting_approver.each do |user| %>
       <tr>
         <td><%= user.first_name %></td>
@@ -23,9 +26,9 @@
         <td><%= user.phone_1 %></td>
         <td><%= user.phone_2 %></td>
         <td><%= user.phone_3 %></td>
-        <td><%= link_to 'Approve as a doctor', approve_doctor_path(user), {:class => 'btn btn-link', :method => :post} %></td>
-        <td><%= link_to 'Approve as an admin', approve_new_admin_path(user), {:class => 'btn btn-link', :method => :post}  %></td>
-        <td><%= link_to 'Approve as an admin assistant', approve_new_admin_assist_path(user), {:class => 'btn btn-link', :method => :post} %></td>
+        <td><%= link_to 'Approve Doctor', approve_doctor_path(user), {:class => 'btn btn-link', :method => :post} %></td>
+        <td><%= link_to 'Approve Admin', approve_new_admin_path(user), {:class => 'btn btn-link', :method => :post}  %></td>
+        <td><%= link_to 'Approve Admin Assistant', approve_new_admin_assist_path(user), {:class => 'btn btn-link', :method => :post} %></td>
       </tr>
     <% end %>
   </tbody>

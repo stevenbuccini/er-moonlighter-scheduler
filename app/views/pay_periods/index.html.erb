@@ -1,6 +1,6 @@
 
 <div class="col-lg-10">
-<h1>All Pay Periods</h1>
+<h1>Currently Open Pay Periods</h1>
 <%= form_tag send_email_path :class => "form-horizontal" do %>
 <table class="table table-striped table-hover ">
   <thead>
@@ -26,6 +26,5 @@
 
 <% end %>
 
-<%= link_to 'Next Pay period', new_pay_period_path %>
-<br> <%= link_to 'Back to Admin homepage', admins_path %>
+<%= link_to 'Open Next Pay Period', new_pay_period_path, class:"btn btn-link" %>
 </div>
