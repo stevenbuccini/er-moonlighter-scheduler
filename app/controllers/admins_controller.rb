@@ -66,9 +66,13 @@ class AdminsController < ApplicationController
       if params[:pay_period]
         params[:pay_period] = "#{params[:pay_period]['start']} to #{params[:pay_period]['end']}"
       end
-      sent_to = "Email sent to: " + Admin.get_doctor_names(@doctors)
+      recipients = Admin.get_doctor_names(@doctors)
+      sent_to = "Email sent to: " + recipients
       @doctors.each do |doctor|
         current_user.send_email(doctor, params)
+      end
+      if current_user.is_a? Doctor
+        Notifier.notify(current_user,recipients, params[:subject]['Subject'], params[:body]['Email Body']).deliver_now
       end
       flash[:notice] = sent_to
       redirect_to dashboard_index_path
@@ -122,9 +126,7 @@ class AdminsController < ApplicationController
       params.require(:admin).permit(:first_name, :last_name, :phone_1, :phone_2, :phone_3, :comments)
     end
     def check_users_authorization
-      if current_user.type != "AdminAssistant" 
-        check_users_authorization_helper(Admin.NAME)
-      end
+      check_users_authorization_helper(Admin.NAME)
     end
 
     #TODO:

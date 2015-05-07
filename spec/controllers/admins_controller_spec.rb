@@ -32,9 +32,7 @@ RSpec.describe AdminsController, type: :controller do
     login_admin
     before :each do
       @doctor = FactoryGirl.create(:doctor)
-      @admin = FactoryGirl.build(:admin, :first_name => "Jennifer", :last_name => "Lopez", :phone_1 => '222-222-2222')
-      @admin.save!
-      @new_first_name = "Sara"
+      @admin = FactoryGirl.create(:admin, :first_name => "Jennifer", :last_name => "Lopez", :phone_1 => '222-222-2222')
     end
 
     it "renders the create_email template" do
