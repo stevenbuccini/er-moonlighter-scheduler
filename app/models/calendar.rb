@@ -60,16 +60,28 @@ class Calendar
     params = {
       calendarId: CALENDAR_ID,
       q: "(o)",
-      timeMin: start_datetime.to_datetime.iso8601,
-      timeMax: end_datetime.to_datetime.iso8601
+      timeMin: start_datetime.to_datetime,
+      timeMax: end_datetime.to_datetime
     }
 
     puts "Calendar ID: #{CALENDAR_ID}"
+
+    puts client
+
+    puts calendar.events.list
+
+    puts params
+
+    #puts client.execute
 
     result = client.execute(
       :api_method => calendar.events.list,
       :parameters => params
     )
+    puts result
+    puts result.status
+    puts result.body
+    return result
   end
 
 private
