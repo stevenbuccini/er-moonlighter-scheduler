@@ -3,7 +3,7 @@ class UserMailer < ApplicationMailer
 
 	def mandrill_client
       @mandrill_client ||= Mandrill::API.new ENV["MANDRILL_APIKEY"]
-    end
+  end
 
 	def custom_email(doctor, subject, text)
 		@user = doctor
