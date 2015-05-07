@@ -120,6 +120,7 @@ private
 
     # Request a token for our service account
     client.authorization.fetch_access_token!
+    puts client.authorization.fetch_access_token!
     puts client
     client
   end
@@ -133,9 +134,9 @@ private
         @@calendar = Marshal.load(file)
       end
     else
-      @@calendar = @client.discovered_api('calendar', API_VERSION)
+      @@calendar = client.discovered_api('calendar', API_VERSION)
       File.open(CACHED_API_FILE, 'w') do |file|
-        Marshal.dump(@calendar, file)
+        Marshal.dump(@@calendar, file)
       end
     end
   end
