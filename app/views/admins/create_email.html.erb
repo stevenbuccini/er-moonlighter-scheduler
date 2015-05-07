@@ -49,7 +49,8 @@
 				<div class="form-group">
 					<label for="inputEmail" class="col-lg-2 control-label">Subject</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" id="email-subject" placeholder="Subject">
+						<!--<input type="text" class="form-control" id="email-subject" placeholder="Subject">-->
+						<%= text_field :subject, "Subject", :class=>'form-control', :id=>'email-subject', :placeholder=>'Subject' %>
 					</div>
 				</div>
 
@@ -57,7 +58,8 @@
 				<div class="form-group">
 					<label for="textArea" class="col-lg-2 control-label">Email Body</label>
 					<div class="col-lg-10">
-						<textarea class="form-control" rows="8" placeholder="Email Body" id="email-body"></textarea >
+						<!--<textarea class="form-control" rows="8" placeholder="Email Body" id="email-body"></textarea >-->
+						<%= text_area :body, "Email Body", :class=>'form-control', :rows=>'8', :id=>'email-body', :placeholder=>'Email Body' %>
 					</div>
 				</div>
 				</div>
