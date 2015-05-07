@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-  default :cc => "sep@example.com"
+  #default :cc => "sep@example.com"
 
 	def mandrill_client
       @mandrill_client ||= Mandrill::API.new ENV["MANDRILL_APIKEY"]
