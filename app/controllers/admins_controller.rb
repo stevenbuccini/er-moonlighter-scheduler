@@ -1,7 +1,7 @@
 class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user! # redirect if user isn't signed in
-  before_filter :check_users_authorization, :except => [:destroy, :contact_list, :create_email]# redirect if user is not an admin
+  before_filter :check_users_authorization, :except => [:destroy, :contact_list, :create_email, :send_email]# redirect if user is not an admin
   before_filter :doctor_or_admin_view, only: [:contact_list, :create_email, :send_email]
 
   # GET /admins
@@ -64,9 +64,13 @@ class AdminsController < ApplicationController
       if params[:pay_period]
         params[:pay_period] = "#{params[:pay_period]['start']} to #{params[:pay_period]['end']}"
       end
-      sent_to = "Email sent to: " + Admin.get_doctor_names(@doctors)
+      recipients = Admin.get_doctor_names(@doctors)
+      sent_to = "Email sent to: " + recipients
       @doctors.each do |doctor|
         current_user.send_email(doctor, params)
+      end
+      if current_user.is_a? Doctor
+        Notifier.notify(current_user,recipients, params[:subject]['Subject'], params[:body]['Email Body']).deliver_now
       end
       flash[:notice] = sent_to
       redirect_to '/'
