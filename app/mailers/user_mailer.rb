@@ -1,6 +1,4 @@
 class UserMailer < ApplicationMailer
-  default to: "tolukoya39@gmail.com", from: "ermoonlighter@gmail.com"
-
 	def mandrill_client
       @mandrill_client ||= Mandrill::API.new ENV["MANDRILL_APIKEY"]
   end
