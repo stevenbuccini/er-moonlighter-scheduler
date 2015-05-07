@@ -8,29 +8,37 @@
         <% if user_signed_in? %>
         <% if current_user.registration_complete %>
         <% if current_user.is_admin? or current_user.is_a? AdminAssistant%>
-        <li class="inactive"><a href="<%= pending_users_path %>"><%= fa_icon "user-plus", class:"icon-middle"%>Pending Users</a><li>
         <li class="inactive"><a href="<%= pay_periods_path %>"><%= fa_icon "calendar", class:"icon-middle"%>Manage Pay Periods</a></li>
         <li class="inactive"><a href="<%= assign_doc_to_shift_path %>"><%= fa_icon "pencil", class:"icon-middle"%>Assign Shifts</a></li>
         <% end %>
         <% if current_user.type == "Doctor" %>
-          <li class="inactive"><a href="<%= my_shifts_path %>"><%= fa_icon "clock-o", class:"icon-middle"%>My Shifts</a></li>
-          <li class="inactive"><a href="<%= vacant_shifts_path %>"><%= fa_icon "clock-o", class:"icon-middle"%>Vacant Shifts</a></li>
+        <li class="inactive"><a href="<%= my_shifts_path %>"><%= fa_icon "clock-o", class:"icon-middle"%>My Shifts</a></li>
+        <li class="inactive"><a href="<%= vacant_shifts_path %>"><%= fa_icon "clock-o", class:"icon-middle"%>Vacant Shifts</a></li>
         <% end %>
         <% if current_user.type != nil %>
-          <li class="inactive"><a href="<%= create_email_path %>"><%= fa_icon "envelope-o", class:"icon-middle"%>Email Doctors</a></li>
-          <li class="inactive" id='contacts'><a href="<%= contact_list_path %>"><%= fa_icon "list", class:"icon-middle"%>Contact List</a></li>
+        <li class="inactive"><a href="<%= create_email_path %>"><%= fa_icon "envelope-o", class:"icon-middle"%>Email Doctors</a></li>
+        <li class="inactive" id='contacts'><a href="<%= contact_list_path %>"><%= fa_icon "list", class:"icon-middle"%>Contact List</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= fa_icon "gear", class:"icon-middle"%> Settings <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <% if current_user.is_admin? or current_user.is_a? AdminAssistant%>
+        <li class="inactive"><a href="<%= pending_users_path %>"><%= fa_icon "user-plus", class:"icon-middle"%>Pending Users</a><li>
+          <% end %>
+            
+            <li><a href=<%= edit_user_registration_path %>> <%= fa_icon "user", class:"icon-middle"%> Change Contact Info</a>
+            <li class="divider"></li>
+            <% if user_signed_in? %>
+              <li><a href=<%= destroy_user_session_path%> data-method="delete"><%= fa_icon "mail-forward", class:"icon-middle" %> Logout</a></li>
+            <% end %>
+          </ul>
+        </li>
         <% end %>
         <% end %>
         <%end %>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <% if user_signed_in? %>
-        <li><a href=<%= destroy_user_session_path%> data-method="delete">Logout <%= fa_icon "mail-forward", class:"icon-middle" %></a></li>
-        <% else %>
-        <li><%= link_to('Login', new_user_session_path)  %></li>
-        <% end %>
-        <li><a href=<%= edit_user_registration_path %>>Settings <%= fa_icon "gear", class:"icon-middle"%></a>
+        
       </ul>
     </div>
   </div>
