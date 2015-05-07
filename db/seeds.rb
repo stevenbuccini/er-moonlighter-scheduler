@@ -19,7 +19,7 @@ users = [{:first_name => 'Joe', :last_name => "Biden",:type => "Doctor", :email 
         {:first_name => 'Thomas', :last_name => "Jacob",:type => "Admin", :email => 'tjacob@example.com', :phone_1 => '999-998-8787', :password => 11111111},
         
         {:first_name => 'Mark', :last_name => "Twain",:type => "AdminAssistant", :email => 'mtwain@example.com', :phone_1 => '887-546-4575', :password => 11111111},
-        {:first_name => 'Sarah', :last_name => "Peet",:type => "AdminAssistant", :email => 'ermoonlighter@gmail.com', :phone_1 => '999-998-8787', :password => 11111111},
+        {:first_name => 'Sarah', :last_name => "Peet",:type => "AdminAssistant", :email => 'speet@example.com', :phone_1 => '999-998-8787', :password => 11111111},
 
         {:first_name => 'Britney', :last_name => "Spears", :type => "User", :email => 'bspears@example.com', :phone_1 => '237-765-9999', :password => 11111111},
         {:first_name => 'Rihanna', :last_name => "Brown", :type => "User", :email => 'missbrown@example.com', :phone_1 => '567-897-8670', :password => 11111111},
