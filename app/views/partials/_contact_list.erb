@@ -4,7 +4,7 @@
 <table cellspacing="30" class="table table-striped table-hover">
   <thead>
     <tr>
-      <th colspan="8"></th>
+      <th colspan="12"></th>
     </tr>
   </thead>
 
@@ -16,6 +16,11 @@
       <th>Phone 1</th>
       <th>Phone 2</th>
       <th>Phone 3</th>
+      <th></th>
+      <% if current_user.is_admin? or current_user.is_a? AdminAssistant%>
+        <th></th>
+        <th></th>
+      <% end %>
     <% @doctors.each do |doctor| %>
       <tr <%= 'class=danger' if doctor.is_delinquent? %> >
         <td><%= doctor.first_name %></td>
@@ -43,7 +48,7 @@
 <table cellspacing="30" class="table table-striped table-hover">
   <thead>
     <tr>
-      <th colspan="8"></th>
+      <th colspan="12"></th>
     </tr>
   </thead>
 
@@ -55,6 +60,11 @@
       <th>Phone 1</th>
       <th>Phone 2</th>
       <th>Phone 3</th>
+      <th></th>
+      <% if current_user.is_admin? or current_user.is_a? AdminAssistant%>
+        <th></th>
+        <th></th>
+      <% end %>
     <% @admins.each do |admin| %>
       <tr>
         <td><%= admin.first_name %></td>

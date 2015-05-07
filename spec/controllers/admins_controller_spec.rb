@@ -43,8 +43,8 @@ RSpec.describe AdminsController, type: :controller do
     end
 
     it "post send_mail redirects to root" do
-      post :send_email, {activated: [@doctor.id]}
-      expect(response).to redirect_to root_url
+      post :send_email, {activated: [@doctor.id], subject: {"Subject"=>"hi"}, body: {"Email Body"=>"test"}}
+      expect(response).to redirect_to '/dashboard/index'
     end
   end
 
