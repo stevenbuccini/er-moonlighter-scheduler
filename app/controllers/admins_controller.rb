@@ -35,9 +35,10 @@ class AdminsController < ApplicationController
 
   def confirm_shift
     shift = Shift.find(params[:shift])
-    # if @shift
-      flash= shift.confirm_shift(params[:candidate])
-    # end
+    if shift
+      flash[:notice] = shift.confirm_shift(params[:candidate])
+    end
+    redirect_to assign_doc_to_shift_path
   end
 
   # GET /admins/new
