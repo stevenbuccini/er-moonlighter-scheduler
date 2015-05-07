@@ -118,9 +118,21 @@ class Shift < ActiveRecord::Base
 
     # Have to wrap this instance method because we can't call the class method direclty 
 
+    puts start_datetime
+    puts start_datetime.class
+    puts end_datetime.class
+    puts end_datetime.class
+
     # The bug is here !!!!!!!!!!!!!!!
     api_response = Calendar.gcal_get_events_in_range(start_datetime, end_datetime)
+    puts api_response
+    puts api_response.status
+    if !Rails.env.test?
+      # Because we didn't mock this out in tests
+      puts api_response.body
+    end
     if api_response.status == 200
+      puts "yeah request was successful"
       # Request successful
       # Coerce GCal JSON into our own internal representation
       translated_json = Shift.parse_gcal_json(api_response)
@@ -132,12 +144,14 @@ class Shift < ActiveRecord::Base
         end
       end
     else
+      puts "not successful"
       # We ran into an error when we tried to talk to the Google Calendar API.
       # Put it in the error hash
       jsonified = JSON.parse(api_response.body)['error']
       errors_hash[:request_error] = "HTTP #{jsonified['code']} -- #{jsonified['message']}"
     end
 
+    puts "errors hash"
     # Pass the errors back up to the front end
     return errors_hash
   end
