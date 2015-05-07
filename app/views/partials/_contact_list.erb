@@ -31,7 +31,7 @@
         <td><%= doctor.phone_3 %></td>
         <td><%= link_to 'Shift Preferences', doctor, :id => "show_doctor_"+doctor.id.to_s, :class => 'btn btn-link' %></td>
 
-        <% if current_user.is_admin? %>
+        <% if current_user.is_admin? or current_user.is_a? AdminAssistant%>
           <td><%= link_to 'Update Info', edit_doctor_path(doctor), :id => "edit_doctor_"+doctor.id.to_s, :class => 'btn btn-link' %></td>
           <td><%= link_to "Delete #{doctor.first_name}", doctor, :id => "delete_doctor_"+doctor.id.to_s, method: :delete, data: { confirm: "Are you sure you want to PERMANENTELY delete #{doctor.first_name} #{doctor.last_name}? (This action cannot be undone)." }, :class => 'btn btn-link' %></td>
         <% end %>
@@ -75,7 +75,7 @@
         <td><%= admin.phone_3 %></td>
         <td><%= link_to 'Shift Preferences', admin, :id => "show_admin_"+admin.id.to_s, :class => 'btn btn-link' %></td>
 
-        <% if current_user.is_admin? %>
+        <% if current_user.is_admin? or current_user.is_a? AdminAssistant%>
           <td><%= link_to 'Update Info', edit_admin_path(admin), :id => "edit_admin_"+admin.id.to_s, :class => 'btn btn-link' %></td>
           <td><%= link_to "Delete #{admin.first_name}", admin, :id => "delete_admin_"+admin.id.to_s, method: :delete, data: { confirm: "Are you sure you want to PERMANENTELY delete #{admin.first_name} #{admin.last_name}? (This action cannot be undone)." }, :class => 'btn btn-link' %></td>
         <% end %>
