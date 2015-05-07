@@ -64,6 +64,8 @@ class Calendar
       timeMax: end_datetime
     }
 
+    puts "Calendar ID: #{CALENDAR_ID}"
+
     result = client.execute(
       :api_method => calendar.events.list,
       :parameters => params

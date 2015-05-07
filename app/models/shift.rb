@@ -118,11 +118,19 @@ class Shift < ActiveRecord::Base
 
     # Have to wrap this instance method because we can't call the class method direclty 
 
+    puts start_datetime
+    puts start_datetime.class
+    puts end_datetime.class
+    puts end_datetime.class
+
     # The bug is here !!!!!!!!!!!!!!!
     api_response = Calendar.gcal_get_events_in_range(start_datetime, end_datetime)
     puts api_response
     puts api_response.status
-    puts api_response.body
+    if !Rails.env.test?
+      # Because we didn't mock this out in tests
+      puts api_response.body
+    end
     if api_response.status == 200
       puts "yeah request was successful"
       # Request successful
