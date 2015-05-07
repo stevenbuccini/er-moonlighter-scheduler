@@ -10,7 +10,7 @@ RSpec.describe ApplicationController, type: :controller do
   describe "#admin_only_view" do
     it "redirects to the root if current_user returns a User model" do
       # Ensure that current user is a User model
-      expect(controller).to receive(:current_user).and_return(User.new())
+      expect(controller).to receive(:current_user).at_least(:once).and_return(User.new())
       # Stubbing redirect_to because we actually haven't rendered a page yet and I ran into weird errors
       # returning non-boolean value to distinguish it from the return type of redirect_to
       allow(controller).to receive_messages(:redirect_to => "garbage")
@@ -19,7 +19,7 @@ RSpec.describe ApplicationController, type: :controller do
     end
     it "redirects to the root if current_user returns a Doctor model" do
       # Ensure that current user is a Doctor model
-      expect(controller).to receive(:current_user).and_return(Doctor.new())
+      expect(controller).to receive(:current_user).at_least(:once).and_return(Doctor.new())
       # Stubbing redirect_to because we actually haven't rendered a page yet and I ran into weird errors
       # returning non-boolean value to distinguish it from the return type of redirect_to
       allow(controller).to receive_messages(:redirect_to => "garbage")

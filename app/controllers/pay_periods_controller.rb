@@ -90,6 +90,8 @@ class PayPeriodsController < ApplicationController
     end
 
     def check_users_authorization
-      check_users_authorization_helper(Admin.NAME)
+      if !current_user.is_a? AdminAssistant
+        check_users_authorization_helper(Admin.NAME)
+      end
     end
 end
