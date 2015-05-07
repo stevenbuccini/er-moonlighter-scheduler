@@ -23,8 +23,8 @@ class Admin < User
       when 'new_pay_period'
         UserMailer.new_pay_period_email(doctor,params[:pay_period]).deliver_now
       else
-        subject = params[:subject]
-        text = params[:body]
+        subject = params[:subject]['Subject']
+        text = params[:body]['Email Body']
         UserMailer.custom_email(doctor, subject, text).deliver_now
     end
 	end
