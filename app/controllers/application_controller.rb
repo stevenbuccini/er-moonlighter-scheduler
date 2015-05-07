@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
 
   # Use this view if you want to restrict 
   def admin_only_view
-    if !current_user.is_a? Admin
+    if !current_user.is_a? Admin and current_user.type != "AdminAssistant"
       flash[:error] = "You are not authorized to view this page."
       redirect_to :root
       # Explictly tell the caller that this check failed
@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
   # Use this view if you want to ensure that a particular action is available
   # only to people who have been explicitly whitelisted by an admin.
   def doctor_or_admin_view
-    if !((current_user.is_a? Doctor) || (current_user.is_a? Admin))
+    if !((current_user.is_a? Doctor) || (current_user.is_a? Admin) || (current_user.is_a? AdminAssistant))
       flash[:error] = "You are not authorized to view this page."
       redirect_to :root
       # Explictly tell the caller that this check failed
