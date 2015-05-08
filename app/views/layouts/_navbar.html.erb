@@ -13,38 +13,31 @@
     <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" aria-expanded="false" style="height: 1px;">
       <ul class="nav navbar-nav">
         <% if user_signed_in? and current_user.registration_complete == false %>
-        <li><a href=<%= edit_user_registration_path %>> <%= fa_icon "user", class:"icon-middle"%> Change Contact Info</a></li>
-          <li><a href=<%= destroy_user_session_path %> data-method="delete"><%= fa_icon "mail-forward", class:"icon-middle" %> Logout</a></li>
-        <% elsif user_signed_in? and current_user.registration_complete %>
+          <li><a href=<%= edit_user_registration_path %>> <%= fa_icon "user", class:"icon-middle"%> Change Contact Info</a></li>
+          <li><a href=<%= destroy_user_session_path%> data-method="delete"><%= fa_icon "mail-forward", class:"icon-middle" %> Logout</a></li>
+        <% elsif (user_signed_in? and current_user.registration_complete and current_user.type != nil) %>
           <% if current_user.is_admin? or current_user.is_a? AdminAssistant%>
             <li class="inactive"><a href="<%= pay_periods_path %>"><%= fa_icon "calendar", class:"icon-middle"%>Manage Pay Periods</a></li>
             <li class="inactive"><a href="<%= assign_doc_to_shift_path %>"><%= fa_icon "pencil", class:"icon-middle"%>Assign Shifts</a></li>
           <% elsif current_user.is_a? Doctor %>
             <li class="inactive"><a href="<%= my_shifts_path %>"><%= fa_icon "clock-o", class:"icon-middle"%>My Shifts</a></li>
             <li class="inactive"><a href="<%= vacant_shifts_path %>"><%= fa_icon "clock-o", class:"icon-middle"%>Vacant Shifts</a></li>
-          <% elsif current_user.type == nil %>
-          <% end %><!-- end admin check -->
-          <li class="inactive" id='contacts'><a href="<%= contact_list_path %>"><%= fa_icon "list", class:"icon-middle"%>Contact List</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= fa_icon "gear", class:"icon-middle"%> Settings <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <% if current_user.is_admin? or current_user.is_a? AdminAssistant%>
-                <li class="inactive"><a href="<%= pending_users_path %>"><%= fa_icon "user-plus", class:"icon-middle"%>Pending Users</a><li>
-              <% end %>
-                <li><a href=<%= edit_user_registration_path %>> <%= fa_icon "user", class:"icon-middle"%> Change Contact Info</a></li>
-                <li class="divider"></li>
-
+          <% end %>
+            <li class="inactive" id='contacts'><a href="<%= contact_list_path %>"><%= fa_icon "list", class:"icon-middle"%>Contact List</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= fa_icon "gear", class:"icon-middle"%> Settings <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <% if current_user.is_admin? or current_user.is_a? AdminAssistant%>
+                  <li class="inactive"><a href="<%= pending_users_path %>"><%= fa_icon "user-plus", class:"icon-middle"%>Pending Users</a><li>
+                <% elsif [Admin, AdminAssistant, Doctor].include?(current_user.type) %>
+                  <li><a href=<%= edit_user_registration_path %>> <%= fa_icon "user", class:"icon-middle"%> Change Contact Info</a></li>
+                  <li class="divider"></li>
                   <li><a href=<%= destroy_user_session_path%> data-method="delete"><%= fa_icon "mail-forward", class:"icon-middle" %> Logout</a></li>
-                
+                <% end %>
             </ul>
           </li>
-        <% elsif user_signed_in? and current_user.registration_complete == false %> <!-- end login / registration complete -->
-          <li><a href=<%= edit_user_registration_path %>> <%= fa_icon "user", class:"icon-middle"%> Change Contact Info</a></li>
-          <li><a href=<%= destroy_user_session_path%> data-method="delete"><%= fa_icon "mail-forward", class:"icon-middle" %> Logout</a></li>
-        <% end %>
-        
+          <% end %>
       </ul>
-      
     </div>
   </div>
 </nav>
