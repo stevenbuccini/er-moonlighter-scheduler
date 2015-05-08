@@ -26,34 +26,12 @@ class PayPeriodsController < ApplicationController
 
   def create_next
     @pay_period = PayPeriod.create_next(pay_period_params)
-    create_helper(@pay_period)
-    # TODO: notifiy doctors if pay_period is open
-    if pay_period_params[:is_open]
-    end
+    create_helper(@pay_period, "Pay period")
   end
 
   def create
     @pay_period = PayPeriod.new(pay_period_params)
-    create_helper(@pay_period)
-  end
-  # POST /pay_periods
-  # POST /pay_periods.json
-  def create_helper(pay_period)
-    @pay_period = pay_period
-    logger.debug(@pay_period)
-    # TODO: uncomment the next line after Steven and I figure out why the calendar model is failing
-   # Shift.create_shifts_for_pay_period(@pay_period.start_date, @pay_period.end_date, @pay_period.id)
-    respond_to do |format|
-      if @pay_period.save
-        #change_pay_period_id_for_users()
-        # format.html { redirect_to @pay_period, notice: 'Pay period was successfully created.' }
-        format.html { redirect_to @pay_period, notice: 'Pay period was successfully created.' }
-        format.json { render :show, status: :created, location: @pay_period }        
-      else
-        format.html { render :new }
-        format.json { render json: @pay_period.errors, status: :unprocessable_entity }
-      end
-    end
+    create_helper(@pay_period, "Pay period")
   end
 
   def change_pay_period_id_for_users

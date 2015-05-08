@@ -25,6 +25,19 @@ class User < ActiveRecord::Base
     return true
   end
 
+  def send_email(doctor, params)
+    case params[:email_type]
+      when 'urgent'
+        UserMailer.urgent_email(doctor,params[:pay_period]).deliver_now
+      when 'new_pay_period'
+        UserMailer.new_pay_period_email(doctor,params[:pay_period]).deliver_now
+      else
+        subject = params[:subject]['Subject']
+        text = params[:body]['Email Body']
+        UserMailer.custom_email(doctor, subject, text).deliver_now
+    end
+  end
+
   def is_admin?
     self.type == "Admin"
   end

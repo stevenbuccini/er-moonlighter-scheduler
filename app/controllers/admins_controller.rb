@@ -60,23 +60,21 @@ class AdminsController < ApplicationController
     if params[:activated] == nil || params[:activated] == ""
       flash[:notice] = "Please select doctors you want to send emails to"
       redirect_to '/create-email'
-    #params[:pay_period] ||= " "
-    else
-      @doctors = Doctor.find(params[:activated])
-      if params[:pay_period]
-        params[:pay_period] = "#{params[:pay_period]['start']} to #{params[:pay_period]['end']}"
-      end
-      recipients = Admin.get_doctor_names(@doctors)
-      sent_to = "Email sent to: " + recipients
-      @doctors.each do |doctor|
-        current_user.send_email(doctor, params)
-      end
-      if current_user.is_a? Doctor
-        Notifier.notify(current_user,recipients, params[:subject]['Subject'], params[:body]['Email Body']).deliver_now
-      end
-      flash[:notice] = sent_to
-      redirect_to dashboard_index_path
     end
+    @doctors = Doctor.find(params[:activated])
+    if params[:pay_period]
+      params[:pay_period] = "#{params[:pay_period]['start']} to #{params[:pay_period]['end']}"
+    end
+    recipients = Admin.get_doctor_names(@doctors)
+    sent_to = "Email sent to: " + recipients
+    @doctors.each do |doctor|
+      current_user.send_email(doctor, params)
+    end
+    if current_user.is_a? Doctor
+      Notifier.notify(current_user,recipients, params[:subject]['Subject'], params[:body]['Email Body']).deliver_now
+    end
+    flash[:notice] = sent_to
+    redirect_to dashboard_index_path
   end
 
   def update

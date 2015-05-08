@@ -19,6 +19,25 @@ class ApplicationController < ActionController::Base
   #*********************************************************************************
   #*************DEFINE GENERAL HELPER METHODS HERE *********************************
   #*********************************************************************************
+  def update_helper(model, model_name, params)
+    respond_to do |format|
+      if model.update(params)
+        format_if(format, model, model_name, "update") 
+      else
+        format_else(format, :edit)
+      end
+    end   
+  end
+
+  def create_helper(model, model_name)
+    respond_to do |format|
+      if model.save
+        format_if(format, model,  model_name, "created")
+      else
+        format_else(format, :new)
+      end
+    end
+  end
   def destroy_helper(user, path, model_name)
     user.destroy
     respond_to do |format|
@@ -65,15 +84,12 @@ class ApplicationController < ActionController::Base
       return true
     end
   end 
-  def update_helper(model, model_name, params)
-    respond_to do |format|
-      if model.update(params)
-        format.html { redirect_to model, notice: "#{model_name} was successfully updated." }
-        format.json { render :show, status: :ok, location: model }
-      else
-        format.html { render :edit }
-        format.json { render json: model.errors, status: :unprocessable_entity }
-      end
-    end   
+  def format_if(format,model, model_name, type)
+    format.html { redirect_to model, notice: "#{model_name} was successfully #{type}." }
+    format.json { render :show, status: :ok, location: model }
+  end
+  def format_else(format, obj)
+    format.html { render obj}
+    format.json { render json: model.errors, status: :unprocessable_entity }
   end
 end

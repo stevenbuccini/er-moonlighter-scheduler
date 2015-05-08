@@ -16,18 +16,6 @@ class Admin < User
 		names[0..-6]
 	end
 
-	def send_email(doctor, params)
-		case params[:email_type]
-      when 'urgent'
-        UserMailer.urgent_email(doctor,params[:pay_period]).deliver_now
-      when 'new_pay_period'
-        UserMailer.new_pay_period_email(doctor,params[:pay_period]).deliver_now
-      else
-        subject = params[:subject]['Subject']
-        text = params[:body]['Email Body']
-        UserMailer.custom_email(doctor, subject, text).deliver_now
-    end
-	end
 	def self.update_pay_period(id)
 		Admin.all.each do |adm|
 			adm.update_attribute(:pay_period_id, id)
