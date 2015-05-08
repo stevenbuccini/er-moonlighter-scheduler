@@ -33,7 +33,7 @@ class PayPeriodsController < ApplicationController
     @pay_period = PayPeriod.new(pay_period_params)
     create_helper(@pay_period, "Pay period")
   end
-  
+
   def change_pay_period_id_for_users
     Admin.update_pay_period(params[:new_pay_period])
     Doctor.update_pay_period(params[:new_pay_period])

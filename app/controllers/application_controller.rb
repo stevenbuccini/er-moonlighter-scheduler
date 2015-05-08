@@ -30,11 +30,11 @@ class ApplicationController < ActionController::Base
       end
     end   
   end
-  
+
   def create_helper(model, model_name)
     respond_to do |format|
       if model.save
-        format.html { redirect_to @user, notice: "#{model_name} was successfully created." }
+        format.html { redirect_to model, notice: "#{model_name} was successfully created." }
         format.json { render :show, status: :created, location: model }
       else
         format.html { render :new }
