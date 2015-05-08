@@ -18,11 +18,12 @@ class UserMailer < ApplicationMailer
 		template_name = "new-pay-period-available"
     mail_with_pay_period(template_name, user, pay_period)
 	end
-  
+
   private
   def mail_with_pay_period(template_name, user, pay_period)
     template_content = []
-      message = mail_message(user) << { name: "pay_period_range", content: pay_period }
+    message = mail_message(user) 
+    message[:merge_vars][0][:vars] += [{ name: "pay_period_range", content: pay_period }]
     mandrill_client.messages.send_template template_name, template_content, message
   end
   def mail_message(user)
@@ -39,3 +40,5 @@ class UserMailer < ApplicationMailer
   end
 
 end
+
+
