@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe Notifier, type: :mailer do
   describe 'instructions' do
     before :each do 
-      @admin = FactoryGirl.create(:admin_assistant)
+      @admin = Admin.first
       @user = FactoryGirl.create(:doctor)
       @subject = "Swap"
       @text = "looking for shift Swap"
