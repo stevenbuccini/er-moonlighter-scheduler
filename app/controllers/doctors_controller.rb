@@ -2,6 +2,7 @@ class DoctorsController < ApplicationController
   before_action :set_doctor, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user! 
   before_filter :check_users_authorization, :except => [:destroy, :show, :edit, :update]# Redirects if user isn't signed in
+  before_filter :admin_only, only: [:edit]
 
   # GET /doctors
   # GET /doctors.json
@@ -88,4 +89,8 @@ class DoctorsController < ApplicationController
     def check_users_authorization
       check_users_authorization_helper(Doctor.NAME)
     end
+    def admin_only
+      admin_only_view
+    end
+  
 end
