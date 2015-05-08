@@ -29,11 +29,11 @@
               <ul class="dropdown-menu" role="menu">
                 <% if current_user.is_admin? or current_user.is_a? AdminAssistant%>
                   <li class="inactive"><a href="<%= pending_users_path %>"><%= fa_icon "user-plus", class:"icon-middle"%>Pending Users</a><li>
-                <% elsif [Admin, AdminAssistant, Doctor].include?(current_user.type) %>
+                <% elsif (current_user.type == "Admin" or current_user.type == "AdminAssistant" or current_user.type == "Doctor") %>
                   <li><a href=<%= edit_user_registration_path %>> <%= fa_icon "user", class:"icon-middle"%> Change Contact Info</a></li>
                   <li class="divider"></li>
-                  <li><a href=<%= destroy_user_session_path%> data-method="delete"><%= fa_icon "mail-forward", class:"icon-middle" %> Logout</a></li>
                 <% end %>
+                <li><a href=<%= destroy_user_session_path%> data-method="delete"><%= fa_icon "mail-forward", class:"icon-middle" %> Logout</a></li>
             </ul>
           </li>
           <% end %>
